@@ -92,7 +92,7 @@ Pod::Spec.new do |spec|
   #
 
   # spec.source_files  = "ZCategoryToolDemo", "ZCategoryTool/*.{swift}"
-  spec.source_files  = "ZCategoryTool/*.{swift}"
+  spec.source_files  = "ZCategoryTool/**/*.{swift}"
 
   # spec.exclude_files = "Classes/Exclude"
 
@@ -136,5 +136,7 @@ Pod::Spec.new do |spec|
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
+
+  spec.swift_version = '4.2'
 
 end
