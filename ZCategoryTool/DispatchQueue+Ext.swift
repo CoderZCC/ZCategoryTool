@@ -16,23 +16,9 @@ extension DispatchQueue {
     /// - Parameters:
     ///   - dealyTime: 延迟时间 相对于当前时间
     ///   - callBack: 回调
-    static func k_asyncAfterOnMain(dealyTime: Double, callBack: (()->Void)?) {
+    public class func k_asyncAfterOnMain(dealyTime: Double, callBack: (()->Void)?) {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + dealyTime) {
-            
-            callBack?()
-        }
-    }
-    
-    //MARK: 异步提交延迟操作到全局子线程
-    /// 异步提交延迟操作到全局子线程
-    ///
-    /// - Parameters:
-    ///   - dealyTime: 延迟时间 相对于当前时间
-    ///   - callBack: 回调
-    func k_asyncAfterOnBack(dealyTime: Double, callBack: (()->Void)?) {
-        
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + dealyTime) {
             
             callBack?()
         }

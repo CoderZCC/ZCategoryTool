@@ -11,7 +11,7 @@ import UIKit
 extension UITextField {
     
     /// 占位文字颜色
-    var k_placeholderColor: UIColor? {
+    public var k_placeholderColor: UIColor? {
         set {
             self.setValue(newValue, forKeyPath: "_placeholderLabel.textColor")
         }
@@ -19,7 +19,7 @@ extension UITextField {
     }
     
     /// 最大文字长度
-    var k_limitTextLength: Int? {
+    public var k_limitTextLength: Int? {
         
         set {
             guard let maxCount = newValue else { return }
@@ -35,7 +35,7 @@ extension UITextField {
     }
     
     /// 最大字节长度 中文占两个字节 英文占一个 限制的是中文(15就是15个汉字,30个字母)
-    var k_limitByteLength: Int? {
+    public var k_limitByteLength: Int? {
         set {
             guard let maxCount = newValue else { return }
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: nil, queue: OperationQueue.main) { [weak self] (note) in

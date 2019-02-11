@@ -13,7 +13,7 @@ extension UIViewController {
     /// 关闭自动调节
     ///
     /// - Parameter scrollview: 滚动视图
-    func k_setAdjustsScrollviewInsets(_ scrollview: UIScrollView) {
+    public func k_setAdjustsScrollviewInsets(_ scrollview: UIScrollView) {
         
         if #available(iOS 11.0, *) {
             scrollview.contentInsetAdjustmentBehavior = .never

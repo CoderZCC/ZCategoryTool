@@ -11,7 +11,7 @@ import UIKit
 extension UIView {
     
     /// x
-    var k_x: CGFloat {
+    public var k_x: CGFloat {
         set {
             
             var newFrame = self.frame
@@ -21,7 +21,7 @@ extension UIView {
         get { return self.frame.origin.x }
     }
     /// y
-    var k_y: CGFloat {
+    public var k_y: CGFloat {
         set {
             
             var newFrame = self.frame
@@ -31,7 +31,7 @@ extension UIView {
         get { return self.frame.origin.y }
     }
     /// width
-    var k_width: CGFloat {
+    public var k_width: CGFloat {
         set {
             
             var newFrame = self.frame
@@ -41,7 +41,7 @@ extension UIView {
         get { return self.frame.size.width }
     }
     /// height
-    var k_height: CGFloat {
+    public var k_height: CGFloat {
         set {
             
             var newFrame = self.frame
@@ -51,7 +51,7 @@ extension UIView {
         get { return self.frame.size.height }
     }
     /// size
-    var k_size: CGSize {
+    public var k_size: CGSize {
         set {
             
             var newFrame = self.frame
@@ -62,7 +62,7 @@ extension UIView {
     }
     
     /// center
-    var k_center: CGPoint {
+    public var k_center: CGPoint {
         set {
             
             var newCenter = self.center
@@ -72,7 +72,7 @@ extension UIView {
         get { return self.center }
     }
     /// 中心点x
-    var k_centerX: CGFloat {
+    public var k_centerX: CGFloat {
         set {
             
             var newCenter = self.center
@@ -82,7 +82,7 @@ extension UIView {
         get { return self.center.x }
     }
     /// 中心点y
-    var k_centerY: CGFloat {
+    public var k_centerY: CGFloat {
         set {
             
             var newCenter = self.center
@@ -101,7 +101,7 @@ extension UIView {
     
     //MARK: 设置为圆形控件
     /// 设置为圆形控件
-    func k_setCircleImgV() {
+    public func k_setCircleImgV() {
         
         self.contentMode = .scaleAspectFill
         self.layer.cornerRadius = frame.height / 2.0
@@ -112,7 +112,7 @@ extension UIView {
     /// 设置圆角
     ///
     /// - Parameter radius: 圆角数
-    func k_setCornerRadius(_ radius: CGFloat) {
+    public func k_setCornerRadius(_ radius: CGFloat) {
         
         self.layer.cornerRadius = radius
         self.clipsToBounds = true
@@ -124,7 +124,7 @@ extension UIView {
     /// - Parameters:
     ///   - color: 颜色
     ///   - width: 宽度
-    func k_setBorder(color: UIColor, width: CGFloat) {
+    public func k_setBorder(color: UIColor, width: CGFloat) {
         
         self.layer.borderColor = color.cgColor
         self.layer.borderWidth = width
@@ -136,7 +136,7 @@ extension UIView {
     /// - Parameters:
     ///   - corners: 位置
     ///   - radii: 圆角
-    func k_setCorner(byRoundingCorners corners: UIRectCorner, radii: CGFloat) {
+    public func k_setCorner(byRoundingCorners corners: UIRectCorner, radii: CGFloat) {
         
         let maskPath = UIBezierPath(roundedRect: CGRect.init(x: 0.0, y: 0.0, width: self.bounds.width, height: self.bounds.height), byRoundingCorners: corners, cornerRadii: CGSize(width: radii, height: radii))
         let maskLayer = CAShapeLayer()
@@ -151,7 +151,7 @@ extension UIView {
     /// - Parameters:
     ///   - target: 目标
     ///   - action: 事件
-    func k_addTarget(action: Selector) {
+    public func k_addTarget(action: Selector) {
         
         self.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer.init(target: self, action: action)
@@ -161,7 +161,7 @@ extension UIView {
     /// UIView添加点击事件
     ///
     /// - Parameter clickAction: 点击回调
-    func k_addTarget(_ clickAction: ((UIGestureRecognizer)->Void)?) {
+    public func k_addTarget(_ clickAction: ((UIGestureRecognizer)->Void)?) {
         
         objc_setAssociatedObject(self, &k_UIViewClickActionKey, clickAction, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
@@ -173,7 +173,7 @@ extension UIView {
     /// UIView添加长按事件
     ///
     /// - Parameter clickAction: 点击回调
-    func k_addLongPressTarget(_ clickAction: ((UIGestureRecognizer)->Void)?) {
+    public func k_addLongPressTarget(_ clickAction: ((UIGestureRecognizer)->Void)?) {
         
         objc_setAssociatedObject(self, &k_UIViewClickActionKey, clickAction, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         
@@ -184,7 +184,7 @@ extension UIView {
     }
     
     /// UIView点击事件
-    @objc func k_tapAction(tap: UIGestureRecognizer) {
+    @objc private func k_tapAction(tap: UIGestureRecognizer) {
         
         DispatchQueue.main.async {
             (objc_getAssociatedObject(self, &k_UIViewClickActionKey) as! ((UIGestureRecognizer)->Void)?)?(tap)
@@ -193,7 +193,7 @@ extension UIView {
     
     //MARK: 单击移除键盘
     /// 单击移除键盘
-    func k_tapDismissKeyboard() {
+    public func k_tapDismissKeyboard() {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapDismissAction))
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { [weak self] (note) in
@@ -214,7 +214,7 @@ extension UIView {
 extension UIView {
     
     /// 抖动动画
-    func startPeekAnimation() {
+    public func startPeekAnimation() {
         
         self.layer.removeAllAnimations()
         // 抖动动画

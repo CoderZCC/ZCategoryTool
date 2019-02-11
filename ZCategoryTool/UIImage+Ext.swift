@@ -15,7 +15,7 @@ extension UIImage {
     ///
     /// - Parameter color: 颜色
     /// - Returns: 图片
-    static func k_imageWithColor(_ color: UIColor) -> UIImage? {
+    public static func k_imageWithColor(_ color: UIColor) -> UIImage? {
         
         let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
         UIGraphicsBeginImageContext(rect.size)
@@ -35,7 +35,7 @@ extension UIImage {
     ///
     /// - Parameter newSize: 新尺寸
     /// - Returns: 新图片
-    func k_resizeImage(with newSize: CGSize) -> UIImage {
+    public func k_resizeImage(with newSize: CGSize) -> UIImage {
         
         let newWidth = newSize.width
         let newHeight = newSize.height
@@ -61,7 +61,7 @@ extension UIImage {
     ///
     /// - Parameter size: 修改的尺寸
     /// - Returns: 新图片
-    func k_cropImageWith(newSize: CGSize) -> UIImage {
+    public func k_cropImageWith(newSize: CGSize) -> UIImage {
         
         let scale = self.size.width / self.size.height
         var rect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
@@ -92,7 +92,7 @@ extension UIImage {
     ///   - borderColor: 边框颜色
     ///   - borderWidth: 边框宽度
     /// - Returns: 新图片
-    func k_circleImage(backColor: UIColor? = UIColor.white, borderColor: UIColor? = nil, borderWidth: CGFloat? = 0.0) -> UIImage {
+    public func k_circleImage(backColor: UIColor? = UIColor.white, borderColor: UIColor? = nil, borderWidth: CGFloat? = 0.0) -> UIImage {
         
         // 圆形图片
         let imgW: CGFloat = self.size.width
@@ -133,7 +133,7 @@ extension UIImage {
     ///   - imgSize: 图片大小 默认原图尺寸
     ///   - kbSize: 压缩大小
     /// - Returns: 数据流
-    func k_pressImgSize(imgSize: CGSize? = nil, kbSize: CGFloat = 60.0) -> Data? {
+    public func k_pressImgSize(imgSize: CGSize? = nil, kbSize: CGFloat = 60.0) -> Data? {
         
         // kb大小
         var maxSize = kbSize

@@ -16,7 +16,7 @@ extension Date {
     ///
     /// - Parameter num: 添加的小时数
     /// - Returns: 新时间
-    func k_addingHours(_ num: Int) -> Date {
+    public func k_addingHours(_ num: Int) -> Date {
         
         return self.addingTimeInterval(TimeInterval(60.0 * 60.0 * CGFloat(num)))
     }
@@ -25,7 +25,7 @@ extension Date {
     /// 获取时间月份有几天
     ///
     /// - Returns: 天数
-    func k_getDaysInMonth() -> Int {
+    public func k_getDaysInMonth() -> Int {
         
         let component = self.k_YMDHMS()
         let year = component.year!
@@ -54,7 +54,7 @@ extension Date {
     /// 指定日期的 年月日时分秒
     ///
     /// - Returns: DateComponents.year...
-    func k_YMDHMS() -> DateComponents {
+    public func k_YMDHMS() -> DateComponents {
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
         let compent = calendar.dateComponents([.year, .day, .month, .hour, .minute, .second], from: self)
@@ -67,7 +67,7 @@ extension Date {
     ///
     /// - Parameter otherDate: 其他日期
     /// - Returns: 结果
-    func k_isThisYear(otherDate: Date) -> Bool {
+    public func k_isThisYear(otherDate: Date) -> Bool {
 
         /// 当前时间的年月日
         let nowCompent = Date().k_YMDHMS()
@@ -82,7 +82,7 @@ extension Date {
     ///
     /// - Parameter otherDate: 其他日期
     /// - Returns: 结果
-    func k_isThisMonth(otherDate: Date) -> Bool {
+    public func k_isThisMonth(otherDate: Date) -> Bool {
         
         /// 当前时间的年月日
         let nowCompent = Date().k_YMDHMS()
@@ -97,7 +97,7 @@ extension Date {
     ///
     /// - Parameter otherDate: 其他日期
     /// - Returns: 结果
-    func k_isThisDay(otherDate: Date) -> Bool {
+    public func k_isThisDay(otherDate: Date) -> Bool {
 
         /// 当前时间的年月日
         let nowCompent = Date().k_YMDHMS()
@@ -111,7 +111,7 @@ extension Date {
     /// 指定日期是 星期几
     ///
     /// - Returns: 星期一..日
-    func k_weekDay() -> String {
+    public func k_weekDay() -> String {
         let dataDic: [Int: String] = [1: "星期天", 2: "星期一", 3: "星期二", 4: "星期三", 5: "星期四", 6: "星期五", 7: "星期六"]
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
@@ -125,7 +125,7 @@ extension Date {
     ///
     /// - Parameter formatter: 格式 默认 yyyy-MM-dd HH:mm:ss
     /// - Returns: 时间字符串
-    func k_toDateStr(_ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
+    public func k_toDateStr(_ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let fat = DateFormatter.init()
         fat.timeZone = TimeZone.current
         
@@ -140,7 +140,7 @@ extension Date {
     ///
     /// - Parameter otherDate: 其他日期
     /// - Returns: 结果 0: 相等; 1: otherTime大; 2: otherTime小
-    func k_compareToDate(_ otherDate: Date) -> Int {
+    public func k_compareToDate(_ otherDate: Date) -> Int {
         let resultDic: [ComparisonResult: Int] = [.orderedSame: 0, .orderedAscending: 1, .orderedDescending: 2]
         let result: ComparisonResult = self.compare(otherDate)
         

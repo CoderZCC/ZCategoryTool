@@ -18,7 +18,7 @@ extension UIButton {
     /// - Parameters:
     ///   - events: 事件
     ///   - block: 回调
-    func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
+    public func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
         
         objc_setAssociatedObject(self, &kUIButtonClickKey, block, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         self.addTarget(self, action: #selector(k_btnAction), for: events)
@@ -41,7 +41,7 @@ extension UIButton {
     ///   - titlePosition: 文字位置
     ///   - spacing: 文字和图片间隔
     ///   - state: 按钮状态
-    func k_setBtn(image: UIImage?, title: String, titlePosition: UIView.ContentMode, spacing: CGFloat = 5.0, state: UIControl.State = .normal) {
+    public func k_setBtn(image: UIImage?, title: String, titlePosition: UIView.ContentMode, spacing: CGFloat = 5.0, state: UIControl.State = .normal) {
         
         self.imageView?.contentMode = .center
         self.setImage(image, for: state)
@@ -98,7 +98,7 @@ private var kUIButtonDelayDurationKey: Int = 2
 extension UIControl {
     
     /// 延迟时间
-    var k_delayDuration: Double? {
+    public var k_delayDuration: Double? {
         set {
             objc_setAssociatedObject(self, &kUIButtonDelayDurationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -106,7 +106,7 @@ extension UIControl {
     }
     
     /// 替换点击方法
-    class func replaceClickActionMethod() {
+    public class func replaceClickActionMethod() {
         
         let originalMethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.sendAction(_:to:for:)))
         let changedmethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.mySendAction(_:to:for:)))

@@ -30,7 +30,7 @@ extension NSObject {
     ///   - repeats: 是否重复 true一直运行 false运行一次
     ///   - isDealy: 是否延迟时间间隔运行
     ///   - block: 回调
-    func k_startTimer(timerIdentifier: String? = nil, timeInterval: TimeInterval, repeats: Bool, isDealy: Bool = true, block: @escaping (DispatchSourceTimer?)->Void) {
+    public func k_startTimer(timerIdentifier: String? = nil, timeInterval: TimeInterval, repeats: Bool, isDealy: Bool = true, block: @escaping (DispatchSourceTimer?)->Void) {
         
         let timer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.main)
         timer.schedule(wallDeadline: DispatchWallTime.now(), repeating: timeInterval)
@@ -74,7 +74,7 @@ extension NSObject {
     /// 销毁定时器
     ///
     /// - Parameter timerIdentifier: 定时器唯一标记符
-    func k_stopTimer(timerIdentifier: String? = nil) {
+    public func k_stopTimer(timerIdentifier: String? = nil) {
         
         let key = timerIdentifier ?? "timer"
         var timers = self.k_timers ?? [:]

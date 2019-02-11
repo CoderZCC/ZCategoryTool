@@ -16,7 +16,7 @@ extension AVPlayer {
     /// - Parameters:
     ///   - time: 时间
     ///   - isFinsish: 快进完成
-    func k_seekTimeToPlay(time: TimeInterval, isFinish: (() ->Void)? = nil) {
+    public func k_seekTimeToPlay(time: TimeInterval, isFinish: (() ->Void)? = nil) {
         
         self.currentItem?.cancelPendingSeeks()
         let timeScale = self.currentItem?.currentTime().timescale ?? CMTimeScale(1 * NSEC_PER_SEC)
@@ -28,5 +28,23 @@ extension AVPlayer {
                 if isOk { isFinish?() }
             }
         }
+    }
+}
+
+extension CMTime {
+    
+    /// 转为float数
+    ///
+    /// - Returns: 时间
+    public func k_toFloat() -> CGFloat {
+        return CGFloat(CMTimeGetSeconds(self))
+    }
+    
+    public func k_toDouble() -> Double {
+        return Double(CMTimeGetSeconds(self))
+    }
+    
+    public func k_toTimeInterval() -> TimeInterval {
+        return TimeInterval(CMTimeGetSeconds(self))
     }
 }

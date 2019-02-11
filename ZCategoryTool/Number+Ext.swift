@@ -13,7 +13,7 @@ extension Int {
     /// 格林什么时间格式
     ///
     /// - Returns: 时间
-    func k_toHMS() -> String {
+    public func k_toHMS() -> String {
         let nd = 24.0 * 60.0 * 60.0
         let nh = 60.0 * 60.0
         let nm = 60.0
@@ -47,7 +47,7 @@ extension TimeInterval {
     /// 处理为 00:00格式
     ///
     /// - Returns: 00:00
-    func k_dealString() -> String {
+    public func k_dealString() -> String {
         
         if self.isNaN {
             return "00:00"

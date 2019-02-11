@@ -12,7 +12,7 @@ import UIKit
 extension String {
     
     /// 拼接后缀 isApp=1
-    var appendDomain: String {
+    public var appendDomain: String {
         if self.k_isEmpty {
             return self
         }
@@ -25,7 +25,7 @@ extension String {
     }
     
     /// 手机号保护, 前三位展示,后四位 *(不足为 * )
-    var securePhoneStr: String {
+    public var securePhoneStr: String {
         if self.k_isEmpty {
             return self
         }
@@ -46,7 +46,7 @@ extension String {
     }
     
     /// 获取GBK编码字节数 中文-2个 英文-1个
-    var byteCount: Int {
+    public var byteCount: Int {
         let encoding = CFStringConvertEncodingToNSStringEncoding(UInt32(CFStringEncodings.GB_18030_2000.rawValue))
         
         return self.lengthOfBytes(using: String.Encoding(rawValue: encoding))
@@ -55,7 +55,7 @@ extension String {
     /// 去除首尾空格
     ///
     /// - Returns: 字符串
-    func k_removeHeadAndFoot() -> String {
+    public func k_removeHeadAndFoot() -> String {
         
         return self.trimmingCharacters(in: CharacterSet.whitespaces)
     }
@@ -63,7 +63,7 @@ extension String {
     /// 转为URL
     ///
     /// - Returns: URL
-    func k_toURL() -> URL? {
+    public func k_toURL() -> URL? {
         
         return URL(string: self)
     }
@@ -72,7 +72,7 @@ extension String {
     ///
     /// - Parameter maxCount: 最大字节数
     /// - Returns: 裁剪的字符串
-    func k_subTextByByte(to maxCount: Int) -> String {
+    public func k_subTextByByte(to maxCount: Int) -> String {
         
         var newStr: String = ""
         var clipCount: Int = 0
@@ -101,7 +101,7 @@ extension String {
     ///   str = str[1, 9]
     ///   输出: str = "123456789"
     /// - Returns: 新字符串
-    func k_subText(from: Int = 0, to: Int) -> String {
+    public func k_subText(from: Int = 0, to: Int) -> String {
         if from > to { return self }
         
         let startIndex = self.startIndex
@@ -129,7 +129,7 @@ extension String {
     ///   - range: 需要替换的文字范围
     ///   - replaceStr: 替换的文字
     /// - Returns: 新字符串
-    func k_replaceStr(range: NSRange, replaceStr: String) -> String {
+    public func k_replaceStr(range: NSRange, replaceStr: String) -> String {
         var newStr: String = self
         if let range = Range.init(range, in: self) {
             
@@ -151,7 +151,7 @@ extension String {
     ///   eg: dateStr: 2018 0908 11:20:23
     ///       formatter: yyyy MMdd HH:mm:ss
     /// - Returns: date
-    func k_toDate(formatter: String) -> Date {
+    public func k_toDate(formatter: String) -> Date {
         let fat = DateFormatter.init()
         fat.dateFormat = formatter
         var date = fat.date(from: self)
@@ -168,7 +168,7 @@ extension String {
     ///   - timeStamp: 时间戳 10位/13位
     ///   - output: 输出格式 默认:yyyy年MM月dd日 HH:mm:ss
     /// - Returns: 日期字符串
-    static func k_timeStampToDateString(_ timeStamp: String, output: String = "yyyy年MM月dd日 HH:mm:ss") -> String {
+    public static func k_timeStampToDateString(_ timeStamp: String, output: String = "yyyy年MM月dd日 HH:mm:ss") -> String {
         let newTimeStamp = timeStamp.count > 10 ? (timeStamp.k_subText(to: 9)): (timeStamp)
         let str = NSString.init(string: newTimeStamp)
         let doubleValue = str.doubleValue
@@ -185,7 +185,7 @@ extension String {
     ///
     /// - Parameter otherTime: 时间
     /// - Returns: 结果 0: 相等; 1: otherTime大; 2: otherTime小
-    func k_compareToStr(_ otherTime: String, formatter: String) -> Int {
+    public func k_compareToStr(_ otherTime: String, formatter: String) -> Int {
         let resultDic: [ComparisonResult: Int] = [.orderedSame: 0, .orderedAscending: 1, .orderedDescending: 2]
         let t1 = self.k_toDate(formatter: formatter)
         let t2 = otherTime.k_toDate(formatter: formatter)
@@ -198,7 +198,7 @@ extension String {
     /// 指定时间转为特殊格式
     ///
     /// - Returns: 刚刚 / 几分钟前 / HH:mm / 昨天 HH:mm / MM-dd HH:mm / yyyy年MM-dd
-    func k_dealTimeToShow(formatter: String) -> String {
+    public func k_dealTimeToShow(formatter: String) -> String {
         // 当前的时间
         let nowDate = Date()
         // 传入的时间
@@ -243,21 +243,21 @@ extension String {
   
     //MARK: caches路径
     /// caches路径
-    static var k_cachesPath: String {
+    public static var k_cachesPath: String {
         
         return NSHomeDirectory() + "/Library/Caches/"
     }
     
     //MARK: documents路径
     /// documents路径
-    static var k_documentsPath: String {
+    public static var k_documentsPath: String {
         
         return NSHomeDirectory() + "/Documents/"
     }
     
     //MARK: tmp路径
     /// tmp路径
-    static var k_tmpPath: String {
+    public static var k_tmpPath: String {
         
         return NSHomeDirectory() + "/tmp/"
     }
@@ -266,7 +266,7 @@ extension String {
     /// 转为Int
     ///
     /// - Returns: Int
-    func k_toInt() -> Int? {
+    public func k_toInt() -> Int? {
 
         return Int(self)
     }
@@ -275,7 +275,7 @@ extension String {
     /// 转为CGFloat
     ///
     /// - Returns: CGFloat
-    func k_toCGFloat() -> CGFloat {
+    public func k_toCGFloat() -> CGFloat {
         
         return CGFloat(Double(self) ?? 0.0)
     }
@@ -286,7 +286,7 @@ extension String {
     /// 是否包含Emoij
     ///
     /// - Returns: 是/否
-    func k_containsEmoij() -> Bool {
+    public func k_containsEmoij() -> Bool {
         
         if let regex = try? NSRegularExpression(pattern: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", options: .caseInsensitive) {
             
@@ -300,7 +300,7 @@ extension String {
     /// 移除字符串中的Emoij
     ///
     /// - Returns: 新字符串
-    func k_deleteEmoij() -> String {
+    public func k_deleteEmoij() -> String {
         
         if self.k_containsEmoij() {
             
@@ -315,7 +315,7 @@ extension String {
     /// 是否为空, 全空格/empty
     ///
     /// - Returns: 是否
-    var k_isEmpty: Bool {
+    public var k_isEmpty: Bool {
         if self.isEmpty {
             return true
         }
@@ -326,7 +326,7 @@ extension String {
     }
     
     /// 是否符合邮箱规则
-    var k_isEmail: Bool {
+    public var k_isEmail: Bool {
         
         var count: Int = 0
         for chara in self {
@@ -339,7 +339,7 @@ extension String {
     }
 
     /// 是否包含汉字
-    var k_isHasChinese: Bool {
+    public var k_isHasChinese: Bool {
         for chara in self {
             if chara >= "\u{4E00}" && chara <= "\u{9FA5}" {
                 return true
@@ -349,19 +349,19 @@ extension String {
     }
     
     /// 是否符合手机号码规则
-    var k_isPhoneNum: Bool {
+    public var k_isPhoneNum: Bool {
 
         // 全是数字, 不是空格
         return !self.k_isEmpty && self.trimmingCharacters(in: CharacterSet.decimalDigits).count == 0 && !self.k_isHasChinese
     }
     
     /// 密码是否符合规则 6-16位字母或数组
-    var k_isPassword: Bool {
+    public var k_isPassword: Bool {
         return self.k_isCorrect("^[^\\u4E00-\\u9FA5\\uF900-\\uFA2D\\u0020]{6,16}")
     }
         
     /// 是否符合身份证规则
-    var k_isIdCard: Bool {
+    public var k_isIdCard: Bool {
         
         return self.k_isCorrect("^(\\d{14}|\\d{17})(\\d|[xX])$")
     }
@@ -379,7 +379,7 @@ extension String {
     /// json串转为任意类型
     ///
     /// - Returns: 任意类型
-    func k_jsonStrToObject() -> Any? {
+    public func k_jsonStrToObject() -> Any? {
         
         if self.k_isEmpty {
             
@@ -400,7 +400,7 @@ extension Collection {
     /// 转为Json字符串
     ///
     /// - Returns: json串
-    func k_toJsonStr() -> String? {
+    public func k_toJsonStr() -> String? {
         
         if let data = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) {
             
@@ -415,7 +415,7 @@ extension String {
     /// 去除空格等 给html传值
     ///
     /// - Returns: 新字符串
-    func k_noWhiteSpaceString() -> String {
+    public func k_noWhiteSpaceString() -> String {
         var newStr = self
         newStr = newStr.replacingOccurrences(of: "\r", with: "")
         newStr = newStr.replacingOccurrences(of: "\n", with: "")
@@ -428,7 +428,7 @@ extension String {
     /// 去除换行符等 给html传值
     ///
     /// - Returns: 新字符串
-    func k_removeEnterString() -> String {
+    public func k_removeEnterString() -> String {
         var newStr = self
         newStr = newStr.replacingOccurrences(of: "\n", with: "<br/>")
         newStr = newStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -439,7 +439,7 @@ extension String {
     /// 获取拼音
     ///
     /// - Returns: 拼音
-    func k_toPinYin() -> String{
+    public func k_toPinYin() -> String{
         let mutableString = NSMutableString(string: self)
         //把汉字转为拼音
         CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
@@ -461,7 +461,7 @@ extension String {
     ///   - font: 字体
     ///   - textMaxWidth: 最大文字宽度
     /// - Returns: 富文本
-    func k_setLineSpace(with lineSpace: CGFloat = 8.0, font: UIFont = UIFont.systemFont(ofSize: 15.0), textMaxWidth: CGFloat) -> NSMutableAttributedString {
+    public func k_setLineSpace(with lineSpace: CGFloat = 8.0, font: UIFont = UIFont.systemFont(ofSize: 15.0), textMaxWidth: CGFloat) -> NSMutableAttributedString {
         
         // 单行多行
         let label = UILabel()
@@ -491,7 +491,7 @@ extension String {
     ///   - font: 字体
     ///   - lineSpace: 行间距 默认8.0
     /// - Returns: 高度
-    func k_boundingHeight(width: CGFloat, font: UIFont, lineSpace: CGFloat = 8.0) -> CGFloat {
+    public func k_boundingHeight(width: CGFloat, font: UIFont, lineSpace: CGFloat = 8.0) -> CGFloat {
         
         if self.isEmpty {
             return font.lineHeight
@@ -529,7 +529,7 @@ extension String {
     ///   - height: 高度
     ///   - font: 字体
     /// - Returns: 宽度
-    func k_boundingWidth(height: CGFloat, font: UIFont) -> CGFloat {
+    public func k_boundingWidth(height: CGFloat, font: UIFont) -> CGFloat {
         
         let label = UILabel()
         label.text = nil
@@ -550,7 +550,7 @@ extension String {
     ///   - size: 包含一个最大的值 CGSize(width: max, height: 20.0)
     ///   - font: 字体大小
     /// - Returns: 尺寸
-    func k_boundingSize(size: CGSize, font: UIFont) -> CGSize {
+    public func k_boundingSize(size: CGSize, font: UIFont) -> CGSize {
         let rect = NSString(string: self).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : font], context: nil)
         
         return rect.size
@@ -562,7 +562,7 @@ extension String {
     ///   - textView: 输入区域
     ///   - width: 宽度
     /// - Returns: 高度
-    func k_boundingHeight(with textView: UITextView, width: CGFloat) -> CGFloat {
+    public func k_boundingHeight(with textView: UITextView, width: CGFloat) -> CGFloat {
         let size = textView.sizeThatFits(CGSize(width: width, height: CGFloat(MAXFLOAT)))
         
         return size.height
@@ -575,7 +575,7 @@ extension String {
     ///
     /// - Parameter range: range
     /// - Returns: NSRange
-    func k_toNSRange(from range: Range<String.Index>) -> NSRange? {
+    public func k_toNSRange(from range: Range<String.Index>) -> NSRange? {
         let utf16view = self.utf16
         if let from = range.lowerBound.samePosition(in: utf16view), let to = range.upperBound.samePosition(in: utf16view) {
             return NSMakeRange(utf16view.distance(from: utf16view.startIndex, to: from), utf16view.distance(from: from, to: to))
@@ -592,7 +592,7 @@ extension String {
     ///   - font: 字体大小
     ///   - textColor: 文字颜色
     /// - Returns: 图片
-    func k_toTextImage(font: UIFont, textColor: UIColor) -> UIImage? {
+    public func k_toTextImage(font: UIFont, textColor: UIColor) -> UIImage? {
         
         let imgHeight: CGFloat = 16.0
         let imgWidth = self.k_boundingSize(size: CGSize(width: UIScreen.main.bounds.width, height: imgHeight), font: font).width
