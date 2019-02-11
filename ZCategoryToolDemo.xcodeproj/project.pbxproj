@@ -12,8 +12,19 @@
 		F0056F932211286800838891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0056F912211286800838891 /* Main.storyboard */; };
 		F0056F952211286900838891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0056F942211286900838891 /* Assets.xcassets */; };
 		F0056F982211286900838891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0056F962211286900838891 /* LaunchScreen.storyboard */; };
-		F0056FA12211295000838891 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FA02211295000838891 /* Test.swift */; };
 		F0056FA322112A4800838891 /* ZCategoryTool.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F0056FA222112A4800838891 /* ZCategoryTool.podspec */; };
+		F0056FC3221145A400838891 /* AVPlayer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FC2221145A400838891 /* AVPlayer+Ext.swift */; };
+		F0056FC5221145BC00838891 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FC4221145BC00838891 /* Date+Ext.swift */; };
+		F0056FC7221145C400838891 /* DispatchQueue+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FC6221145C400838891 /* DispatchQueue+Ext.swift */; };
+		F0056FC92211463400838891 /* Number+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FC82211463400838891 /* Number+Ext.swift */; };
+		F0056FCB2211464C00838891 /* Timer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FCA2211464C00838891 /* Timer+Ext.swift */; };
+		F0056FCD2211467800838891 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FCC2211467800838891 /* UIButton+Ext.swift */; };
+		F0056FCF2211470D00838891 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FCE2211470D00838891 /* UIColor+Ext.swift */; };
+		F0056FD12211471200838891 /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FD02211471200838891 /* UIImage+Ext.swift */; };
+		F0056FD52211471D00838891 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FD42211471D00838891 /* UIView+Ext.swift */; };
+		F0056FD72211472A00838891 /* UITextField+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FD62211472900838891 /* UITextField+Ext.swift */; };
+		F0056FD92211481000838891 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FD82211481000838891 /* String+Ext.swift */; };
+		F0056FDB2211488500838891 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FDA2211488500838891 /* UIViewController+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,8 +35,19 @@
 		F0056F942211286900838891 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0056F972211286900838891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0056F992211286900838891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F0056FA02211295000838891 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		F0056FA222112A4800838891 /* ZCategoryTool.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZCategoryTool.podspec; sourceTree = "<group>"; };
+		F0056FC2221145A400838891 /* AVPlayer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Ext.swift"; sourceTree = "<group>"; };
+		F0056FC4221145BC00838891 /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		F0056FC6221145C400838891 /* DispatchQueue+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Ext.swift"; sourceTree = "<group>"; };
+		F0056FC82211463400838891 /* Number+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Number+Ext.swift"; sourceTree = "<group>"; };
+		F0056FCA2211464C00838891 /* Timer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timer+Ext.swift"; sourceTree = "<group>"; };
+		F0056FCC2211467800838891 /* UIButton+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
+		F0056FCE2211470D00838891 /* UIColor+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		F0056FD02211471200838891 /* UIImage+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		F0056FD42211471D00838891 /* UIView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		F0056FD62211472900838891 /* UITextField+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Ext.swift"; sourceTree = "<group>"; };
+		F0056FD82211481000838891 /* String+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
+		F0056FDA2211488500838891 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,7 +95,18 @@
 		F0056F9F2211293C00838891 /* ZCategoryTool */ = {
 			isa = PBXGroup;
 			children = (
-				F0056FA02211295000838891 /* Test.swift */,
+				F0056FC2221145A400838891 /* AVPlayer+Ext.swift */,
+				F0056FC4221145BC00838891 /* Date+Ext.swift */,
+				F0056FC6221145C400838891 /* DispatchQueue+Ext.swift */,
+				F0056FD82211481000838891 /* String+Ext.swift */,
+				F0056FC82211463400838891 /* Number+Ext.swift */,
+				F0056FCA2211464C00838891 /* Timer+Ext.swift */,
+				F0056FCC2211467800838891 /* UIButton+Ext.swift */,
+				F0056FCE2211470D00838891 /* UIColor+Ext.swift */,
+				F0056FD02211471200838891 /* UIImage+Ext.swift */,
+				F0056FD42211471D00838891 /* UIView+Ext.swift */,
+				F0056FD62211472900838891 /* UITextField+Ext.swift */,
+				F0056FDA2211488500838891 /* UIViewController+Ext.swift */,
 			);
 			path = ZCategoryTool;
 			sourceTree = "<group>";
@@ -150,9 +183,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0056FC7221145C400838891 /* DispatchQueue+Ext.swift in Sources */,
 				F0056F902211286800838891 /* ViewController.swift in Sources */,
+				F0056FDB2211488500838891 /* UIViewController+Ext.swift in Sources */,
+				F0056FC3221145A400838891 /* AVPlayer+Ext.swift in Sources */,
+				F0056FD92211481000838891 /* String+Ext.swift in Sources */,
+				F0056FCD2211467800838891 /* UIButton+Ext.swift in Sources */,
 				F0056F8E2211286800838891 /* AppDelegate.swift in Sources */,
-				F0056FA12211295000838891 /* Test.swift in Sources */,
+				F0056FD72211472A00838891 /* UITextField+Ext.swift in Sources */,
+				F0056FD12211471200838891 /* UIImage+Ext.swift in Sources */,
+				F0056FC92211463400838891 /* Number+Ext.swift in Sources */,
+				F0056FD52211471D00838891 /* UIView+Ext.swift in Sources */,
+				F0056FCF2211470D00838891 /* UIColor+Ext.swift in Sources */,
+				F0056FC5221145BC00838891 /* Date+Ext.swift in Sources */,
+				F0056FCB2211464C00838891 /* Timer+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
