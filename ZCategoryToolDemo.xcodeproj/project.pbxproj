@@ -13,6 +13,7 @@
 		F0056F952211286900838891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0056F942211286900838891 /* Assets.xcassets */; };
 		F0056F982211286900838891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0056F962211286900838891 /* LaunchScreen.storyboard */; };
 		F0056FA12211295000838891 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FA02211295000838891 /* Test.swift */; };
+		F0056FA322112A4800838891 /* ZCategoryTool.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F0056FA222112A4800838891 /* ZCategoryTool.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		F0056F972211286900838891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0056F992211286900838891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0056FA02211295000838891 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		F0056FA222112A4800838891 /* ZCategoryTool.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZCategoryTool.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,7 @@
 		F0056F812211286800838891 = {
 			isa = PBXGroup;
 			children = (
+				F0056FA222112A4800838891 /* ZCategoryTool.podspec */,
 				F0056F9F2211293C00838891 /* ZCategoryTool */,
 				F0056F8C2211286800838891 /* ZCategoryToolDemo */,
 				F0056F8B2211286800838891 /* Products */,
@@ -136,6 +139,7 @@
 				F0056F982211286900838891 /* LaunchScreen.storyboard in Resources */,
 				F0056F952211286900838891 /* Assets.xcassets in Resources */,
 				F0056F932211286800838891 /* Main.storyboard in Resources */,
+				F0056FA322112A4800838891 /* ZCategoryTool.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
