@@ -27,7 +27,6 @@
 		F0056FDB2211488500838891 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FDA2211488500838891 /* UIViewController+Ext.swift */; };
 		F0056FDD221152E700838891 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FDC221152E700838891 /* UITableView+Ext.swift */; };
 		F0056FDF2211530B00838891 /* UIIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */; };
-		F0056FE12211534E00838891 /* StatusBar+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FE02211534E00838891 /* StatusBar+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +52,6 @@
 		F0056FDA2211488500838891 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		F0056FDC221152E700838891 /* UITableView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIIImageView+Ext.swift"; sourceTree = "<group>"; };
-		F0056FE02211534E00838891 /* StatusBar+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StatusBar+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,18 +102,17 @@
 				F0056FC2221145A400838891 /* AVPlayer+Ext.swift */,
 				F0056FC4221145BC00838891 /* Date+Ext.swift */,
 				F0056FC6221145C400838891 /* DispatchQueue+Ext.swift */,
-				F0056FD82211481000838891 /* String+Ext.swift */,
 				F0056FC82211463400838891 /* Number+Ext.swift */,
+				F0056FD82211481000838891 /* String+Ext.swift */,
 				F0056FCA2211464C00838891 /* Timer+Ext.swift */,
-				F0056FE02211534E00838891 /* StatusBar+Ext.swift */,
 				F0056FCC2211467800838891 /* UIButton+Ext.swift */,
 				F0056FCE2211470D00838891 /* UIColor+Ext.swift */,
-				F0056FD02211471200838891 /* UIImage+Ext.swift */,
-				F0056FD42211471D00838891 /* UIView+Ext.swift */,
-				F0056FD62211472900838891 /* UITextField+Ext.swift */,
 				F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */,
-				F0056FDA2211488500838891 /* UIViewController+Ext.swift */,
+				F0056FD02211471200838891 /* UIImage+Ext.swift */,
 				F0056FDC221152E700838891 /* UITableView+Ext.swift */,
+				F0056FD62211472900838891 /* UITextField+Ext.swift */,
+				F0056FD42211471D00838891 /* UIView+Ext.swift */,
+				F0056FDA2211488500838891 /* UIViewController+Ext.swift */,
 			);
 			path = ZCategoryTool;
 			sourceTree = "<group>";
@@ -195,7 +192,6 @@
 				F0056FC7221145C400838891 /* DispatchQueue+Ext.swift in Sources */,
 				F0056F902211286800838891 /* ViewController.swift in Sources */,
 				F0056FDF2211530B00838891 /* UIIImageView+Ext.swift in Sources */,
-				F0056FE12211534E00838891 /* StatusBar+Ext.swift in Sources */,
 				F0056FDB2211488500838891 /* UIViewController+Ext.swift in Sources */,
 				F0056FC3221145A400838891 /* AVPlayer+Ext.swift in Sources */,
 				F0056FD92211481000838891 /* String+Ext.swift in Sources */,
