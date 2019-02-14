@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 extension UIImageView {
     
@@ -20,12 +21,46 @@ extension UIImageView {
         self.contentMode = model
         self.clipsToBounds = clips
     }
+    
+    /// 加载PHAsset资源
+    ///
+    /// - Parameters:
+    ///   - asset: PHAsset
+    ///   - isOriginal: 是否是原图
+    public func k_setImage(with asset: PHAsset, isOriginal: Bool = false) {
+        
+        DispatchQueue.global().async {
+            
+            let options = PHImageRequestOptions()
+            options.resizeMode = .fast
+            //options.isNetworkAccessAllowed = true
+            
+            var loadSize: CGSize!
+            if isOriginal {
+                
+                loadSize = PHImageManagerMaximumSize
+                
+            } else {
+                
+                loadSize = CGSize(width: kWidth / 2.0, height: kWidth / 2.0)
+            }
+            PHImageManager.default().requestImage(for: asset, targetSize: loadSize, contentMode: PHImageContentMode.default, options: options) { (img, dic) in
+                
+                DispatchQueue.main.async {
+                    self.image = img
+                }
+            }
+        }
+    }
 }
 
+// MARK: -旋转动画
 extension UIImageView {
     
-    /// 开始加载
-    public func k_startLoading(duration: Double = 0.6) {
+    /// 开始旋转动画
+    ///
+    /// - Parameter duration: 一圈的时间
+    public func k_startRotationAni(duration: Double = 0.6) {
         
         DispatchQueue.main.async {
         
@@ -47,8 +82,8 @@ extension UIImageView {
         }
     }
     
-    /// 结束加载
-    public func k_stopLoading() {
+    /// 结束旋转动画
+    public func k_stopRotationAni() {
         
         DispatchQueue.main.async {
             

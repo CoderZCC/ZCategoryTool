@@ -225,3 +225,18 @@ extension UIView {
         self.layer.add(animation, forKey: "transform.scale")
     }
 }
+
+extension UIView {
+    
+    /// 弹簧动画
+    ///
+    /// - Parameters:
+    ///   - withDuration: 时长
+    ///   - usingSpringWithDamping: 0~1.0 越大月不明显
+    ///   - animations: 动画
+    ///   - completion: 回调
+    public static func k_animate(withDuration: TimeInterval, usingSpringWithDamping: CGFloat, animations:@escaping (()->Void), completion: ((Bool)->Void)? = nil) {
+        
+        UIView.animate(withDuration: withDuration, delay: 0.0, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: 0.0, options: .allowAnimatedContent, animations: animations, completion: completion)
+    }
+}

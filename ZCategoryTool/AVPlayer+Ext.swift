@@ -31,20 +31,45 @@ extension AVPlayer {
     }
 }
 
+// MARK: -时间转换
 extension CMTime {
     
-    /// 转为float数
+    /// 转为CGFloat数
     ///
     /// - Returns: 时间
     public func k_toFloat() -> CGFloat {
         return CGFloat(CMTimeGetSeconds(self))
     }
     
+    /// 转为Double数
+    ///
+    /// - Returns: 时间
     public func k_toDouble() -> Double {
         return Double(CMTimeGetSeconds(self))
     }
     
+    /// 转为TimeInterval数
+    ///
+    /// - Returns: 时间
     public func k_toTimeInterval() -> TimeInterval {
         return TimeInterval(CMTimeGetSeconds(self))
+    }
+}
+
+// MARK: -时间转换
+extension TimeInterval {
+    
+    /// 处理为 00:00格式
+    ///
+    /// - Returns: 00:00
+    public func k_dealString() -> String {
+        
+        if self.isNaN {
+            return "00:00"
+        }
+        let minute = Int(self / 60.0)
+        let second = Int(self.truncatingRemainder(dividingBy: 60.0))
+        
+        return "\(String(format: "%02d", minute)):\(String(format: "%02d", second))"
     }
 }

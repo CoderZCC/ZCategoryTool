@@ -41,20 +41,3 @@ extension Int {
         return newStr
     }
 }
-
-extension TimeInterval {
-    
-    /// 处理为 00:00格式
-    ///
-    /// - Returns: 00:00
-    public func k_dealString() -> String {
-        
-        if self.isNaN {
-            return "00:00"
-        }
-        let minute = Int(self / 60.0)
-        let second = Int(self.truncatingRemainder(dividingBy: 60.0))
-        
-        return "\(String(format: "%02d", minute)):\(String(format: "%02d", second))"
-    }
-}
