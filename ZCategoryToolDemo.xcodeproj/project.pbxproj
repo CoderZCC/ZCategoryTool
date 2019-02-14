@@ -29,7 +29,6 @@
 		F0056FDF2211530B00838891 /* UIIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */; };
 		F012BDE9221506AC00E261E4 /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */; };
 		F012BDEB2215072100E261E4 /* DataMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012BDEA2215072100E261E4 /* DataMacro.swift */; };
-		F012BDED2215077F00E261E4 /* AppDelegate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012BDEC2215077F00E261E4 /* AppDelegate+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +56,6 @@
 		F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIIImageView+Ext.swift"; sourceTree = "<group>"; };
 		F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		F012BDEA2215072100E261E4 /* DataMacro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMacro.swift; sourceTree = "<group>"; };
-		F012BDEC2215077F00E261E4 /* AppDelegate+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +104,6 @@
 			isa = PBXGroup;
 			children = (
 				F012BDEA2215072100E261E4 /* DataMacro.swift */,
-				F012BDEC2215077F00E261E4 /* AppDelegate+Ext.swift */,
 				F0056FC2221145A400838891 /* AVPlayer+Ext.swift */,
 				F0056FC4221145BC00838891 /* Date+Ext.swift */,
 				F0056FC6221145C400838891 /* DispatchQueue+Ext.swift */,
@@ -210,7 +207,6 @@
 				F0056F8E2211286800838891 /* AppDelegate.swift in Sources */,
 				F0056FD72211472A00838891 /* UITextField+Ext.swift in Sources */,
 				F0056FD12211471200838891 /* UIImage+Ext.swift in Sources */,
-				F012BDED2215077F00E261E4 /* AppDelegate+Ext.swift in Sources */,
 				F0056FC92211463400838891 /* Number+Ext.swift in Sources */,
 				F0056FD52211471D00838891 /* UIView+Ext.swift in Sources */,
 				F0056FCF2211470D00838891 /* UIColor+Ext.swift in Sources */,
