@@ -240,3 +240,35 @@ extension UIView {
         UIView.animate(withDuration: withDuration, delay: 0.0, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: 0.0, options: .allowAnimatedContent, animations: animations, completion: completion)
     }
 }
+
+extension UIView {
+    
+    //MARK:- 绘制虚线
+    /// 绘制虚线
+    ///
+    /// - Parameters:
+    ///   - lineLength: 线长
+    ///   - lineSpacing: 间隔
+    ///   - lineColor: 颜色
+    public func k_drawDashLine(lineLength: Int, lineSpacing: Int, lineColor: UIColor) {
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.bounds = self.bounds
+        // 只要是CALayer这种类型,他的anchorPoint默认都是(0.5,0.5)
+        shapeLayer.anchorPoint = CGPoint(x: 0, y: 0)
+        //shapeLayer.fillColor = UIColor.blue.cgColor
+        shapeLayer.strokeColor = lineColor.cgColor
+        
+        shapeLayer.lineWidth = self.frame.size.height
+        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
+        
+        shapeLayer.lineDashPattern = [NSNumber(value: lineLength), NSNumber(value: lineSpacing)]
+        
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: 0, y: 0))
+        path.addLine(to: CGPoint(x: self.frame.size.width, y: 0))
+        
+        shapeLayer.path = path
+        self.layer.addSublayer(shapeLayer)
+    }
+}

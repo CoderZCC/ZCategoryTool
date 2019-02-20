@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
 spec.name         = "ZCategoryTool"
-spec.version      = "1.0.4"
+spec.version      = "1.0.5"
 spec.summary      = "An Extension Tool for Swift."
 spec.description  = <<-DESC
                Tool Integration for Improving Development Efficiency.

@@ -11,19 +11,6 @@ import UIKit
 //MARK: 字符串相关
 extension String {
     
-    /// 拼接后缀 isApp=1
-    public var appendDomain: String {
-        if self.k_isEmpty {
-            return self
-        }
-        let domain: String = "isApp=1"
-        var newStr: String = self
-        if newStr.contains(domain) == false {
-            newStr = newStr.contains("?") ? (newStr + "&\(domain)") : (newStr + "?\(domain)")
-        }
-        return newStr
-    }
-    
     /// 手机号保护, 前三位展示,后四位 *(不足为 * )
     public var securePhoneStr: String {
         if self.k_isEmpty {
@@ -453,75 +440,6 @@ extension String {
 }
 
 extension String {
-
-    /// 设置行间距
-    ///
-    /// - Parameters:
-    ///   - lineSpace: 间隔 默认8.0
-    ///   - font: 字体
-    ///   - textMaxWidth: 最大文字宽度
-    /// - Returns: 富文本
-    public func k_setLineSpace(with lineSpace: CGFloat = 8.0, font: UIFont = UIFont.systemFont(ofSize: 15.0), textMaxWidth: CGFloat) -> NSMutableAttributedString {
-        
-        // 单行多行
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.frame = CGRect(x: 0.0, y: 0.0, width: textMaxWidth, height: CGFloat(MAXFLOAT))
-        label.font = font
-        label.text = self
-        label.sizeToFit()
-
-        // 先判断行数, 大于一行时设置行间距,否则不设置
-        let paragraphStyle = NSMutableParagraphStyle()
-        if label.k_height < 2.0 * font.lineHeight {
-            paragraphStyle.lineSpacing = 0.0
-        } else {
-            paragraphStyle.lineSpacing = lineSpace
-        }
-        
-        let attributeStr = NSMutableAttributedString(string: self, attributes: [.paragraphStyle : paragraphStyle, NSAttributedString.Key.font: font])
-        
-        return attributeStr
-    }
-    
-    /// 计算文字的高度
-    ///
-    /// - Parameters:
-    ///   - width: 文字宽度
-    ///   - font: 字体
-    ///   - lineSpace: 行间距 默认8.0
-    /// - Returns: 高度
-    public func k_boundingHeight(width: CGFloat, font: UIFont, lineSpace: CGFloat = 8.0) -> CGFloat {
-        
-        if self.isEmpty {
-            return font.lineHeight
-        }
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.frame = CGRect(x: 0.0, y: 0.0, width: width, height: CGFloat(MAXFLOAT))
-        label.font = font
-        label.text = self
-        label.sizeToFit()
-        
-        var height = label.k_height
-        // 先判断行数, 大于一行时设置行间距,否则不设置
-        if label.k_height < 2.0 * font.lineHeight {
-            
-            height = font.lineHeight
-            
-        } else {
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = lineSpace
-            
-            let attributeStr = NSMutableAttributedString(string: self, attributes: [.paragraphStyle : paragraphStyle, .font: font])
-            label.attributedText = attributeStr
-            label.sizeToFit()
-            
-            height = label.k_height
-        }
-        return height
-    }
     
     /// 计算文字宽度
     ///

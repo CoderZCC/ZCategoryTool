@@ -29,6 +29,7 @@
 		F0056FDF2211530B00838891 /* UIIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */; };
 		F012BDE9221506AC00E261E4 /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */; };
 		F012BDEB2215072100E261E4 /* DataMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012BDEA2215072100E261E4 /* DataMacro.swift */; };
+		F0DDD474221D51A500978D6D /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DDD473221D51A500978D6D /* UILabel+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIIImageView+Ext.swift"; sourceTree = "<group>"; };
 		F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		F012BDEA2215072100E261E4 /* DataMacro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMacro.swift; sourceTree = "<group>"; };
+		F0DDD473221D51A500978D6D /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				F0056FD62211472900838891 /* UITextField+Ext.swift */,
 				F0056FD42211471D00838891 /* UIView+Ext.swift */,
 				F0056FDA2211488500838891 /* UIViewController+Ext.swift */,
+				F0DDD473221D51A500978D6D /* UILabel+Ext.swift */,
 			);
 			path = ZCategoryTool;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				F0056FC7221145C400838891 /* DispatchQueue+Ext.swift in Sources */,
 				F0056F902211286800838891 /* ViewController.swift in Sources */,
 				F0056FDF2211530B00838891 /* UIIImageView+Ext.swift in Sources */,
+				F0DDD474221D51A500978D6D /* UILabel+Ext.swift in Sources */,
 				F0056FDB2211488500838891 /* UIViewController+Ext.swift in Sources */,
 				F0056FC3221145A400838891 /* AVPlayer+Ext.swift in Sources */,
 				F0056FD92211481000838891 /* String+Ext.swift in Sources */,
