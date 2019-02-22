@@ -31,6 +31,31 @@ extension UIImage {
         return img
     }
     
+    /// 重新布局图片
+    ///
+    /// - Parameter newSize: 新尺寸
+    /// - Returns: 新图片
+    public func k_resizeImage(with newSize: CGSize) -> UIImage {
+        
+        let newWidth = newSize.width
+        let newHeight = newSize.height
+        
+        let width = self.size.width
+        let height = self.size.height
+        
+        if (width != newWidth) || (height != newHeight) {
+            
+            UIGraphicsBeginImageContextWithOptions(newSize, true, UIScreen.main.scale)
+            self.draw(in: CGRect(x: 0.0, y: 0.0, width: newWidth, height: newHeight))
+            
+            let resized = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            return resized ?? self
+        }
+        return self
+    }
+    
     /// 以图片中心为中心，以最小边为边长，裁剪正方形图片
     ///
     /// - Returns: 新图片
