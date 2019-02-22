@@ -31,6 +31,25 @@ extension UIImage {
         return img
     }
     
+    /// 以图片中心为中心，以最小边为边长，裁剪正方形图片
+    ///
+    /// - Returns: 新图片
+    public func k_cropSquareImage() -> UIImage {
+        
+        let cgImg = self.cgImage
+        let imgWidth = self.size.width * self.scale
+        let imgHeight = self.size.height * self.scale
+        let cropWidth = min(imgWidth, imgHeight)
+        let offSetX = (imgWidth - cropWidth) / 2.0
+        let offSetY = (imgHeight - cropWidth) / 2.0
+        let rect = CGRect.init(x: offSetX, y: offSetY, width: cropWidth, height: cropWidth)
+        
+        if let cropCgImg = cgImg?.cropping(to: rect) {
+            return UIImage.init(cgImage: cropCgImg)
+        }
+        return self
+    }
+    
     /// 重新布局图片
     ///
     /// - Parameter newSize: 新尺寸
