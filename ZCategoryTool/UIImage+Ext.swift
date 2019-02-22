@@ -50,57 +50,62 @@ extension UIImage {
         return self
     }
     
-    /// 重新布局图片
+    /// 从（0，0）裁剪图片尺寸
     ///
-    /// - Parameter newSize: 新尺寸
+    /// - Parameter size: 新尺寸
     /// - Returns: 新图片
-    public func k_resizeImage(with newSize: CGSize) -> UIImage {
+    public func k_cropImageAtOriginal(newSize: CGSize) -> UIImage {
         
-        let newWidth = newSize.width
-        let newHeight = newSize.height
+        let imgWidth = self.size.width * self.scale
+        let imgHeight = self.size.height * self.scale
+        if newSize.width >= imgWidth && newSize.height >= imgHeight { return self }
+        let scale = imgWidth / imgHeight
+        var rect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
         
-        let width = self.size.width
-        let height = self.size.height
-        
-        if (width != newWidth) || (height != newHeight) {
+        if scale > newSize.width / newSize.height {
             
-            UIGraphicsBeginImageContextWithOptions(newSize, true, UIScreen.main.scale)
-            self.draw(in: CGRect(x: 0.0, y: 0.0, width: newWidth, height: newHeight))
+            rect.size.width = imgHeight * newSize.width / newSize.height
+            rect.size.height = imgHeight
             
-            let resized = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
+        } else {
             
-            return resized ?? self
+            rect.size.width = imgWidth
+            rect.size.height = imgWidth / newSize.width * newSize.height
+        }
+        if let imgRef = self.cgImage?.cropping(to: rect) {
+            return UIImage.init(cgImage: imgRef)
         }
         return self
     }
     
-    //MARK: 改变图片尺寸
-    /// 改变图片尺寸
+    /// 从中心裁剪图片尺寸
     ///
     /// - Parameter size: 修改的尺寸
     /// - Returns: 新图片
     public func k_cropImageWith(newSize: CGSize) -> UIImage {
         
-        let scale = self.size.width / self.size.height
+        let imgWidth = self.size.width * self.scale
+        let imgHeight = self.size.height * self.scale
+        if newSize.width >= imgWidth && newSize.height >= imgHeight { return self }
+        let scale = imgWidth / imgHeight
         var rect = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
         
         if scale > newSize.width / newSize.height {
             
-            rect.size.width = self.size.height * newSize.width / newSize.height
-            rect.origin.x = (self.size.width - rect.size.width) / 2.0
-            rect.size.height = self.size.height
-
+            rect.size.width = imgHeight * newSize.width / newSize.height
+            rect.origin.x = (imgWidth - rect.size.width) / 2.0
+            rect.size.height = imgHeight
+            
         } else {
             
-            rect.origin.y = (self.size.height - self.size.width / newSize.width * newSize.height) / 2.0
-            rect.size.width = self.size.width
-            rect.size.height = self.size.width / newSize.width * newSize.height
+            rect.origin.y = (imgHeight - imgWidth / newSize.width * newSize.height) / 2.0
+            rect.size.width = imgWidth
+            rect.size.height = imgWidth / newSize.width * newSize.height
         }
-        let imgRef = self.cgImage!.cropping(to: rect)
-        let newImg = UIImage.init(cgImage: imgRef!)
-        
-        return newImg
+        if let imgRef = self.cgImage?.cropping(to: rect) {
+            return UIImage.init(cgImage: imgRef)
+        }
+        return self
     }
     
     //MARK: 裁剪圆形为圆形
@@ -114,8 +119,8 @@ extension UIImage {
     public func k_circleImage(backColor: UIColor? = UIColor.white, borderColor: UIColor? = nil, borderWidth: CGFloat? = 0.0) -> UIImage {
         
         // 圆形图片
-        let imgW: CGFloat = self.size.width
-        let imgH: CGFloat = self.size.height
+        let imgW: CGFloat = self.size.width * self.scale
+        let imgH: CGFloat = self.size.height * self.scale
         let imgWH: CGFloat = min(imgW, imgH)
         let squareImg = self.k_cropImageWith(newSize: CGSize.init(width: imgWH, height: imgWH))
         // 圆形框
@@ -154,17 +159,17 @@ extension UIImage {
     /// - Returns: 数据流
     public func k_pressImgSize(imgSize: CGSize? = nil, kbSize: CGFloat = 60.0) -> Data? {
         
+        let imgWidth = self.size.width * self.scale
+        let imgHeight = self.size.height * self.scale
         // kb大小
         var maxSize = kbSize
-        if (maxSize <= 0.0) {
-            maxSize = 1024.0;
-        }
+        if (maxSize <= 0.0) { maxSize = 1024.0 }
         // 宽高
         var newImg = self
         var newSize: CGSize!
         if let imgSize = imgSize {
             
-            if self.size.width <= imgSize.width {
+            if imgWidth <= imgSize.width {
                 newSize = self.size
             } else {
                 newImg = self.k_cropImageWith(newSize: imgSize)
@@ -175,10 +180,10 @@ extension UIImage {
             
             // 等比例缩放
             let wantImgWidth: CGFloat = 414.0
-            if self.size.width <= wantImgWidth {
+            if imgWidth <= wantImgWidth {
                 newSize = self.size
             } else {
-                let scale: CGFloat = self.size.width / self.size.height
+                let scale: CGFloat = imgWidth / imgHeight
                 let wantImgHeight: CGFloat = wantImgWidth / scale
                 newImg = self.k_cropImageWith(newSize: CGSize(width: wantImgWidth, height: wantImgHeight))
                 newSize = CGSize.init(width: newImg.size.width, height: newImg.size.height)
@@ -190,26 +195,35 @@ extension UIImage {
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        if let newImage = newImage, let imgData = newImage.jpegData(compressionQuality: 0.9) {
+        // 如果图片本身小于最小大小，不压缩
+        if let newImage = newImage, let imgData = newImg.pngData() {
             
-            var imageData: Data = imgData
-            var sizeOriginKB : CGFloat = CGFloat(imageData.count) / 1024.0;
-            //调整大小
-            var resizeRate: CGFloat = 0.6;
-            
-            while (sizeOriginKB > maxSize && resizeRate > 0.0) {
+            let imgSize = CGFloat(imgData.count) / 1024.0
+            if imgSize <= kbSize {
                 
-                if let newData = newImage.jpegData(compressionQuality: resizeRate) {
+                debugPrint("图片不压缩，大小为:\(imgSize)")
+                return imgData
+                
+            } else if let imgData = newImage.jpegData(compressionQuality: 0.9) {
+                
+                var imageData: Data = imgData
+                var sizeOriginKB : CGFloat = CGFloat(imageData.count) / 1024.0;
+                //调整大小
+                var resizeRate: CGFloat = 0.6;
+                
+                while (sizeOriginKB > maxSize && resizeRate > 0.0) {
                     
-                    imageData = newData
-                    sizeOriginKB = CGFloat(imageData.count) / 1024.0
-                    resizeRate -= 0.02
+                    if let newData = newImage.jpegData(compressionQuality: resizeRate) {
+                        
+                        imageData = newData
+                        sizeOriginKB = CGFloat(imageData.count) / 1024.0
+                        resizeRate -= 0.02
+                    }
                 }
+                debugPrint("图片压缩大小为:\(sizeOriginKB)")
+                return imageData
             }
-            debugPrint("图片压缩大小为:\(sizeOriginKB)")
-            return imageData
         }
         return nil
     }
-    
 }
