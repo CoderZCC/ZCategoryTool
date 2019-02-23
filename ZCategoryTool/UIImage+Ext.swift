@@ -175,80 +175,97 @@ extension UIImage {
         return result ?? self
     }
     
-    //MARK: 压缩图片大小
-    /// 压缩图片大小
+    /// 压缩图片kb大小
     ///
     /// - Parameters:
-    ///   - imgSize: 图片大小 默认原图尺寸
-    ///   - kbSize: 压缩大小
-    /// - Returns: 数据流
-    public func k_pressImgSize(imgSize: CGSize? = nil, kbSize: CGFloat = 60.0) -> Data? {
+    ///   - newSize: 压缩完后图片的新尺寸(中心裁剪), 默认为原图
+    ///   - imgKB: 压缩完后图片的新大小 kb单位
+    ///   - block: 回调
+    public func k_compressImage(newSize: CGSize? = nil, imgKB: CGFloat, block: ((UIImage)->Void)?) {
         
-        let imgWidth = self.size.width * self.scale
-        let imgHeight = self.size.height * self.scale
-        // kb大小
-        var maxSize = kbSize
-        if (maxSize <= 0.0) { maxSize = 1024.0 }
-        // 宽高
-        var newImg = self
-        var newSize: CGSize!
-        if let imgSize = imgSize {
-            
-            if imgWidth <= imgSize.width {
-                newSize = self.size
-            } else {
-                newImg = self.k_cropImageWith(newSize: imgSize)
-                newSize = CGSize.init(width: newImg.size.width, height: newImg.size.height)
-            }
-            
+        var cropImg: UIImage!
+        // 先裁剪为想要的尺寸
+        if let newSize = newSize, newSize != CGSize.zero {
+            cropImg = self.k_cropImageWith(newSize: newSize)
         } else {
-            
-            // 等比例缩放
-            let wantImgWidth: CGFloat = 414.0
-            if imgWidth <= wantImgWidth {
-                newSize = self.size
-            } else {
-                let scale: CGFloat = imgWidth / imgHeight
-                let wantImgHeight: CGFloat = wantImgWidth / scale
-                newImg = self.k_cropImageWith(newSize: CGSize(width: wantImgWidth, height: wantImgHeight))
-                newSize = CGSize.init(width: newImg.size.width, height: newImg.size.height)
-            }
+            cropImg = self
         }
-        UIGraphicsBeginImageContext(newSize)
-        newImg.draw(in: CGRect.init(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        if imgKB <= 0.0 {
+            DispatchQueue.main.async {
+                block?(cropImg)
+            }
+            return
+        }
         
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+        var uploadImageData: Data = cropImg.pngData() ?? Data()
+        let uploadImageByte: CGFloat = CGFloat(uploadImageData.count) / 1024.0
+        debugPrint("压缩前的大小:\(uploadImageByte)")
+        let imgWidth: CGFloat = self.size.width * self.scale
+        let imgHeight: CGFloat = self.size.height * self.scale
         
-        // 如果图片本身小于最小大小，不压缩
-        if let newImage = newImage, let imgData = newImg.pngData() {
+        if uploadImageByte > imgKB {
             
-            let imgSize = CGFloat(imgData.count) / 1024.0
-            if imgSize <= kbSize {
+            // 提交到子线程
+            DispatchQueue.global().async {
                 
-                debugPrint("图片不压缩，大小为:\(imgSize)")
-                return imgData
+                // 宽高比例
+                let ratioOfWH = imgWidth / imgHeight
+                // 压缩率
+                let compressionRation = imgKB / uploadImageByte
+                // 宽度或高度的压缩率
+                let widthOrHeightPressRation = sqrt(compressionRation)
                 
-            } else if let imgData = newImage.jpegData(compressionQuality: 0.9) {
+                var dWidth = imgWidth * widthOrHeightPressRation
+                var dHeight = imgHeight * widthOrHeightPressRation
+                if ratioOfWH > 0 {
+                    dHeight = dWidth / ratioOfWH
+                } else {
+                    dWidth = dHeight * ratioOfWH
+                }
+                cropImg = self.drawWithImage(width: dWidth, height: dHeight)
+                uploadImageData = cropImg.pngData() ?? Data()
+                debugPrint("尺寸压缩后大小是:\(CGFloat(uploadImageData.count) / 1024.0)")
                 
-                var imageData: Data = imgData
-                var sizeOriginKB : CGFloat = CGFloat(imageData.count) / 1024.0;
-                //调整大小
-                var resizeRate: CGFloat = 0.6;
-                
-                while (sizeOriginKB > maxSize && resizeRate > 0.0) {
+                var compressCount: Int = 0
+                while abs(CGFloat(uploadImageData.count) - imgKB) > 1024.0 {
                     
-                    if let newData = newImage.jpegData(compressionQuality: resizeRate) {
-                        
-                        imageData = newData
-                        sizeOriginKB = CGFloat(imageData.count) / 1024.0
-                        resizeRate -= 0.02
+                    let nextPressRation: CGFloat = 0.9
+                    if CGFloat(uploadImageData.count) > imgKB {
+                        dWidth = dWidth * nextPressRation
+                        dHeight = dHeight * nextPressRation
+                    } else {
+                        dWidth = dWidth / nextPressRation
+                        dHeight = dHeight / nextPressRation
+                    }
+                    cropImg = self.drawWithImage(width: dWidth, height: dHeight)
+                    uploadImageData = cropImg.pngData() ?? Data()
+                    
+                    compressCount += 1
+                    if compressCount == 10 {
+                        break ;
                     }
                 }
-                debugPrint("图片压缩大小为:\(sizeOriginKB)")
-                return imageData
+                debugPrint("压缩后大小是:\(CGFloat(uploadImageData.count) / 1024.0)")
+                cropImg = UIImage.init(data: uploadImageData)
+                DispatchQueue.main.async {
+                    block?(cropImg)
+                }
+            }
+        } else {
+            DispatchQueue.main.async {
+                block?(cropImg)
             }
         }
-        return nil
+    }
+    
+    /// 重绘
+    private func drawWithImage(width: CGFloat, height: CGFloat) -> UIImage {
+        
+        UIGraphicsBeginImageContext(CGSize.init(width: width, height: height))
+        self.draw(in: CGRect.init(x: 0.0, y: 0.0, width: width, height: height))
+        let newImg = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImg ?? self
     }
 }
