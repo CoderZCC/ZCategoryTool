@@ -31,7 +31,7 @@ extension UIImage {
         return img
     }
     
-    /// 重新布局图片
+    /// 重新布局图片, 会被挤扁
     ///
     /// - Parameter newSize: 新尺寸
     /// - Returns: 新图片
@@ -54,6 +54,15 @@ extension UIImage {
             return resized ?? self
         }
         return self
+    }
+    
+    /// 等比压缩，然后裁剪为想要的尺寸
+    ///
+    /// - Parameter newSize: 尺寸
+    /// - Returns: 新图
+    public func k_scaleSquareImage(newSize: CGSize) -> UIImage? {
+        let asecptImg = self.k_cropImageWith(newSize: newSize)
+        return asecptImg.k_resizeImage(with: newSize)
     }
     
     /// 以图片中心为中心，以最小边为边长，裁剪正方形图片
@@ -175,97 +184,131 @@ extension UIImage {
         return result ?? self
     }
     
-    /// 压缩图片kb大小
+    // MARK: - 降低质量
+    /// 压缩图片
     ///
     /// - Parameters:
-    ///   - newSize: 压缩完后图片的新尺寸(中心裁剪), 默认为原图
-    ///   - imgKB: 压缩完后图片的新大小 kb单位
-    ///   - block: 回调
-    public func k_compressImage(newSize: CGSize? = nil, imgKB: CGFloat, block: ((UIImage)->Void)?) {
+    ///   - size: 新尺寸
+    ///   - maxSize: 最大kb
+    /// - Returns: 数据流
+    public func k_compressImage(size: CGSize? = nil, maxSize: Int) -> Data? {
         
-        var cropImg: UIImage!
-        // 先裁剪为想要的尺寸
-        if let newSize = newSize, newSize != CGSize.zero {
-            cropImg = self.k_cropImageWith(newSize: newSize)
+        var cropImage: UIImage!
+        if let size = size, size != CGSize.zero {
+            cropImage = self.k_scaleSquareImage(newSize: size)
         } else {
-            cropImg = self
+            cropImage = self
         }
-        if imgKB <= 0.0 {
-            DispatchQueue.main.async {
-                block?(cropImg)
+        //先判断当前质量是否满足要求，不满足再进行压缩
+        var finallImageData = cropImage.jpegData(compressionQuality: 1.0)
+        guard let sizeOrigin = finallImageData?.count else { return nil }
+        let sizeOriginKB = sizeOrigin / 1024
+        if sizeOriginKB <= maxSize {
+            return finallImageData
+        }
+        
+        //获取原图片宽高比
+        let sourceImageAspectRatio = cropImage.size.width/cropImage.size.height
+        //先调整分辨率
+        var defaultSize = size ?? CGSize(width: 500, height: 500/sourceImageAspectRatio)
+        var newImage: UIImage!
+        if size == nil {
+            newImage = cropImage.newSizeImage(size: defaultSize)
+        } else {
+            newImage = cropImage
+        }
+        
+        finallImageData = newImage.jpegData(compressionQuality: 1.0)
+        
+        //保存压缩系数
+        let compressionQualityArr = NSMutableArray()
+        let avg = CGFloat(1.0/250)
+        var value = avg
+        
+        var i = 250
+        repeat {
+            i -= 1
+            value = CGFloat(i)*avg
+            compressionQualityArr.add(value)
+        } while i >= 1
+        
+        /*
+         调整大小
+         说明：压缩系数数组compressionQualityArr是从大到小存储。
+         */
+        //思路：使用二分法搜索
+        finallImageData = newImage.halfFuntion(arr: compressionQualityArr.copy() as! [CGFloat], sourceData: finallImageData!, maxSize: maxSize)
+        //如果还是未能压缩到指定大小，则进行降分辨率
+        while finallImageData?.count == 0 {
+            //每次降100分辨率
+            let reduceWidth = 100.0
+            let reduceHeight = 100.0/sourceImageAspectRatio
+            if (defaultSize.width-CGFloat(reduceWidth)) <= 0 || (defaultSize.height-CGFloat(reduceHeight)) <= 0 {
+                break
             }
-            return
-        }
-        
-        var uploadImageData: Data = cropImg.pngData() ?? Data()
-        let uploadImageByte: CGFloat = CGFloat(uploadImageData.count) / 1024.0
-        debugPrint("压缩前的大小:\(uploadImageByte)")
-        let imgWidth: CGFloat = self.size.width * self.scale
-        let imgHeight: CGFloat = self.size.height * self.scale
-        
-        if uploadImageByte > imgKB {
+            defaultSize = CGSize(width: (defaultSize.width-CGFloat(reduceWidth)), height: (defaultSize.height-CGFloat(reduceHeight)))
+            let image = UIImage.init(data: newImage.jpegData(compressionQuality: compressionQualityArr.lastObject as! CGFloat)!)!.newSizeImage(size: defaultSize)
             
-            // 提交到子线程
-            DispatchQueue.global().async {
-                
-                // 宽高比例
-                let ratioOfWH = imgWidth / imgHeight
-                // 压缩率
-                let compressionRation = imgKB / uploadImageByte
-                // 宽度或高度的压缩率
-                let widthOrHeightPressRation = sqrt(compressionRation)
-                
-                var dWidth = imgWidth * widthOrHeightPressRation
-                var dHeight = imgHeight * widthOrHeightPressRation
-                if ratioOfWH > 0 {
-                    dHeight = dWidth / ratioOfWH
-                } else {
-                    dWidth = dHeight * ratioOfWH
-                }
-                cropImg = self.drawWithImage(width: dWidth, height: dHeight)
-                uploadImageData = cropImg.pngData() ?? Data()
-                debugPrint("尺寸压缩后大小是:\(CGFloat(uploadImageData.count) / 1024.0)")
-                
-                var compressCount: Int = 0
-                while abs(CGFloat(uploadImageData.count) - imgKB) > 1024.0 {
-                    
-                    let nextPressRation: CGFloat = 0.9
-                    if CGFloat(uploadImageData.count) > imgKB {
-                        dWidth = dWidth * nextPressRation
-                        dHeight = dHeight * nextPressRation
-                    } else {
-                        dWidth = dWidth / nextPressRation
-                        dHeight = dHeight / nextPressRation
-                    }
-                    cropImg = self.drawWithImage(width: dWidth, height: dHeight)
-                    uploadImageData = cropImg.pngData() ?? Data()
-                    
-                    compressCount += 1
-                    if compressCount == 10 {
-                        break ;
-                    }
-                }
-                debugPrint("压缩后大小是:\(CGFloat(uploadImageData.count) / 1024.0)")
-                cropImg = UIImage.init(data: uploadImageData)
-                DispatchQueue.main.async {
-                    block?(cropImg)
-                }
-            }
-        } else {
-            DispatchQueue.main.async {
-                block?(cropImg)
-            }
+            finallImageData = image.halfFuntion(arr: compressionQualityArr.copy() as! [CGFloat], sourceData: image.jpegData(compressionQuality: 1.0)!, maxSize: maxSize)
         }
+        
+        return finallImageData
     }
     
-    /// 重绘
-    private func drawWithImage(width: CGFloat, height: CGFloat) -> UIImage {
+    // MARK: - 调整图片分辨率/尺寸（等比例缩放）
+    private func newSizeImage(size: CGSize) -> UIImage {
+        var newSize = CGSize(width: self.size.width, height: self.size.height)
+        let tempHeight = newSize.height / size.height
+        let tempWidth = newSize.width / size.width
         
-        UIGraphicsBeginImageContext(CGSize.init(width: width, height: height))
-        self.draw(in: CGRect.init(x: 0.0, y: 0.0, width: width, height: height))
-        let newImg = UIGraphicsGetImageFromCurrentImageContext()
+        if tempWidth > 1.0 && tempWidth > tempHeight {
+            newSize = CGSize(width: self.size.width / tempWidth, height: self.size.height / tempWidth)
+        } else if tempHeight > 1.0 && tempWidth < tempHeight {
+            newSize = CGSize(width: self.size.width / tempHeight, height: self.size.height / tempHeight)
+        }
+        
+        UIGraphicsBeginImageContext(newSize)
+        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        return newImage!
+    }
+    
+    // MARK: - 二分法
+    private func halfFuntion(arr: [CGFloat], sourceData finallImageData: Data, maxSize: Int) -> Data? {
+        var tempFinallImageData = finallImageData
         
-        return newImg ?? self
+        var tempData = Data.init()
+        var start = 0
+        var end = arr.count - 1
+        var index = 0
+        
+        var difference = Int.max
+        while start <= end {
+            index = start + (end - start)/2
+            
+            tempFinallImageData = self.jpegData(compressionQuality: arr[index])!
+            
+            let sizeOrigin = tempFinallImageData.count
+            let sizeOriginKB = sizeOrigin / 1024
+            
+            print("当前降到的质量：\(sizeOriginKB)\n\(index)----\(arr[index])")
+            
+            if sizeOriginKB > maxSize {
+                start = index + 1
+            } else if sizeOriginKB < maxSize {
+                if maxSize-sizeOriginKB < difference {
+                    difference = maxSize-sizeOriginKB
+                    tempData = tempFinallImageData
+                }
+                if index<=0 {
+                    break
+                }
+                end = index - 1
+            } else {
+                break
+            }
+        }
+        return tempData
     }
 }
