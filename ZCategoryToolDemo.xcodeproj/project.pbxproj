@@ -30,6 +30,7 @@
 		F012BDE9221506AC00E261E4 /* UIScrollView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */; };
 		F012BDEB2215072100E261E4 /* DataMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = F012BDEA2215072100E261E4 /* DataMacro.swift */; };
 		F0DDD474221D51A500978D6D /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DDD473221D51A500978D6D /* UILabel+Ext.swift */; };
+		F0E81F0F222536F100FD04E4 /* UITextView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E81F0E222536F100FD04E4 /* UITextView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Ext.swift"; sourceTree = "<group>"; };
 		F012BDEA2215072100E261E4 /* DataMacro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMacro.swift; sourceTree = "<group>"; };
 		F0DDD473221D51A500978D6D /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
+		F0E81F0E222536F100FD04E4 /* UITextView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */,
 				F0056FDC221152E700838891 /* UITableView+Ext.swift */,
 				F0056FD62211472900838891 /* UITextField+Ext.swift */,
+				F0E81F0E222536F100FD04E4 /* UITextView+Ext.swift */,
 				F0056FD42211471D00838891 /* UIView+Ext.swift */,
 				F0056FDA2211488500838891 /* UIViewController+Ext.swift */,
 				F0DDD473221D51A500978D6D /* UILabel+Ext.swift */,
@@ -207,6 +210,7 @@
 				F0056FD92211481000838891 /* String+Ext.swift in Sources */,
 				F0056FCD2211467800838891 /* UIButton+Ext.swift in Sources */,
 				F012BDE9221506AC00E261E4 /* UIScrollView+Ext.swift in Sources */,
+				F0E81F0F222536F100FD04E4 /* UITextView+Ext.swift in Sources */,
 				F012BDEB2215072100E261E4 /* DataMacro.swift in Sources */,
 				F0056F8E2211286800838891 /* AppDelegate.swift in Sources */,
 				F0056FD72211472A00838891 /* UITextField+Ext.swift in Sources */,

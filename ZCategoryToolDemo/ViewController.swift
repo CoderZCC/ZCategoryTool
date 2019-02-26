@@ -14,20 +14,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.lightGray
-        self.view.addSubview(self.imgV)
+        self.view.addSubview(self.textView)
     }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    lazy var textView: UITextView = {
+        let textView = UITextView.init(frame: CGRect(x: 20.0, y: 34.0, width: kWidth - 40.0, height: 150.0))
+        textView.font = UIFont.systemFont(ofSize: 14.0)
+        textView.k_placeholder = "请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写"
+        textView.k_placeholderColor = UIColor.red
         
-        let img = UIImage.init(named: "img")?.k_compressImage(size: CGSize.init(width: 100.0, height: 100.0), maxSize: 20)
-        
-        self.imgV.image = UIImage.init(data: img!)
-    }
-
-    lazy var imgV: UIImageView = {
-        let imgV = UIImageView.init(frame: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0))
-        imgV.center = self.view.center
-        
-        return imgV
+        return textView
     }()
 }

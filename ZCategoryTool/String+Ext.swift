@@ -55,29 +55,6 @@ extension String {
         return URL(string: self)
     }
     
-    /// 按字节数裁剪 先把字节数转为字数,在进行裁剪
-    ///
-    /// - Parameter maxCount: 最大字节数
-    /// - Returns: 裁剪的字符串
-    public func k_subTextByByte(to maxCount: Int) -> String {
-        
-        var newStr: String = ""
-        var clipCount: Int = 0
-        for (index, chara) in self.enumerated() {
-            // 单个字的字节数
-            let signalCount = String(chara).byteCount
-            clipCount += signalCount
-            if clipCount > maxCount {
-                newStr = self.k_subText(to: index - 1)
-                break
-            } else if clipCount == maxCount {
-                newStr = self.k_subText(to: index)
-                break
-            }
-        }
-        return newStr
-    }
-    
     //MARK: 裁剪字符串
     /// 裁剪字符串
     ///
