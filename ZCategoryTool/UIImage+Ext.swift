@@ -40,8 +40,8 @@ extension UIImage {
         let newWidth = newSize.width
         let newHeight = newSize.height
         
-        let width = self.size.width
-        let height = self.size.height
+        let width = self.size.width * self.scale
+        let height = self.size.height * self.scale
         
         if (width != newWidth) || (height != newHeight) {
             
