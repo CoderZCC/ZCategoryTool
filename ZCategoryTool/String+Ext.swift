@@ -11,6 +11,25 @@ import UIKit
 //MARK: 字符串相关
 extension String {
     
+    /// MD5加密 32位小写
+    ///
+    /// - Returns: 加密
+    public func k_toMD5Str() -> String {
+        
+        let cStrl = cString(using: String.Encoding.utf8)
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
+        CC_MD5(cStrl, CC_LONG(strlen(cStrl!)), buffer)
+        var md5String = "";
+        for idx in 0...15 {
+            
+            let obcStrl = String.init(format: "%02x", buffer[idx])
+            md5String.append(obcStrl)
+        }
+        free(buffer)
+        
+        return md5String
+    }
+    
     /// 手机号保护, 前三位展示,后四位 *(不足为 * )
     public var securePhoneStr: String {
         if self.k_isEmpty {
