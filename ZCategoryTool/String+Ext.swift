@@ -11,6 +11,16 @@ import UIKit
 //MARK: 字符串相关
 extension String {
     
+    /// 字符串格式化所有参数 [key: value]
+    public var k_paramaters: [String: String] {
+        var dic: [String: String] = [:]
+        let urlComponents = URLComponents.init(string: self)
+        for obj in urlComponents?.queryItems ?? [] {
+            dic[obj.name] = obj.value ?? ""
+        }
+        return dic
+    }
+    
     /// MD5加密 32位小写
     ///
     /// - Returns: 加密

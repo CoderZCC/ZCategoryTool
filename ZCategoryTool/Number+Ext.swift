@@ -14,30 +14,20 @@ extension Int {
     ///
     /// - Returns: 时间
     public func k_toHMS() -> String {
-        let nd = 24.0 * 60.0 * 60.0
-        let nh = 60.0 * 60.0
-        let nm = 60.0
-        
-        let doubleValue = Double(self)
         var newStr: String = "PT"
         
-        let hour = Int(doubleValue.truncatingRemainder(dividingBy: nd) / nh)
-        let min = Int(doubleValue.truncatingRemainder(dividingBy: nd).truncatingRemainder(dividingBy: nh) / nm)
-        let sec = Int(doubleValue.truncatingRemainder(dividingBy: nd).truncatingRemainder(dividingBy: nh).truncatingRemainder(dividingBy: nm))
-        
+        let hour = self / 3600
+        let min = (self % 3600) / 60
+        let sec = self % 60
         if hour != 0 {
-            
             newStr += "\(hour)H"
         }
         if min != 0 {
-            
             newStr += "\(min)M"
         }
         if sec != 0 {
-            
             newStr += "\(sec)S"
         }
-        
         return newStr
     }
 }
