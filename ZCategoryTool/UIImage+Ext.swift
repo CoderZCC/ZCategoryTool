@@ -312,3 +312,36 @@ extension UIImage {
         return tempData
     }
 }
+
+extension UIImage {
+    
+    //MARK: - ciImage生成高清的UIImage
+    /// ciImage生成高清图
+    ///
+    /// - Parameter size: 尺寸 eg: 300
+    /// - Returns: 新图
+    public func k_createHighDefinitionImage(size: CGFloat? = nil) -> UIImage? {
+        
+        guard let image = self.ciImage else { return self }
+        let newSize: CGFloat = size ?? self.size.width
+        let integral: CGRect = image.extent.integral
+        let proportion: CGFloat = min(newSize / integral.width, newSize / integral.height)
+        
+        let width = integral.width * proportion
+        let height = integral.height * proportion
+        let colorSpace: CGColorSpace = CGColorSpaceCreateDeviceGray()
+        let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: 0)!
+        
+        let context = CIContext(options: nil)
+        if let bitmapImage: CGImage = context.createCGImage(image, from: integral) {
+            bitmapRef.interpolationQuality = CGInterpolationQuality.none
+            bitmapRef.scaleBy(x: proportion, y: proportion);
+            bitmapRef.draw(bitmapImage, in: integral);
+            if let image: CGImage = bitmapRef.makeImage() {
+                return UIImage(cgImage: image)
+            }
+            return self
+        }
+        return self
+    }
+}
