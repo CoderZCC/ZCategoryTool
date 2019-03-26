@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
 spec.name         = "ZCategoryTool"
-spec.version      = "1.1.4"
+spec.version      = "1.1.5"
 spec.summary      = "An Extension Tool for Swift."
 spec.description  = <<-DESC
                Tool Integration for Improving Development Efficiency.
@@ -14,6 +14,6 @@ spec.ios.deployment_target = "9.0"
 spec.source       = { :git => "https://github.com/CoderZCC/ZCategoryTool.git", :tag => "#{spec.version}" }
 spec.source_files  = "ZCategoryTool/**/*.{swift,h}"
 spec.requires_arc = true
-spec.swift_version = '5'
+spec.swift_version = '5.0'
 
 end
