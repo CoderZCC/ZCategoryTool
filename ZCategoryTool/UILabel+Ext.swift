@@ -26,7 +26,7 @@ extension UILabel {
         let baseLineOffset = (lineHeight - realyFont.lineHeight) / 4.0
         
         let attributeStr = NSMutableAttributedString.init(string: text)
-        attributeStr.setAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle, .baselineOffset: baseLineOffset, .font: realyFont, .foregroundColor: self.textColor], range: NSRange.init(location: 0, length: text.count))
+        attributeStr.setAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle, .baselineOffset: baseLineOffset, .font: realyFont, .foregroundColor: self.textColor ?? UIColor.black], range: NSRange.init(location: 0, length: text.count))
         
         self.attributedText = attributeStr
     }
