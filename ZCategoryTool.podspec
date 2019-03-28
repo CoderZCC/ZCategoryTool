@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.name         = "ZCategoryTool"
 
     s.source_files = "ZCategoryTool/**/*.{swift,h,m}"
-    s.source       = { :git => "https://github.com/CoderZCC/ZCategoryTool.git", :tag => "#{spec.version}" }
+    s.source       = { :git => "https://github.com/CoderZCC/ZCategoryTool.git", :tag => "#{s.version}" }
 
     s.summary      = "An Extension Tool for Swift."
     s.description  = "Tool Integration for Improving Development Efficiency."
