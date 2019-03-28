@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
     s.author       = { "ZCC" => "coderzcc@163.com" }
     s.license      = { :type => "MIT", :file => "LICENSE" }
     s.requires_arc = true
-    s.version      = "1.1.9"
+    s.version      = "1.2.0"
     s.homepage     = "https://github.com/CoderZCC/ZCategoryTool"
     s.name         = "ZCategoryTool"
 
@@ -14,5 +14,5 @@ Pod::Spec.new do |s|
 
     s.platform     = :ios
     s.ios.deployment_target = "9.0"
-    s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.0' }
+    s.swift_version = "5.0"
 end
