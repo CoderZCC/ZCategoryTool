@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		F0056F8E2211286800838891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056F8D2211286800838891 /* AppDelegate.swift */; };
 		F0056F902211286800838891 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056F8F2211286800838891 /* ViewController.swift */; };
-		F0056F932211286800838891 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0056F912211286800838891 /* Main.storyboard */; };
 		F0056F952211286900838891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0056F942211286900838891 /* Assets.xcassets */; };
-		F0056F982211286900838891 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0056F962211286900838891 /* LaunchScreen.storyboard */; };
 		F0056FA322112A4800838891 /* ZCategoryTool.podspec in Resources */ = {isa = PBXBuildFile; fileRef = F0056FA222112A4800838891 /* ZCategoryTool.podspec */; };
 		F0056FC3221145A400838891 /* AVPlayer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FC2221145A400838891 /* AVPlayer+Ext.swift */; };
 		F0056FC5221145BC00838891 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056FC4221145BC00838891 /* Date+Ext.swift */; };
@@ -37,9 +35,7 @@
 		F0056F8A2211286800838891 /* ZCategoryToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZCategoryToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0056F8D2211286800838891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0056F8F2211286800838891 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F0056F922211286800838891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F0056F942211286900838891 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F0056F972211286900838891 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0056F992211286900838891 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0056FA222112A4800838891 /* ZCategoryTool.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZCategoryTool.podspec; sourceTree = "<group>"; };
 		F0056FC2221145A400838891 /* AVPlayer+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Ext.swift"; sourceTree = "<group>"; };
@@ -97,9 +93,7 @@
 			children = (
 				F0056F8D2211286800838891 /* AppDelegate.swift */,
 				F0056F8F2211286800838891 /* ViewController.swift */,
-				F0056F912211286800838891 /* Main.storyboard */,
 				F0056F942211286900838891 /* Assets.xcassets */,
-				F0056F962211286900838891 /* LaunchScreen.storyboard */,
 				F0056F992211286900838891 /* Info.plist */,
 			);
 			path = ZCategoryToolDemo;
@@ -190,9 +184,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0056F982211286900838891 /* LaunchScreen.storyboard in Resources */,
 				F0056F952211286900838891 /* Assets.xcassets in Resources */,
-				F0056F932211286800838891 /* Main.storyboard in Resources */,
 				F0056FA322112A4800838891 /* ZCategoryTool.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,25 +220,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F0056F912211286800838891 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F0056F922211286800838891 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F0056F962211286900838891 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F0056F972211286900838891 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F0056F9A2211286900838891 /* Debug */ = {
@@ -375,7 +348,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J6VFVU93Z9;
 				INFOPLIST_FILE = ZCategoryToolDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -397,7 +370,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J6VFVU93Z9;
 				INFOPLIST_FILE = ZCategoryToolDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
