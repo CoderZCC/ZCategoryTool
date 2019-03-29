@@ -125,11 +125,8 @@ extension String {
     public func k_replaceStr(range: NSRange, replaceStr: String) -> String {
         var newStr: String = self
         if let range = Range.init(range, in: self) {
-            
             newStr.replaceSubrange(range, with: replaceStr)
-            
         } else {
-            
             debugPrint("范围不正确")
         }
         return newStr
@@ -233,7 +230,7 @@ extension String {
         }
         return "刚刚"
     }
-  
+    
     //MARK: caches路径
     /// caches路径
     public static var k_cachesPath: String {
@@ -260,7 +257,7 @@ extension String {
     ///
     /// - Returns: Int
     public func k_toInt() -> Int? {
-
+        
         return Int(self)
     }
     
@@ -283,9 +280,7 @@ extension String {
         
         if let regex = try? NSRegularExpression(pattern: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", options: .caseInsensitive) {
             
-            let arr = regex.matches(in: self, options: .reportProgress, range: NSRange(location: 0, length: self.count))
-            
-            return arr.isEmpty
+            return regex.matches(in: self, options: .reportProgress, range: NSRange(location: 0, length: self.count)).isEmpty
         }
         return false
     }
@@ -298,9 +293,7 @@ extension String {
         if self.k_containsEmoij() {
             
             let regex = try! NSRegularExpression.init(pattern: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", options: .caseInsensitive)
-            let changeStr = regex.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: self.count), withTemplate: "")
-            
-            return changeStr
+            return regex.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: self.count), withTemplate: "")
         }
         return self
     }
@@ -309,13 +302,8 @@ extension String {
     ///
     /// - Returns: 是否
     public var k_isEmpty: Bool {
-        if self.isEmpty {
-            return true
-        }
-        let set = CharacterSet.whitespacesAndNewlines
-        let trimedStr = self.trimmingCharacters(in: set)
-        
-        return trimedStr.isEmpty
+        if self.isEmpty { return true }
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty
     }
     
     /// 是否符合邮箱规则
@@ -330,7 +318,7 @@ extension String {
         /// @只出现一次,包含@,不是空格, 并且不包含汉字
         return count == 1 && self.contains("@") && !self.k_isEmpty && !self.k_isHasChinese
     }
-
+    
     /// 是否包含汉字
     public var k_isHasChinese: Bool {
         for chara in self {
@@ -343,7 +331,7 @@ extension String {
     
     /// 是否符合手机号码规则
     public var k_isPhoneNum: Bool {
-
+        
         // 全是数字, 不是空格
         return !self.k_isEmpty && self.trimmingCharacters(in: CharacterSet.decimalDigits).count == 0 && !self.k_isHasChinese
     }
@@ -352,7 +340,7 @@ extension String {
     public var k_isPassword: Bool {
         return self.k_isCorrect("^[^\\u4E00-\\u9FA5\\uF900-\\uFA2D\\u0020]{6,16}")
     }
-        
+    
     /// 是否符合身份证规则
     public var k_isIdCard: Bool {
         
@@ -362,7 +350,7 @@ extension String {
     /// 格式是否正确
     private func k_isCorrect(_ str: String) -> Bool {
         let correct = NSPredicate(format: "SELF MATCHES %@", str)
-       
+        
         return correct.evaluate(with: self)
     }
 }
@@ -375,14 +363,10 @@ extension String {
     public func k_jsonStrToObject() -> Any? {
         
         if self.k_isEmpty {
-            
             return nil
         }
         if let data = self.data(using: String.Encoding.utf8) {
-            
-            let arr = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
-            
-            return arr
+            return try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
         }
         return nil
     }
@@ -396,7 +380,6 @@ extension Collection {
     public func k_toJsonStr() -> String? {
         
         if let data = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) {
-            
             return String.init(data: data, encoding: String.Encoding.utf8)
         }
         return nil
@@ -438,10 +421,8 @@ extension String {
         CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
         //去掉拼音的音标
         CFStringTransform(mutableString, nil, kCFStringTransformStripDiacritics, false)
-        let string = String(mutableString)
-       
         //去掉空格
-        return string.replacingOccurrences(of: " ", with: "")
+        return String(mutableString).replacingOccurrences(of: " ", with: "")
     }
 }
 
@@ -538,3 +519,4 @@ extension String {
         return newImg
     }
 }
+
