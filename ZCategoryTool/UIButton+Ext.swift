@@ -8,8 +8,6 @@
 
 import UIKit
 
-private var kUIButtonClickKey: Int = 0
-
 extension UIButton {
     
     //MARK: UIButton添加点击事件
@@ -20,12 +18,12 @@ extension UIButton {
     ///   - block: 回调
     public func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
         
-        objc_setAssociatedObject(self, &kUIButtonClickKey, block, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        k_setAssociatedObject(key: "kUIButtonClickKey", value: block)
         self.addTarget(self, action: #selector(k_btnAction), for: events)
     }
     @objc private func k_btnAction() {
         
-        if let block = objc_getAssociatedObject(self, &kUIButtonClickKey) as? ()->Void {
+        if let block = k_getAssociatedObject(key: "kUIButtonClickKey") as? ()->Void {
             DispatchQueue.main.async {
                 block()
             }

@@ -8,17 +8,14 @@
 
 import UIKit
 
-private var kTimerKey: Int = 0
-
 extension NSObject {
     
     /// 存储定时器使用
     fileprivate var k_timers: [String: DispatchSourceTimer?]? {
-        
         set {
-            objc_setAssociatedObject(self, &kTimerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            k_setAssociatedObject(key: "k_timers", value: newValue)
         }
-        get { return objc_getAssociatedObject(self, &kTimerKey) as? [String: DispatchSourceTimer?] }
+        get { return k_getAssociatedObject(key: "k_timers") as? [String: DispatchSourceTimer?] }
     }
     
     //MARK: 启动定时器

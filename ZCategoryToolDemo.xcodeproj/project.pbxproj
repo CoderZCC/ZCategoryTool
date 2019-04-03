@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51E59BD422545B1500AF145C /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E59BD322545B1500AF145C /* NSObject+Ext.swift */; };
 		F0056F8E2211286800838891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056F8D2211286800838891 /* AppDelegate.swift */; };
 		F0056F902211286800838891 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056F8F2211286800838891 /* ViewController.swift */; };
 		F0056F952211286900838891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0056F942211286900838891 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51E59BD322545B1500AF145C /* NSObject+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Ext.swift"; sourceTree = "<group>"; };
 		F0056F8A2211286800838891 /* ZCategoryToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZCategoryToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0056F8D2211286800838891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0056F8F2211286800838891 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -102,10 +104,11 @@
 		F0056F9F2211293C00838891 /* ZCategoryTool */ = {
 			isa = PBXGroup;
 			children = (
-				F012BDEA2215072100E261E4 /* DataMacro.swift */,
 				F0056FC2221145A400838891 /* AVPlayer+Ext.swift */,
+				F012BDEA2215072100E261E4 /* DataMacro.swift */,
 				F0056FC4221145BC00838891 /* Date+Ext.swift */,
 				F0056FC6221145C400838891 /* DispatchQueue+Ext.swift */,
+				51E59BD322545B1500AF145C /* NSObject+Ext.swift */,
 				F0056FC82211463400838891 /* Number+Ext.swift */,
 				F0056FD82211481000838891 /* String+Ext.swift */,
 				F0056FCA2211464C00838891 /* Timer+Ext.swift */,
@@ -113,13 +116,13 @@
 				F0056FCE2211470D00838891 /* UIColor+Ext.swift */,
 				F0056FDE2211530B00838891 /* UIIImageView+Ext.swift */,
 				F0056FD02211471200838891 /* UIImage+Ext.swift */,
+				F0DDD473221D51A500978D6D /* UILabel+Ext.swift */,
 				F012BDE8221506AC00E261E4 /* UIScrollView+Ext.swift */,
 				F0056FDC221152E700838891 /* UITableView+Ext.swift */,
 				F0056FD62211472900838891 /* UITextField+Ext.swift */,
 				F0E81F0E222536F100FD04E4 /* UITextView+Ext.swift */,
 				F0056FD42211471D00838891 /* UIView+Ext.swift */,
 				F0056FDA2211488500838891 /* UIViewController+Ext.swift */,
-				F0DDD473221D51A500978D6D /* UILabel+Ext.swift */,
 				F032371122293D75000EB6B2 /* ZCategoryToolDemo-Bridging-Header.h */,
 			);
 			path = ZCategoryTool;
@@ -207,6 +210,7 @@
 				F012BDE9221506AC00E261E4 /* UIScrollView+Ext.swift in Sources */,
 				F0E81F0F222536F100FD04E4 /* UITextView+Ext.swift in Sources */,
 				F012BDEB2215072100E261E4 /* DataMacro.swift in Sources */,
+				51E59BD422545B1500AF145C /* NSObject+Ext.swift in Sources */,
 				F0056F8E2211286800838891 /* AppDelegate.swift in Sources */,
 				F0056FD72211472A00838891 /* UITextField+Ext.swift in Sources */,
 				F0056FD12211471200838891 /* UIImage+Ext.swift in Sources */,

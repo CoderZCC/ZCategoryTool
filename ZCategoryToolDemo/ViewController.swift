@@ -14,15 +14,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.lightGray
-        self.view.addSubview(self.textView)
-    }
-    
-    lazy var textView: UITextView = {
-        let textView = UITextView.init(frame: CGRect(x: 20.0, y: 34.0, width: kWidth - 40.0, height: 150.0))
-        textView.font = UIFont.systemFont(ofSize: 14.0)
-        textView.k_placeholder = "请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写请填写"
-        textView.k_placeholderColor = UIColor.red
+
+        let btn = UIButton.init(type: UIButton.ButtonType.contactAdd)
+        btn.center = self.view.center
+        btn.sizeToFit()
+        btn.k_addTarget {
         
-        return textView
-    }()
+            print("aaa")
+        }
+        
+        self.view.addSubview(btn)
+        
+    }
 }

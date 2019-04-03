@@ -95,8 +95,6 @@ extension UIView {
     }
 }
 
-var k_UIViewClickActionKey: Int = 0
-
 extension UIView {
     
     //MARK: 设置为圆形控件
@@ -163,8 +161,7 @@ extension UIView {
     /// - Parameter clickAction: 点击回调
     public func k_addTarget(_ clickAction: ((UIGestureRecognizer)->Void)?) {
         
-        objc_setAssociatedObject(self, &k_UIViewClickActionKey, clickAction, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        
+        k_setAssociatedObject(key: "k_UIViewClickActionKey", value: clickAction)
         self.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(k_tapAction))
         self.addGestureRecognizer(tap)
@@ -175,8 +172,7 @@ extension UIView {
     /// - Parameter clickAction: 点击回调
     public func k_addLongPressTarget(_ clickAction: ((UIGestureRecognizer)->Void)?) {
         
-        objc_setAssociatedObject(self, &k_UIViewClickActionKey, clickAction, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        
+        k_setAssociatedObject(key: "k_UIViewClickActionKey", value: clickAction)
         self.isUserInteractionEnabled = true
         let tap = UILongPressGestureRecognizer.init(target: self, action: #selector(k_tapAction))
         tap.minimumPressDuration = 0.5
@@ -185,9 +181,8 @@ extension UIView {
     
     /// UIView点击事件
     @objc private func k_tapAction(tap: UIGestureRecognizer) {
-        
         DispatchQueue.main.async {
-            (objc_getAssociatedObject(self, &k_UIViewClickActionKey) as! ((UIGestureRecognizer)->Void)?)?(tap)
+            (self.k_getAssociatedObject(key: "k_UIViewClickActionKey") as? ((UIGestureRecognizer)->Void))?(tap)
         }
     }
     

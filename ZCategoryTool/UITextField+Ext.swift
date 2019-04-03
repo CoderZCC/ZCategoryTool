@@ -8,8 +8,6 @@
 
 import UIKit
 
-private var kUITextFieldLimitTextLengthKey: Int = 0
-
 extension UITextField {
     
     /// 占位文字颜色
@@ -23,14 +21,14 @@ extension UITextField {
     /// 最大文字长度
     public var k_limitTextLength: Int? {
         set {
-            objc_setAssociatedObject(self, &kUITextFieldLimitTextLengthKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            k_setAssociatedObject(key: "kUITextFieldLimitTextLengthKey", value: newValue)
             NotificationCenter.default.removeObserver(self)
             if (newValue ?? 0) > 0 {
                 NotificationCenter.default.addObserver(self, selector: #selector(_textFieldChangeAction), name: UITextField.textDidChangeNotification, object: nil)
             }
         }
         get {
-            return objc_getAssociatedObject(self, &kUITextFieldLimitTextLengthKey) as? Int
+            return k_getAssociatedObject(key: "kUITextFieldLimitTextLengthKey") as? Int
         }
     }
     
