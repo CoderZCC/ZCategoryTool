@@ -89,18 +89,15 @@ extension UIButton {
     }
 }
 
-private var kUIButtonDelayKey: Int = 1
-private var kUIButtonDelayDurationKey: Int = 2
-
 /// 延迟调用,防止多次调用
 extension UIControl {
     
     /// 延迟时间
     public var k_delayDuration: Double? {
         set {
-            objc_setAssociatedObject(self, &kUIButtonDelayDurationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            k_setAssociatedObject(key: "kUIButtonDelayDurationKey", value: newValue)
         }
-        get { return objc_getAssociatedObject(self, &kUIButtonDelayDurationKey) as? Double }
+        get { return k_getAssociatedObject(key: "kUIButtonDelayDurationKey") as? Double }
     }
     
     /// 替换点击方法
@@ -117,9 +114,9 @@ extension UIControl {
     /// 按钮是否可用
     private var isBtnActionEnabled: Bool {
         set {
-            objc_setAssociatedObject(self, &kUIButtonDelayKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            k_setAssociatedObject(key: "kUIButtonDelayKey", value: newValue)
         }
-        get { return (objc_getAssociatedObject(self, &kUIButtonDelayKey) as? Bool) ?? true }
+        get { return (k_getAssociatedObject(key: "kUIButtonDelayKey") as? Bool) ?? true }
     }
     
     /// 发送事件
