@@ -31,7 +31,6 @@ extension String {
         CC_MD5(cStrl, CC_LONG(strlen(cStrl!)), buffer)
         var md5String = "";
         for idx in 0...15 {
-            
             let obcStrl = String.init(format: "%02x", buffer[idx])
             md5String.append(obcStrl)
         }
@@ -64,7 +63,6 @@ extension String {
     /// 获取GBK编码字节数 中文-2个 英文-1个
     public var byteCount: Int {
         let encoding = CFStringConvertEncodingToNSStringEncoding(UInt32(CFStringEncodings.GB_18030_2000.rawValue))
-        
         return self.lengthOfBytes(using: String.Encoding(rawValue: encoding))
     }
     
@@ -349,9 +347,8 @@ extension String {
     
     /// 格式是否正确
     private func k_isCorrect(_ str: String) -> Bool {
-        let correct = NSPredicate(format: "SELF MATCHES %@", str)
         
-        return correct.evaluate(with: self)
+        return NSPredicate(format: "SELF MATCHES %@", str).evaluate(with: self)
     }
 }
 
