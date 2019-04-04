@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
     s.description  = "Tool Integration for Improving Development Efficiency."
 
     s.platform     = :ios
-    s.ios.deployment_target = "8.0"
+    s.ios.deployment_target = "9.0"
     s.swift_version = "5.0"
 end
