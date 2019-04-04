@@ -17,7 +17,7 @@ extension NSObject {
     ///   - value: 保存的值
     public func k_setAssociatedObject(key: String, value: Any?) {
         guard let keyHashValue = UnsafeRawPointer(bitPattern: key.hashValue) else { return }
-        objc_setAssociatedObject(self, keyHashValue, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        objc_setAssociatedObject(self, keyHashValue, value, .OBJC_ASSOCIATION_RETAIN)
     }
     
     /// 获取属性值

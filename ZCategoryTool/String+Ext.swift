@@ -518,3 +518,91 @@ extension String {
         return newImg
     }
 }
+
+extension String {
+    
+    /// 生成二维码
+    ///
+    /// - Parameters:
+    ///   - centerImg: 中间的小图
+    ///   - block: 回调
+    public func k_createQRCode(centerImg: UIImage?, block: ((UIImage?)->Void)?) {
+        
+        if self.k_isEmpty {
+            DispatchQueue.main.async {
+                block?(nil)
+            }
+            return
+        }
+        let filter = CIFilter.init(name: "CIQRCodeGenerator")
+        filter?.setDefaults()
+        filter?.setValue(self.data(using: String.Encoding.utf8, allowLossyConversion: true), forKey: "inputMessage")
+        if let image = filter?.outputImage {
+            let size: CGFloat = 300.0
+            
+            let integral: CGRect = image.extent.integral
+            let proportion: CGFloat = min(size/integral.width, size/integral.height)
+            
+            let width = integral.width * proportion
+            let height = integral.height * proportion
+            let colorSpace: CGColorSpace = CGColorSpaceCreateDeviceGray()
+            let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: 0)!
+            
+            let context = CIContext(options: nil)
+            if let bitmapImage: CGImage = context.createCGImage(image, from: integral) {
+                bitmapRef.interpolationQuality = CGInterpolationQuality.none
+                bitmapRef.scaleBy(x: proportion, y: proportion);
+                bitmapRef.draw(bitmapImage, in: integral);
+                if let image: CGImage = bitmapRef.makeImage() {
+                    var qrCodeImage = UIImage(cgImage: image)
+                    if let centerImg = centerImg {
+                        // 图片拼接
+                        UIGraphicsBeginImageContextWithOptions(qrCodeImage.size, false, UIScreen.main.scale)
+                        qrCodeImage.draw(in: CGRect(x: 0.0, y: 0.0, width: qrCodeImage.size.width, height: qrCodeImage.size.height))
+                        centerImg.draw(in: CGRect(x: (qrCodeImage.size.width - 35.0) / 2.0, y: (qrCodeImage.size.height - 35.0) / 2.0, width: 35.0, height: 35.0))
+                        
+                        qrCodeImage = UIGraphicsGetImageFromCurrentImageContext() ?? qrCodeImage
+                        UIGraphicsEndImageContext()
+                        DispatchQueue.main.async {
+                            block?(qrCodeImage)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        block?(qrCodeImage)
+                    }
+                }
+                DispatchQueue.main.async {
+                    block?(nil)
+                }
+            }
+            DispatchQueue.main.async {
+                block?(nil)
+            }
+        }
+        DispatchQueue.main.async {
+            block?(nil)
+        }
+    }
+    
+    //MARK: - 生成高清的UIImage
+    private func setUpHighDefinitionImage(_ image: CIImage, size: CGFloat) -> UIImage? {
+        let integral: CGRect = image.extent.integral
+        let proportion: CGFloat = min(size/integral.width, size/integral.height)
+        
+        let width = integral.width * proportion
+        let height = integral.height * proportion
+        let colorSpace: CGColorSpace = CGColorSpaceCreateDeviceGray()
+        let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: 0)!
+        
+        let context = CIContext(options: nil)
+        let bitmapImage: CGImage = context.createCGImage(image, from: integral)!
+        
+        bitmapRef.interpolationQuality = CGInterpolationQuality.none
+        bitmapRef.scaleBy(x: proportion, y: proportion);
+        bitmapRef.draw(bitmapImage, in: integral);
+        if let image: CGImage = bitmapRef.makeImage() {
+            return UIImage(cgImage: image)
+        }
+        return nil
+    }
+}
