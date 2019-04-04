@@ -31,6 +31,7 @@ extension String {
         CC_MD5(cStrl, CC_LONG(strlen(cStrl!)), buffer)
         var md5String = "";
         for idx in 0...15 {
+            
             let obcStrl = String.init(format: "%02x", buffer[idx])
             md5String.append(obcStrl)
         }
@@ -63,6 +64,7 @@ extension String {
     /// 获取GBK编码字节数 中文-2个 英文-1个
     public var byteCount: Int {
         let encoding = CFStringConvertEncodingToNSStringEncoding(UInt32(CFStringEncodings.GB_18030_2000.rawValue))
+        
         return self.lengthOfBytes(using: String.Encoding(rawValue: encoding))
     }
     
@@ -123,8 +125,11 @@ extension String {
     public func k_replaceStr(range: NSRange, replaceStr: String) -> String {
         var newStr: String = self
         if let range = Range.init(range, in: self) {
+            
             newStr.replaceSubrange(range, with: replaceStr)
+            
         } else {
+            
             debugPrint("范围不正确")
         }
         return newStr
@@ -163,9 +168,8 @@ extension String {
         
         let fat = DateFormatter()
         fat.dateFormat = output
-        let date = Date.init(timeIntervalSince1970: doubleValue)
         
-        return fat.string(from: date)
+        return fat.string(from: Date.init(timeIntervalSince1970: doubleValue))
     }
     
     //MARK: 比较两个格式相同的时间大小
@@ -177,9 +181,8 @@ extension String {
         let resultDic: [ComparisonResult: Int] = [.orderedSame: 0, .orderedAscending: 1, .orderedDescending: 2]
         let t1 = self.k_toDate(formatter: formatter)
         let t2 = otherTime.k_toDate(formatter: formatter)
-        let result: ComparisonResult = t1.compare(t2)
         
-        return resultDic[result]!
+        return resultDic[t1.compare(t2)]!
     }
     
     //MARK: 指定时间转为特殊格式
@@ -300,7 +303,9 @@ extension String {
     ///
     /// - Returns: 是否
     public var k_isEmpty: Bool {
-        if self.isEmpty { return true }
+        if self.isEmpty {
+            return true
+        }
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty
     }
     
@@ -453,9 +458,8 @@ extension String {
     ///   - font: 字体大小
     /// - Returns: 尺寸
     public func k_boundingSize(size: CGSize, font: UIFont) -> CGSize {
-        let rect = NSString(string: self).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : font], context: nil)
         
-        return rect.size
+        return NSString(string: self).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : font], context: nil).size
     }
     
     /// 计算文字高度
@@ -465,9 +469,7 @@ extension String {
     ///   - width: 宽度
     /// - Returns: 高度
     public func k_boundingHeight(with textView: UITextView, width: CGFloat) -> CGFloat {
-        let size = textView.sizeThatFits(CGSize(width: width, height: CGFloat(MAXFLOAT)))
-        
-        return size.height
+        return textView.sizeThatFits(CGSize(width: width, height: CGFloat(MAXFLOAT))).height
     }
 }
 
@@ -516,4 +518,3 @@ extension String {
         return newImg
     }
 }
-
