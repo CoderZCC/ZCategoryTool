@@ -13,6 +13,11 @@ let kWidth: CGFloat = UIScreen.main.bounds.size.width
 /// 屏幕高
 let kHeight: CGFloat = UIScreen.main.bounds.size.height
 
+/// 判断是否为iPad
+let kIsIPad = UIDevice.current.userInterfaceIdiom == .pad
+/// 判断是否为iPhone
+let kIsIPhone = UIDevice.current.userInterfaceIdiom == .phone
+
 ///  打印类的所有实例变量
 ///
 /// - Parameter cls: 目标类

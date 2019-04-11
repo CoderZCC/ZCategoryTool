@@ -68,71 +68,12 @@ extension String {
         return self.lengthOfBytes(using: String.Encoding(rawValue: encoding))
     }
     
-    /// 去除首尾空格
-    ///
-    /// - Returns: 字符串
-    public func k_removeHeadAndFoot() -> String {
-        
-        return self.trimmingCharacters(in: CharacterSet.whitespaces)
-    }
-    
     /// 转为URL
     ///
     /// - Returns: URL
     public func k_toURL() -> URL? {
         
         return URL(string: self)
-    }
-    
-    //MARK: 裁剪字符串
-    /// 裁剪字符串
-    ///
-    /// - Parameters:
-    ///   - from: 开始位置 从0开始
-    ///   - to: 结束位置 包含这个位置
-    ///   var str: String = "0123456789"
-    ///   str = str[1, 9]
-    ///   输出: str = "123456789"
-    /// - Returns: 新字符串
-    public func k_subText(from: Int = 0, to: Int) -> String {
-        if from > to { return self }
-        
-        let startIndex = self.startIndex
-        let fromIndex = self.index(startIndex, offsetBy: max(min(from, self.count - 1), 0))
-        let toIndex = self.index(startIndex, offsetBy: min(max(0, to), self.count - 1))
-        
-        return String(self[fromIndex ... toIndex])
-    }
-    
-    //MARK: 裁剪字符串, 使用: str[0, 10]
-    /// 裁剪字符串, 使用: str[0, 10]
-    ///
-    /// - Parameters:
-    ///   - from: 开始位置 从0开始
-    ///   - to: 结束位置 包含这个位置
-    subscript(_ from: Int, _ to: Int) -> String {
-        
-        return self.k_subText(from: from, to: to)
-    }
-    
-    //MARK: 替换指定区域的文字
-    /// 替换指定区域的文字
-    ///
-    /// - Parameters:
-    ///   - range: 需要替换的文字范围
-    ///   - replaceStr: 替换的文字
-    /// - Returns: 新字符串
-    public func k_replaceStr(range: NSRange, replaceStr: String) -> String {
-        var newStr: String = self
-        if let range = Range.init(range, in: self) {
-            
-            newStr.replaceSubrange(range, with: replaceStr)
-            
-        } else {
-            
-            debugPrint("范围不正确")
-        }
-        return newStr
     }
     
     //MARK: 字符串转为日期
@@ -283,6 +224,152 @@ extension String {
 
 extension String {
     
+    /// 去除首尾空格
+    ///
+    /// - Returns: 字符串
+    public func k_removeHeadAndFoot() -> String {
+        
+        return self.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+    
+    /// 去除左右的空格和换行符
+    ///
+    /// - Returns: 结果字符串
+    public func k_trimmingStr() -> String {
+        return trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    /// 插入字符串
+    ///
+    /// - Parameters:
+    ///   - text: 要插入的字符串
+    ///   - index: 要插入的位置
+    /// - Returns: 结果字符串
+    @discardableResult
+    public mutating func k_insert(_ text: String, at index: Int) -> String {
+        if index > count - 1 || index < 0 {
+            return self
+        }
+        let insertIndex = self.index(startIndex, offsetBy: index)
+        insert(contentsOf: text, at: insertIndex)
+        return self
+    }
+    
+    /// 插入字符
+    ///
+    /// - Parameters:
+    ///   - text: 要插入的字符
+    ///   - index: 要插入的位置
+    /// - Returns: 结果字符串
+    @discardableResult
+    public mutating func k_insert(_ text: Character, at index: Int) -> String {
+        if index > count - 1 || index < 0 {
+            return self
+        }
+        let insertIndex = self.index(startIndex, offsetBy: index)
+        insert(text, at: insertIndex)
+        return self
+    }
+    
+    /// 删除字符串
+    ///
+    /// - Parameter text: 要删除的字符串
+    /// - Returns: 结果字符串
+    @discardableResult
+    public mutating func k_remove(_ text: String) -> String {
+        if let removeIndex = range(of: text) {
+            removeSubrange(removeIndex)
+        }
+        return self
+    }
+    
+    /// 删除字符串
+    ///
+    /// - Parameters:
+    ///   - index: 删除的字符串起始位置
+    ///   - length: 删除的字符串长度
+    /// - Returns: 结果字符串
+    @discardableResult
+    public mutating func k_remove(at index: Int, length: Int) -> String {
+        if index > count - 1 || index < 0 || length < 0 || index + length > count {
+            return self
+        }
+        let start = self.index(startIndex, offsetBy: index)
+        let end = self.index(start, offsetBy: length)
+        removeSubrange(start ..< end)
+        return self
+    }
+    
+    /// 删除字符
+    ///
+    /// - Parameter index: 要删除的位置
+    /// - Returns: 结果字符串
+    @discardableResult
+    public mutating func k_remove(at index: Int) -> String {
+        if index > count - 1 || index < 0 {
+            return self
+        }
+        let removeIndex = self.index(startIndex, offsetBy: index)
+        remove(at: removeIndex)
+        return self
+    }
+    
+    //MARK: 裁剪字符串
+    /// 裁剪字符串
+    ///
+    /// - Parameters:
+    ///   - from: 开始位置 从0开始
+    ///   - to: 结束位置 包含这个位置
+    ///   var str: String = "0123456789"
+    ///   str = str[1, 9]
+    ///   输出: str = "123456789"
+    /// - Returns: 新字符串
+    public func k_subText(from: Int = 0, to: Int) -> String {
+        if from > to { return self }
+        
+        let startIndex = self.startIndex
+        let fromIndex = self.index(startIndex, offsetBy: max(min(from, self.count - 1), 0))
+        let toIndex = self.index(startIndex, offsetBy: min(max(0, to), self.count - 1))
+        
+        return String(self[fromIndex ... toIndex])
+    }
+    
+    //MARK: 裁剪字符串, 使用: str[0, 10]
+    /// 裁剪字符串, 使用: str[0, 10]
+    ///
+    /// - Parameters:
+    ///   - from: 开始位置 从0开始
+    ///   - to: 结束位置 包含这个位置
+    subscript(_ from: Int, _ to: Int) -> String {
+        
+        return self.k_subText(from: from, to: to)
+    }
+    
+    //MARK: 替换指定区域的文字
+    /// 替换指定区域的文字
+    ///
+    /// - Parameters:
+    ///   - range: 需要替换的文字范围
+    ///   - replaceStr: 替换的文字
+    /// - Returns: 新字符串
+    public func k_replaceStr(range: NSRange, replaceStr: String) -> String {
+        var newStr: String = self
+        if let range = Range.init(range, in: self) {
+            
+            newStr.replaceSubrange(range, with: replaceStr)
+            
+        } else {
+            
+            debugPrint("范围不正确")
+        }
+        return newStr
+    }
+
+}
+
+// MARK: -常规判断
+extension String {
+    
     /// 是否包含Emoij
     ///
     /// - Returns: 是/否
@@ -316,6 +403,18 @@ extension String {
             return true
         }
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty
+    }
+    
+    /// 是否是数字
+    public var k_isNumber: Bool {
+        let pred = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
+        return pred.evaluate(with: self)
+    }
+    
+    /// 是否是字母
+    public var k_isLetter: Bool {
+        let pred = NSPredicate(format: "SELF MATCHES %@", "^[A-Za-z]+$")
+        return pred.evaluate(with: self)
     }
     
     /// 是否符合邮箱规则
@@ -366,6 +465,7 @@ extension String {
     }
 }
 
+// MARK: -Json串转对象
 extension String {
     
     /// json串转为任意类型
@@ -383,6 +483,7 @@ extension String {
     }
 }
 
+// MARK: -对象转Json串
 extension Collection {
     
     /// 转为Json字符串
@@ -397,6 +498,7 @@ extension Collection {
     }
 }
 
+// MARK: -剔除特殊字符
 extension String {
     
     /// 去除空格等 给html传值
@@ -437,6 +539,7 @@ extension String {
     }
 }
 
+// MARK: -文字尺寸相关
 extension String {
     
     /// 计算文字宽度
@@ -482,6 +585,7 @@ extension String {
     }
 }
 
+// MARK: -Range->NSRange
 extension String {
     
     /// range -> NSRange
@@ -497,6 +601,7 @@ extension String {
     }
 }
 
+// MARK: -文字转图片
 extension String {
     
     /// 文字转图片
@@ -528,6 +633,7 @@ extension String {
     }
 }
 
+// MARK: -二维码相关
 extension String {
     
     /// 生成二维码
@@ -616,3 +722,29 @@ extension String {
     }
 }
 
+// MARK: -  编解码
+extension String {
+    
+    /// 编码之后的url
+    public var k_urlEncoded: String? {
+        return addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    }
+    
+    /// 解码之后的url
+    public var k_urlDecoded: String? {
+        return removingPercentEncoding
+    }
+    
+    /// base64编码之后的字符串
+    public var k_base64Encoded: String? {
+        guard let base64Data = data(using: .utf8) else { return nil }
+        return base64Data.base64EncodedString()
+    }
+    
+    /// base64解码之后的字符串
+    public var k_base64Decoded: String? {
+        guard let base64Data = Data(base64Encoded: self) else { return nil }
+        return String(data: base64Data, encoding: .utf8)
+    }
+    
+}

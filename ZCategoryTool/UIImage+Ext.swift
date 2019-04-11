@@ -31,6 +31,31 @@ extension UIImage {
         return img
     }
     
+    /// 获取图片某一点的颜色
+    ///
+    /// - Parameter point: 目标点，x、y为0-1之间的数，表示在图片中的点的比例位置
+    /// - Returns: 得到的颜色
+    public func k_getColor(at point: CGPoint) -> UIColor? {
+        guard let imageRef = cgImage else { return nil }
+        let realPointX = Int(CGFloat(imageRef.width) * point.x) + 1
+        let realPointY = Int(CGFloat(imageRef.height) * point.y) + 1
+        let rect = CGRect(x: 0, y: 0, width: CGFloat(imageRef.width), height: CGFloat(imageRef.height))
+        let realPoint = CGPoint(x: realPointX, y: realPointY)
+        guard rect.contains(realPoint) else { return nil }
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Big.rawValue
+        let pixelData = UnsafeMutablePointer<UInt8>.allocate(capacity: 4)
+        guard let context = CGContext(data: pixelData, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorSpace, bitmapInfo: bitmapInfo) else { return nil }
+        context.setBlendMode(.copy)
+        context.translateBy(x:  -CGFloat(realPointX), y: CGFloat(realPointY - imageRef.height))
+        context.draw(imageRef, in: rect)
+        let red = CGFloat(pixelData[0]) / 255
+        let green = CGFloat(pixelData[1]) / 255
+        let blue = CGFloat(pixelData[2]) / 255
+        let alpha = CGFloat(pixelData[3]) / 255
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
     /// 重新布局图片, 会被挤扁
     ///
     /// - Parameter newSize: 新尺寸

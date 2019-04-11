@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51D4655C225F4A6A00E96424 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D4655B225F4A6A00E96424 /* Array+Ext.swift */; };
 		51E59BD422545B1500AF145C /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E59BD322545B1500AF145C /* NSObject+Ext.swift */; };
 		F0056F8E2211286800838891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056F8D2211286800838891 /* AppDelegate.swift */; };
 		F0056F902211286800838891 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056F8F2211286800838891 /* ViewController.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51D4655B225F4A6A00E96424 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		51E59BD322545B1500AF145C /* NSObject+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Ext.swift"; sourceTree = "<group>"; };
 		F0056F8A2211286800838891 /* ZCategoryToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZCategoryToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0056F8D2211286800838891 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 		F0056F9F2211293C00838891 /* ZCategoryTool */ = {
 			isa = PBXGroup;
 			children = (
+				51D4655B225F4A6A00E96424 /* Array+Ext.swift */,
 				F0056FC2221145A400838891 /* AVPlayer+Ext.swift */,
 				F012BDEA2215072100E261E4 /* DataMacro.swift */,
 				F0056FC4221145BC00838891 /* Date+Ext.swift */,
@@ -216,6 +219,7 @@
 				F0056FD12211471200838891 /* UIImage+Ext.swift in Sources */,
 				F0056FC92211463400838891 /* Number+Ext.swift in Sources */,
 				F0056FD52211471D00838891 /* UIView+Ext.swift in Sources */,
+				51D4655C225F4A6A00E96424 /* Array+Ext.swift in Sources */,
 				F0056FCF2211470D00838891 /* UIColor+Ext.swift in Sources */,
 				F0056FDD221152E700838891 /* UITableView+Ext.swift in Sources */,
 				F0056FC5221145BC00838891 /* Date+Ext.swift in Sources */,
