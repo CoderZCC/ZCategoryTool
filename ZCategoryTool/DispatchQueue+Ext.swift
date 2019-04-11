@@ -23,4 +23,23 @@ extension DispatchQueue {
             callBack?()
         }
     }
+    
+    private static var _identifernTracker: [String] = []
+    
+    /// 保证整个生命周期只执行一次
+    ///
+    /// - Parameters:
+    ///   - identifer: identifer
+    ///   - block: 回调
+    public class func k_once(_ identifer: String, block: @escaping ()->Void) {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        if _identifernTracker.contains(identifer) {
+            return
+        }
+        _identifernTracker.append(identifer)
+        DispatchQueue.main.async {
+            block()
+        }
+    }
 }
