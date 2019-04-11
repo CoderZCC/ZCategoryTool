@@ -270,6 +270,15 @@ extension String {
         
         return CGFloat(Double(self) ?? 0.0)
     }
+    
+    /// 获取Nib文件路径
+    public var nibPath: String? {
+        return Bundle.main.path(forResource: self, ofType: "nib")
+    }
+    /// 创建Nib文件
+    public var nib: UINib? {
+        return UINib.init(nibName: self, bundle: nil)
+    }
 }
 
 extension String {
@@ -606,3 +615,4 @@ extension String {
         return nil
     }
 }
+
