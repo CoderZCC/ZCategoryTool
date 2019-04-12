@@ -8,53 +8,49 @@
 
 import UIKit
 
-private var kUITextViewPlaceholderKey: Int = 0
-private var kUITextViewPlaceholderColorKey: Int = 0
-private var kUITextViewPlaceholderViewKey: Int = 0
-private var kUITextViewLimitTextLengthKey: Int = 0
-
 extension UITextView {
     
     /// 占位文字
     public var k_placeholder: String? {
         set {
-            objc_setAssociatedObject(self, &kUITextViewPlaceholderKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            k_setAssociatedObject(key: "kUITextViewPlaceholderKey", value: newValue)
             self._createPlaceholderView()
             self._placeholderView?.text = newValue
         }
         get {
-            return objc_getAssociatedObject(self, &kUITextViewPlaceholderKey) as? String
+            return k_getAssociatedObject(key: "kUITextViewPlaceholderKey") as? String
         }
     }
     
     /// 占位文字颜色
     public var k_placeholderColor: UIColor? {
         set {
-            objc_setAssociatedObject(self, &kUITextViewPlaceholderColorKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            k_setAssociatedObject(key: "kUITextViewPlaceholderColorKey", value: newValue)
             self._createPlaceholderView()
         }
         get {
-            return objc_getAssociatedObject(self, &kUITextViewPlaceholderColorKey) as? UIColor
+            return k_getAssociatedObject(key: "kUITextViewPlaceholderColorKey") as? UIColor
         }
     }
     /// 最大文字长度
     public var k_limitTextLength: Int? {
         set {
-            objc_setAssociatedObject(self, &kUITextViewLimitTextLengthKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            k_setAssociatedObject(key: "kUITextViewLimitTextLengthKey", value: newValue)
             NotificationCenter.default.removeObserver(self)
             NotificationCenter.default.addObserver(self, selector: #selector(_textChangeNoteAction), name: UITextView.textDidChangeNotification, object: nil)
         }
         get {
-            return objc_getAssociatedObject(self, &kUITextViewLimitTextLengthKey) as? Int
+            return k_getAssociatedObject(key: "kUITextViewLimitTextLengthKey") as? Int
         }
     }
     /// 占位工具, 可以在这里修改富文本属性
     public var _placeholderView: UITextView? {
         set {
-            objc_setAssociatedObject(self, &kUITextViewPlaceholderViewKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            k_setAssociatedObject(key: "kUITextViewPlaceholderViewKey", value: newValue)
         }
         get {
-            return objc_getAssociatedObject(self, &kUITextViewPlaceholderViewKey) as? UITextView
+            return k_getAssociatedObject(key: "kUITextViewPlaceholderViewKey") as? UITextView
         }
     }
         
@@ -111,5 +107,20 @@ extension UITextView {
                 currentTv.text = inputText.k_subText(to: maxCount - 1)
             }
         }
+    }
+}
+
+extension UITextView {
+    
+    /// 计算文字高度
+    ///
+    /// - Parameters:
+    ///   - textView: 输入区域
+    ///   - width: 宽度
+    /// - Returns: 高度
+    public func k_boundingHeight(width: CGFloat) -> CGFloat {
+        let size = self.sizeThatFits(CGSize(width: width, height: CGFloat(Int.max)))
+        
+        return size.height
     }
 }

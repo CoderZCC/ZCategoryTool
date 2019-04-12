@@ -45,23 +45,14 @@ extension String {
         if self.isEmpty {
             return font?.lineHeight ?? 0.0
         }
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.frame = CGRect(x: 0.0, y: 0.0, width: maxWidth, height: CGFloat(MAXFLOAT))
-        label.font = font
-        label.text = self
-        
         let realyFont: UIFont = font ?? UIFont.systemFont(ofSize: 14.0)
         let paragraphStyle = NSMutableParagraphStyle.init()
         paragraphStyle.maximumLineHeight = lineHeight
         paragraphStyle.minimumLineHeight = lineHeight
         let baseLineOffset = (lineHeight - realyFont.lineHeight) / 4.0
         
-        let attributeStr = NSMutableAttributedString.init(string: self)
-        attributeStr.setAttributes([NSAttributedString.Key.paragraphStyle : paragraphStyle, NSAttributedString.Key.baselineOffset: baseLineOffset, .font: realyFont], range: NSRange.init(location: 0, length: self.count))
-        label.attributedText = attributeStr
-        label.sizeToFit()
+        let rect = NSString.init(string: self).boundingRect(with: CGSize(width: maxWidth, height: CGFloat(Int.max)), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle, .baselineOffset: baseLineOffset, .font: realyFont], context: nil)
         
-        return label.k_height
+        return rect.size.height
     }
 }

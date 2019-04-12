@@ -103,11 +103,13 @@ extension UIControl {
     /// 替换点击方法
     public class func replaceClickActionMethod() {
         
-        let originalMethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.sendAction(_:to:for:)))
-        let changedmethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.mySendAction(_:to:for:)))
-        
-        if let originalMethod = originalMethod, let changedmethod = changedmethod {
-            method_exchangeImplementations(originalMethod, changedmethod)
+        DispatchQueue.k_once("UIControl_replaceClickActionMethod") {
+            let originalMethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.sendAction(_:to:for:)))
+            let changedmethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.mySendAction(_:to:for:)))
+            
+            if let originalMethod = originalMethod, let changedmethod = changedmethod {
+                method_exchangeImplementations(originalMethod, changedmethod)
+            }
         }
     }
 
