@@ -549,8 +549,13 @@ extension String {
     ///   - font: 字体
     /// - Returns: 宽度
     public func k_boundingWidth(height: CGFloat, font: UIFont) -> CGFloat {
-        let rect = NSString.init(string: self).boundingRect(with: CGSize(width: CGFloat(Int.max), height: height), options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
-        return rect.size.width
+        let label = UILabel()
+        label.frame = CGRect(x: 0.0, y: 0.0, width: CGFloat(Int.max), height: height)
+        label.font = font
+        label.text = self
+        label.sizeToFit()
+        
+        return label.frame.width
     }
     
     //MARK: 计算文字尺寸
