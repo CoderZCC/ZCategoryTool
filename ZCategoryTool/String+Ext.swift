@@ -419,15 +419,8 @@ extension String {
     
     /// 是否符合邮箱规则
     public var k_isEmail: Bool {
-        
-        var count: Int = 0
-        for chara in self {
-            if chara == "@" {
-                count += 1
-            }
-        }
-        /// @只出现一次,包含@,不是空格, 并且不包含汉字
-        return count == 1 && self.contains("@") && !self.k_isEmpty && !self.k_isHasChinese
+        /// @只出现一次, 不是空格, 不包含汉字, 包含 .
+        return self.components(separatedBy: "@").count == 2 && self.k_isEmpty == false && self.k_isHasChinese == false && self.contains(".")
     }
     
     /// 是否包含汉字
