@@ -370,3 +370,29 @@ extension UIImage {
         return self
     }
 }
+
+extension UIImage {
+    
+    /// 读取二维码
+    ///
+    /// - Parameter block: 回调
+    public func k_readQRCode(block: ((String?)->Void)?) {
+        guard let cgImage = self.cgImage else {
+            DispatchQueue.main.async {
+                block?(nil)
+            }
+            return
+        }
+        let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
+        let features = detector?.features(in: CoreImage.CIImage(cgImage: cgImage))
+        guard (features?.count)! > 0 else {
+            DispatchQueue.main.async {
+                block?(nil)
+            }
+            return
+        }
+        DispatchQueue.main.async {
+            block?((features?.first as? CIQRCodeFeature)?.messageString)
+        }
+    }
+}
