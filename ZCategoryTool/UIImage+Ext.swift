@@ -376,7 +376,7 @@ extension UIImage {
     /// 读取二维码
     ///
     /// - Parameter block: 回调
-    func k_readQRCode(block: (([String?])->Void)?) {
+    public func k_readQRCode(block: (([String?])->Void)?) {
         guard let cgImage = self.cgImage else {
             DispatchQueue.main.async {
                 block?([nil])
