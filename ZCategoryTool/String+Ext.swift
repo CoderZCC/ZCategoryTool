@@ -407,20 +407,17 @@ extension String {
     
     /// 是否是数字
     public var k_isNumber: Bool {
-        let pred = NSPredicate(format: "SELF MATCHES %@", "^[0-9]+$")
-        return pred.evaluate(with: self)
+        return self.k_isRegularCorrect("^[0-9]+$")
     }
     
     /// 是否是字母
     public var k_isLetter: Bool {
-        let pred = NSPredicate(format: "SELF MATCHES %@", "^[A-Za-z]+$")
-        return pred.evaluate(with: self)
+        return self.k_isRegularCorrect("^[A-Za-z]+$")
     }
     
     /// 是否符合邮箱规则
     public var k_isEmail: Bool {
-        /// @只出现一次, 不是空格, 不包含汉字, 包含 .
-        return self.components(separatedBy: "@").count == 2 && self.k_isEmpty == false && self.k_isHasChinese == false && self.contains(".")
+        return self.k_isRegularCorrect("^([A-Za-z0-9_\\-\\.\\u4e00-\\u9fa5])+\\@([A-Za-z0-9_\\-\\.\\u4e00-\\u9fa5])+\\.([A-Za-z\\u4e00-\\u9fa5]+)$")
     }
     
     /// 是否包含汉字
@@ -442,17 +439,20 @@ extension String {
     
     /// 密码是否符合规则 6-16位字母或数组
     public var k_isPassword: Bool {
-        return self.k_isCorrect("^[^\\u4E00-\\u9FA5\\uF900-\\uFA2D\\u0020]{6,16}")
+        return self.k_isRegularCorrect("^[^\\u4E00-\\u9FA5\\uF900-\\uFA2D\\u0020]{6,16}")
     }
     
     /// 是否符合身份证规则
     public var k_isIdCard: Bool {
         
-        return self.k_isCorrect("^(\\d{14}|\\d{17})(\\d|[xX])$")
+        return self.k_isRegularCorrect("^(\\d{14}|\\d{17})(\\d|[xX])$")
     }
     
-    /// 格式是否正确
-    private func k_isCorrect(_ str: String) -> Bool {
+    /// 正则是否匹配
+    ///
+    /// - Parameter str: str
+    /// - Returns: 是否
+    public func k_isRegularCorrect(_ str: String) -> Bool {
         
         return NSPredicate(format: "SELF MATCHES %@", str).evaluate(with: self)
     }
