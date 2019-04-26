@@ -376,18 +376,20 @@ extension UIImage {
     /// 读取二维码
     ///
     /// - Parameter block: 回调
-    public func k_readQRCode(block: (([String?])->Void)?) {
+    public func k_readQRCode(block: (([String]?)->Void)?) {
         guard let cgImage = self.cgImage else {
             DispatchQueue.main.async {
-                block?([nil])
+                block?(nil)
             }
             return
         }
         let detector = CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyHigh])
         let features = detector?.features(in: CoreImage.CIImage(cgImage: cgImage))
-        var arr: [String?] = []
+        var arr: [String] = []
         for obj in features ?? [] {
-            arr.append((obj as? CIQRCodeFeature)?.messageString)
+            if let str = (obj as? CIQRCodeFeature)?.messageString {
+                arr.append(str)
+            }
         }
         DispatchQueue.main.async {
             block?(arr)
