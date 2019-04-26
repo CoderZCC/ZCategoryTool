@@ -375,11 +375,7 @@ extension String {
     /// - Returns: 是/否
     public func k_containsEmoij() -> Bool {
         
-        if let regex = try? NSRegularExpression(pattern: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", options: .caseInsensitive) {
-            
-            return regex.matches(in: self, options: .reportProgress, range: NSRange(location: 0, length: self.count)).isEmpty
-        }
-        return false
+        return self.k_isRegularCorrect("[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]")
     }
     
     /// 移除字符串中的Emoij
@@ -387,12 +383,7 @@ extension String {
     /// - Returns: 新字符串
     public func k_deleteEmoij() -> String {
         
-        if self.k_containsEmoij() {
-            
-            let regex = try! NSRegularExpression.init(pattern: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", options: .caseInsensitive)
-            return regex.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: self.count), withTemplate: "")
-        }
-        return self
+        return self.k_removeMatchRegular(expression: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", with: "")
     }
     
     /// 是否为空, 全空格/empty
@@ -448,7 +439,7 @@ extension String {
         return self.k_isRegularCorrect("^(\\d{14}|\\d{17})(\\d|[xX])$")
     }
     
-    /// 正则是否匹配
+    /// 正则是否匹配-谓词方式
     ///
     /// - Parameter str: str
     /// - Returns: 是否
@@ -457,6 +448,59 @@ extension String {
         return NSPredicate(format: "SELF MATCHES %@", str).evaluate(with: self)
     }
 }
+
+// MARK: -正则表达式
+extension String {
+    
+    /// 是否符合正则表达式
+    ///
+    /// - Parameter expression: 正则表达式
+    /// - Returns: 结果
+    public func k_isMatchRegular(expression: String) -> Bool {
+        if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
+            return regularExpression.matches(in: self, options: .reportCompletion, range: NSRange(location: 0, length: self.count)).count > 0
+        }
+        return false
+    }
+    
+    /// 是否包含符合正则表达式的字符串
+    ///
+    /// - Parameter expression: 正则表达式
+    /// - Returns: 结果
+    public func k_isContainRegular(expression: String) -> Bool {
+        if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
+            return regularExpression.rangeOfFirstMatch(in: self, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: self.count)).location != NSNotFound
+        }
+        return false
+    }
+    
+    /// 替换符合正则表达式的文字
+    ///
+    /// - Parameters:
+    ///   - expression: 正则表达式
+    ///   - newStr: 替换后的文字
+    /// - Returns: 新字符串
+    public func k_removeMatchRegular(expression: String, with newStr: String) -> String {
+        if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
+            return regularExpression.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: self.count), withTemplate: newStr)
+        }
+        return self
+    }
+    
+    /// 获取所有符合正则表达式的文字位置
+    ///
+    /// - Parameter expression: 正则表达式 eg: "@[\\u4e00-\\u9fa5\\w\\-\\_]+ "="@ZCC "
+    /// - Returns: [位置]?
+    public func k_matchRegularRange(expression: String) -> [NSRange]? {
+        if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
+            return regularExpression.matches(in: self, options: .reportProgress, range: NSRange(location: 0, length: self.count)).map({ (result) -> NSRange in
+                return result.range
+            })
+        }
+        return nil
+    }
+}
+
 
 // MARK: -Json串转对象
 extension String {
