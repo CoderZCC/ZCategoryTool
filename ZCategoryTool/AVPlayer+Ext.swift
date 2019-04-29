@@ -2,7 +2,7 @@
 //  AVPlayer+Ext.swift
 //  HmmProject
 //
-//  Created by 张崇超 on 2018/12/19.
+//  Created by ZCC on 2018/12/19.
 //  Copyright © 2018 Hmm. All rights reserved.
 //
 
