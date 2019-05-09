@@ -14,25 +14,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.lightGray
-
-        let btn = UIButton.init(type: UIButton.ButtonType.contactAdd)
-        btn.center = self.view.center
-        btn.sizeToFit()
-        btn.k_addTarget {
         
-            DispatchQueue.global().async {
-                "http://".k_createQRCode(centerImg: UIImage.init(named: "img"), block: { (img) in
-                    
-                    let newImgV = UIImageView.init(frame: CGRect(x: 0.0, y: 0.0, width: 300.0, height: 300.0))
-                    newImgV.center = self.view.center
-                    newImgV.image = img
-                    self.view.addSubview(newImgV)
-                })
-            }
-            
-        }
-        
-        self.view.addSubview(btn)
-        
+        let arr = [1, 2]
+        print(arr[safe: 4])
     }
 }

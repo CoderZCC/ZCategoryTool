@@ -49,6 +49,11 @@ extension UIScrollView {
                 newFrame.size.width = clipSize.width
                 newFrame.size.height = clipSize.height
                 self.frame = newFrame
+                self.contentOffset = CGPoint.zero
+                self.contentInset = UIEdgeInsets.zero
+                self.alpha = 1.0
+                self.isHidden = false
+                self.transform = CGAffineTransform.identity
                 
                 self.layer.render(in: context)
                 let img = UIGraphicsGetImageFromCurrentImageContext()
