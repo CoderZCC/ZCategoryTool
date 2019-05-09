@@ -713,21 +713,25 @@ extension String {
                         DispatchQueue.main.async {
                             block?(qrCodeImage)
                         }
+                    } else {
+                        DispatchQueue.main.async {
+                            block?(qrCodeImage)
+                        }
                     }
+                } else {
                     DispatchQueue.main.async {
-                        block?(qrCodeImage)
+                        block?(nil)
                     }
                 }
+            } else {
                 DispatchQueue.main.async {
                     block?(nil)
                 }
             }
+        } else {
             DispatchQueue.main.async {
                 block?(nil)
             }
-        }
-        DispatchQueue.main.async {
-            block?(nil)
         }
     }
     
