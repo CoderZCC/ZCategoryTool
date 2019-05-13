@@ -14,8 +14,5 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.lightGray
-        
-        let arr = [1, 2]
-        print(arr[safe: 4])
     }
 }
