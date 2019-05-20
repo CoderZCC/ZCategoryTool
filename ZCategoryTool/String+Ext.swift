@@ -673,13 +673,10 @@ extension String {
     /// - Parameters:
     ///   - centerImg: 中间的小图
     ///   - block: 回调
-    public func k_createQRCode(centerImg: UIImage?, block: ((UIImage?)->Void)?) {
+    public func k_createQRCode(centerImg: UIImage? = nil) -> UIImage? {
         
         if self.k_isEmpty {
-            DispatchQueue.main.async {
-                block?(nil)
-            }
-            return
+            return nil
         }
         let filter = CIFilter.init(name: "CIQRCodeGenerator")
         filter?.setDefaults()
@@ -710,28 +707,18 @@ extension String {
                         
                         qrCodeImage = UIGraphicsGetImageFromCurrentImageContext() ?? qrCodeImage
                         UIGraphicsEndImageContext()
-                        DispatchQueue.main.async {
-                            block?(qrCodeImage)
-                        }
+                        return qrCodeImage
                     } else {
-                        DispatchQueue.main.async {
-                            block?(qrCodeImage)
-                        }
+                        return qrCodeImage
                     }
                 } else {
-                    DispatchQueue.main.async {
-                        block?(nil)
-                    }
+                    return nil
                 }
             } else {
-                DispatchQueue.main.async {
-                    block?(nil)
-                }
+                return nil
             }
         } else {
-            DispatchQueue.main.async {
-                block?(nil)
-            }
+            return nil
         }
     }
     

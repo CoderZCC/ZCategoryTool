@@ -11,6 +11,16 @@ import Photos
 
 extension UIImageView {
     
+    /// 设置二维码图片
+    ///
+    /// - Parameters:
+    ///   - url: url
+    ///   - placeholder: 占位图, 只有当二维码生成失败才会赋值
+    public func k_createQrImage(url: String?, placeholder: UIImage?) {
+        guard let url = url, url.k_isEmpty == false else { return }
+        self.image = url.k_createQRCode() ?? placeholder
+    }
+    
     /// 设置内容模式
     ///
     /// - Parameters:
