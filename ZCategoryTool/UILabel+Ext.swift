@@ -41,9 +41,7 @@ extension String {
     ///   - font: 字体大小
     /// - Returns: 高度
     public func k_boundTextHeight(maxWidth: CGFloat, lineHeight: CGFloat, font: UIFont?) -> CGFloat {
-        if self.k_isEmpty {
-            return font?.lineHeight ?? 0.0
-        }
+        if self.k_isEmpty { return 0.0 }
         let realyFont: UIFont = font ?? UIFont.systemFont(ofSize: 14.0)
         let paragraphStyle = NSMutableParagraphStyle.init()
         paragraphStyle.maximumLineHeight = lineHeight
