@@ -771,3 +771,35 @@ extension String {
     }
     
 }
+
+extension String {
+    
+    /*
+    // 使用方法
+    class TestModel: Decodable {
+        let text: String?
+    }
+    "{\"text\": \"zcc\"}".k_convertToModel(modelType: TestModel.self)
+    */
+    /// Json转Model模型工具
+    /// 数据模型的属性必须跟接口返回的数据类型相匹配!!!
+    /// - Parameter modelType: T.Type
+    /// - Returns: 数据模型
+    public func k_convertToModel <T: Decodable>(modelType: T.Type) -> T? {
+        guard let jsonData = self.data(using: String.Encoding.utf8) else { return nil }
+        
+        return try? JSONDecoder().decode(modelType, from: jsonData)
+    }
+}
+
+extension Data {
+    
+    /// JsonData转Model模型工具
+    /// 数据模型的属性必须跟接口返回的数据类型相匹配!!!
+    ///
+    /// - Parameter modelType: NSObject.self
+    /// - Returns: 数据模型
+    public func k_convertToModel <T: Decodable>(modelType: T.Type) -> T? {
+        return try? JSONDecoder().decode(modelType, from: self)
+    }
+}
