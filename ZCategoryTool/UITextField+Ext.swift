@@ -13,9 +13,9 @@ extension UITextField {
     /// 占位文字颜色
     public var k_placeholderColor: UIColor? {
         set {
-            self.setValue(newValue, forKeyPath: "_placeholderLabel.textColor")
+            k_setAssociatedObject(key: "k_placeholderColor", value: newValue)
         }
-        get { return nil }
+        get { return k_getAssociatedObject(key: "k_placeholderColor") as? UIColor }
     }
     
     /// 最大文字长度
@@ -41,6 +41,16 @@ extension UITextField {
     }
     
     // 重写方法
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let color = self.k_placeholderColor, let placeholder = self.placeholder, self.attributedPlaceholder == nil {
+            let defaultFont = self.font ?? UIFont.systemFont(ofSize: 14.0)
+            let attributeStr = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : color, .font: defaultFont])
+            self.attributedPlaceholder = attributeStr
+        }
+    }
+    
     open override func didMoveToSuperview() {
         super.didMoveToSuperview()
         if self.superview == nil {
