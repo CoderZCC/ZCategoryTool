@@ -64,6 +64,7 @@ extension UITextView {
         self._placeholderView?.font = self.font
         self._placeholderView?.backgroundColor = self.backgroundColor
         self._placeholderView?.typingAttributes = self.typingAttributes
+        self._placeholderView?.textContainerInset = self.textContainerInset
     }
     
     // 重写方法
@@ -99,6 +100,7 @@ extension UITextView {
     /// - Parameter note: 通知
     @objc private func _textChangeNoteAction(note: NSNotification) {
         guard let currentTv = note.object as? UITextView else { return }
+        if currentTv != self { return }
         let inputText: String = currentTv.text ?? ""
         self._placeholderView?.isHidden = !inputText.isEmpty
         if let maxCount = self.k_limitTextLength, maxCount > 0 {
