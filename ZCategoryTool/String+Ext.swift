@@ -605,16 +605,6 @@ extension String {
     public func k_boundingSize(size: CGSize, font: UIFont) -> CGSize {
         return NSString(string: self).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : font], context: nil).size
     }
-    
-    /// 计算文字高度
-    ///
-    /// - Parameters:
-    ///   - textView: 输入区域
-    ///   - width: 宽度
-    /// - Returns: 高度
-    public func k_boundingHeight(with textView: UITextView, width: CGFloat) -> CGFloat {
-        return textView.sizeThatFits(CGSize(width: width, height: CGFloat(MAXFLOAT))).height
-    }
 }
 
 // MARK: -Range->NSRange
