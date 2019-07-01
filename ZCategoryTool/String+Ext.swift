@@ -86,13 +86,13 @@ extension String {
     ///       formatter: yyyy MMdd HH:mm:ss
     /// - Returns: date
     public func k_toDate(formatter: String) -> Date {
-        let fat = DateFormatter.init()
+        let fat = DateFormatter()
         fat.dateFormat = formatter
-        var date = fat.date(from: self)
-        // 会少8个小时
-        date != nil ? (date!.addTimeInterval(60.0 * 60.0 * 8.0)) : (debugPrint("时间格式不对应:k_toDate"))
-        
-        return date ?? Date()
+        var date = fat.date(from: self) ?? Date()
+        // 时区处理
+        let timeZone = NSTimeZone.system.secondsFromGMT(for: date)
+        date.addTimeInterval(TimeInterval(timeZone))
+        return date
     }
     
     //MARK: 时间戳转为字符串
@@ -104,13 +104,13 @@ extension String {
     /// - Returns: 日期字符串
     public static func k_timeStampToDateString(_ timeStamp: String, output: String = "yyyy年MM月dd日 HH:mm:ss") -> String {
         let newTimeStamp = timeStamp.count > 10 ? (timeStamp.k_subText(to: 9)): (timeStamp)
-        let str = NSString.init(string: newTimeStamp)
+        let str = NSString(string: newTimeStamp)
         let doubleValue = str.doubleValue
         
         let fat = DateFormatter()
         fat.dateFormat = output
         
-        return fat.string(from: Date.init(timeIntervalSince1970: doubleValue))
+        return fat.string(from: Date(timeIntervalSince1970: doubleValue))
     }
     
     //MARK: 比较两个格式相同的时间大小
@@ -124,53 +124,6 @@ extension String {
         let t2 = otherTime.k_toDate(formatter: formatter)
         
         return resultDic[t1.compare(t2)]!
-    }
-    
-    //MARK: 指定时间转为特殊格式
-    /// 指定时间转为特殊格式
-    ///
-    /// - Returns: 刚刚 / 几分钟前 / HH:mm / 昨天 HH:mm / MM-dd HH:mm / yyyy年MM-dd
-    public func k_dealTimeToShow(formatter: String) -> String {
-        // 当前的时间
-        let nowDate = Date()
-        // 传入的时间
-        let fat = DateFormatter.init()
-        fat.dateFormat = formatter
-        let selfDate = fat.date(from: self)!
-        // 比当前时间还大
-        if selfDate.k_compareToDate(nowDate) == 2 {
-            
-            return "未知时间"
-        }
-        let selfCom = selfDate.k_YMDHMS()
-        let nowCom = nowDate.k_YMDHMS()
-        
-        if selfCom.year != nowCom.year {
-            
-            // 年不相等
-            return selfDate.k_toDateStr("yyyy年MM-dd")
-        }
-        if nowCom.day! - selfCom.day! == 1 {
-            
-            // 日不相等,差一天
-            return selfDate.k_toDateStr("昨天 HH:mm")
-        }
-        if selfCom.day! != nowCom.day! {
-            
-            // 日不相等,差一天以上
-            return selfDate.k_toDateStr("MM-dd HH:mm")
-        }
-        if selfCom.hour! != nowCom.hour! {
-            
-            // 时不相等
-            return selfDate.k_toDateStr("今天 HH:mm")
-        }
-        if selfCom.minute! != nowCom.minute! {
-            
-            // 分不相等
-            return "\(nowCom.minute! - selfCom.minute!)分钟前"
-        }
-        return "刚刚"
     }
     
     //MARK: caches路径
@@ -222,6 +175,7 @@ extension String {
     }
 }
 
+// MAR: -字符串处理
 extension String {
     
     /// 去除首尾空格
@@ -501,7 +455,6 @@ extension String {
     }
 }
 
-
 // MARK: -Json串转对象
 extension String {
     
@@ -735,7 +688,7 @@ extension String {
     }
 }
 
-// MARK: -  编解码
+// MARK: -编解码
 extension String {
     
     /// 编码之后的url
@@ -762,6 +715,7 @@ extension String {
     
 }
 
+// MARK: -数据转模型
 extension String {
     
     /*
@@ -782,6 +736,7 @@ extension String {
     }
 }
 
+// MARK: -数据转模型
 extension Data {
     
     /// JsonData转Model模型工具

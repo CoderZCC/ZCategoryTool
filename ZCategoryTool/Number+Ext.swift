@@ -28,6 +28,6 @@ extension Int {
         if sec != 0 {
             newStr += "\(sec)S"
         }
-        return newStr
+        return newStr == "PT" ? "PT0S" : newStr
     }
 }

@@ -29,7 +29,7 @@ extension Array {
     /// 防止数组越界
     ///
     /// - Parameter index: 下标
-    subscript(safe index: Index) -> Element? {
+    public subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
     }
 }
