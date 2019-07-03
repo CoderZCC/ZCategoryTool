@@ -230,8 +230,9 @@ extension UIView {
     ///   - usingSpringWithDamping: 0~1.0 越大月不明显
     ///   - animations: 动画
     ///   - completion: 回调
-    public static func k_animate(withDuration: TimeInterval, usingSpringWithDamping: CGFloat, animations:@escaping (()->Void), completion: ((Bool)->Void)? = nil) {
+    public static func k_animate(withDuration: TimeInterval, usingSpringWithDamping: CGFloat, animations: (()->Void)?, completion: ((Bool)->Void)?) {
         
+        guard let animations = animations else { return }
         UIView.animate(withDuration: withDuration, delay: 0.0, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: 0.0, options: .allowAnimatedContent, animations: animations, completion: completion)
     }
 }

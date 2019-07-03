@@ -42,12 +42,11 @@ extension Date {
     //MARK: 指定日期是 星期几
     /// 指定日期是 星期几
     ///
-    /// - Returns: 星期一..日
-    public func k_weekDay() -> String {
-        let dataDic: [Int: String] = [1: "星期天", 2: "星期一", 3: "星期二", 4: "星期三", 5: "星期四", 6: "星期五", 7: "星期六"]
+    /// - Returns: 1...7// 1:星期天...
+    public func k_weekDay() -> Int {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let compent = calendar.dateComponents([.weekday], from: self)
-        return dataDic[compent.weekday ?? 0]!
+        return compent.weekday ?? 1
     }
     
     //MARK: 指定日期转为字符串
