@@ -238,6 +238,24 @@ extension UIView {
 
 extension UIView {
     
+    /// 截屏当前View,生成图片
+    public func k_snapshotImage() -> UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(self.frame.size, false, UIScreen.main.scale)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        self.layer.render(in: context)
+        let tempImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return tempImage
+    }
+}
+
+extension UIView {
+    
     //MARK:- 绘制虚线
     /// 绘制虚线
     ///

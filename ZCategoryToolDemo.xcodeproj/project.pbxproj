@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		510F2F5822CC44520038FC2B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 510F2F5722CC44520038FC2B /* Launch Screen.storyboard */; };
 		51D4655C225F4A6A00E96424 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D4655B225F4A6A00E96424 /* Array+Ext.swift */; };
 		51E59BD422545B1500AF145C /* NSObject+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E59BD322545B1500AF145C /* NSObject+Ext.swift */; };
 		F0056F8E2211286800838891 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0056F8D2211286800838891 /* AppDelegate.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		510F2F5722CC44520038FC2B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		51D4655B225F4A6A00E96424 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		51E59BD322545B1500AF145C /* NSObject+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Ext.swift"; sourceTree = "<group>"; };
 		F0056F8A2211286800838891 /* ZCategoryToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZCategoryToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +101,7 @@
 				F0056F8F2211286800838891 /* ViewController.swift */,
 				F0056F942211286900838891 /* Assets.xcassets */,
 				F0056F992211286900838891 /* Info.plist */,
+				510F2F5722CC44520038FC2B /* Launch Screen.storyboard */,
 			);
 			path = ZCategoryToolDemo;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				510F2F5822CC44520038FC2B /* Launch Screen.storyboard in Resources */,
 				F0056F952211286900838891 /* Assets.xcassets in Resources */,
 				F0056FA322112A4800838891 /* ZCategoryTool.podspec in Resources */,
 			);
@@ -352,7 +356,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J6VFVU93Z9;
@@ -375,7 +378,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J6VFVU93Z9;

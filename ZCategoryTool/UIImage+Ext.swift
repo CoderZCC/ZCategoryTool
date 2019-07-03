@@ -81,7 +81,7 @@ extension UIImage {
         return self
     }
     
-    /// 等比压缩，然后裁剪为想要的尺寸
+    /// 等比压缩，然后裁剪为想要的尺寸 // 好像不起作用慎用
     ///
     /// - Parameter newSize: 尺寸
     /// - Returns: 新图
@@ -137,7 +137,7 @@ extension UIImage {
         return self
     }
     
-    /// 从中心裁剪图片尺寸
+    /// 从中心裁剪图片尺寸  // 好像不起作用慎用
     ///
     /// - Parameter size: 修改的尺寸
     /// - Returns: 新图片
