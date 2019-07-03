@@ -44,12 +44,4 @@ extension UITextField {
             self.text = inputText.k_subText(to: maxCount - 1)
         }
     }
-    
-    open override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        if self.superview == nil {
-            // 移除通知
-            NotificationCenter.default.removeObserver(self)
-        }
-    }
 }
