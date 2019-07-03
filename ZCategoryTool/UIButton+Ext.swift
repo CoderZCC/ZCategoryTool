@@ -137,3 +137,51 @@ extension UIControl {
         }
     }
 }
+
+extension UIControl {
+    
+    /// 添加点击事件
+    public func addTarget(events: UIControl.Event, inTarget: UIResponder, block: ((UIControl, UIResponder)->Void)?) {
+        
+        var dict: [UInt: UIControlWrapper] = (k_getAssociatedObject(key: "UIControlAction") as? [UInt: UIControlWrapper]) ?? [:]
+        let wrapper = UIControlWrapper(target: inTarget, sender: self, block: block)
+        dict[events.rawValue] = wrapper
+        k_setAssociatedObject(key: "UIControlAction", value: dict)
+        self.addTarget(wrapper, action: #selector(wrapper._eventsAction), for: events)
+    }
+    
+    /// 移除某一个/全部点击事件
+    public func removeTarget(events: UIControl.Event? = nil) {
+        
+        var dict = k_getAssociatedObject(key: "UIControlAction") as? [UInt: UIControlWrapper]
+        if let events = events {
+            dict?.removeValue(forKey: events.rawValue)
+        } else {
+            dict?.removeAll()
+            dict = nil
+        }
+        k_setAssociatedObject(key: "UIControlAction", value: dict)
+    }
+    
+    /// 响应事件
+    class UIControlWrapper {
+        weak var _target: UIResponder!
+        weak var _sender: UIControl!
+        var _block: ((UIControl, UIResponder)->Void)?
+        init(target: UIResponder, sender: UIControl, block: ((UIControl, UIResponder)->Void)?) {
+            self._target = target
+            self._sender = sender
+            self._block = block
+        }
+        @objc func _eventsAction(sender: UIControl) {
+            DispatchQueue.main.async {
+                self._block?(self._sender, self._target)
+            }
+        }
+        deinit {
+            self._target = nil
+            self._sender = nil
+            self._block = nil
+        }
+    }
+}

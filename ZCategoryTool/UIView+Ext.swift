@@ -285,3 +285,35 @@ extension UIView {
         self.layer.addSublayer(shapeLayer)
     }
 }
+
+extension UIView {
+    
+    /// 添加单击手势
+    public func addTapGesture(target: UIResponder, block: ((UITapGestureRecognizer, UIResponder)->Void)?) {
+        
+        self.isUserInteractionEnabled = true
+        let wrapper = UIViewWrapper(target: target, block: block)
+        let tapGesture = UITapGestureRecognizer(target: wrapper, action: #selector(wrapper._tapAction))
+        self.addGestureRecognizer(tapGesture)
+        k_setAssociatedObject(key: "UIViewAction", value: wrapper)
+    }
+    
+    /// 响应事件
+    class UIViewWrapper {
+        weak var _target: UIResponder!
+        var _block: ((UITapGestureRecognizer, UIResponder)->Void)?
+        init(target: UIResponder, block: ((UITapGestureRecognizer, UIResponder)->Void)?) {
+            self._target = target
+            self._block = block
+        }
+        @objc func _tapAction(gesture: UITapGestureRecognizer) {
+            DispatchQueue.main.async {
+                self._block?(gesture, self._target)
+            }
+        }
+        deinit {
+            self._target = nil
+            self._block = nil
+        }
+    }
+}

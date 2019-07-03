@@ -15,16 +15,54 @@ class ViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.lightGray
         
-        let img1 = UIImage.init(named: "test")
-        let imgV1 = UIImageView(image: img1)
-        imgV1.contentMode = .scaleAspectFill
-        imgV1.clipsToBounds = true
-        imgV1.frame = CGRect(x: (kWidth - 300.0) / 2.0, y: 88.0, width: 300.0, height: 300.0)
-        self.view.addSubview(imgV1)
-        
-        let img = UIImage.init(named: "test")?.k_scaleSquareImage(newSize: CGSize(width: 200.0, height: 200.0))
-        let imgV = UIImageView(image: img)
-        imgV.frame = CGRect(x: imgV1.frame.minX, y: imgV1.frame.maxY + 20.0, width: 300.0, height: 300.0)
-        self.view.addSubview(imgV)
+//        let btn = UIButton.init(type: UIButton.ButtonType.contactAdd)
+//        btn.sizeToFit()
+//        btn.center = self.view.center
+//        self.view.addSubview(btn)
+//        btn.addTarget(events: UIControl.Event.touchUpInside, inTarget: self) { (weakBtn, weakSelf) in
+//
+//            print(weakBtn)
+//            print(weakSelf)
+//            weakSelf.present(ViewController1(), animated: true, completion: nil)
+//        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.present(ViewController1(), animated: true, completion: nil)
+    }
+    
+    deinit {
+        print("\(self)销毁了")
     }
 }
+
+class ViewController1: UIViewController {
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor.darkGray
+        
+        
+        let imgV = UIImageView.init(image: UIImage.init(named: "img"))
+        imgV.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+        imgV.center = self.view.center
+        self.view.addSubview(imgV)
+        imgV.addTapGesture(target: self) { (tap, weakSelf) in
+            
+            print(tap)
+            print(weakSelf)
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+//        self.dismiss(animated: true, completion: nil)
+    }
+    
+    deinit {
+        print("\(self)销毁了")
+    }
+}
+
