@@ -8,10 +8,18 @@
 
 import UIKit
 
-extension UIColor {
+public extension Int {
+    
+    /// 创建颜色
+    var color: UIColor {
+        return UIColor.k_colorWith(hexInt: self)
+    }
+}
+
+public extension UIColor {
     
     /// 随机色
-    public class var k_randomColor: UIColor {
+    class var k_randomColor: UIColor {
         let red = CGFloat(arc4random() % 256) / 255.0
         let green = CGFloat(arc4random() % 256) / 255.0
         let blue = CGFloat(arc4random() % 256) / 255.0
@@ -25,7 +33,7 @@ extension UIColor {
     ///   - rgb: 一个大于1的数 [0,255.0]
     ///   - alpha: 透明度 0.0~1.0
     /// - Returns: 新颜色
-    public class func k_colorWith(rgb: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
+    class func k_colorWith(rgb: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
         
         return UIColor(red: rgb / 255.0, green: rgb / 255.0, blue: rgb / 255.0, alpha: alpha)
     }
@@ -38,7 +46,7 @@ extension UIColor {
     ///   - b: 一个大于1的数 [0,255.0]
     ///   - alpha: 透明度 0.0~1.0
     /// - Returns: 新颜色
-    public class func k_colorWith(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
+    class func k_colorWith(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat = 1.0) -> UIColor {
         
         return UIColor.init(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: alpha)
     }
@@ -49,7 +57,7 @@ extension UIColor {
     ///   - hexInt: 0x333333
     ///   - alpha: 透明度 默认 1.0
     /// - Returns: 颜色
-    public class func k_colorWith(hexInt: Int, alpha: CGFloat = 1.0) -> UIColor {
+    class func k_colorWith(hexInt: Int, alpha: CGFloat = 1.0) -> UIColor {
         let r = CGFloat((hexInt & 0xFF0000) >> 16)
         let g = CGFloat((hexInt & 0x00FF00) >> 8)
         let b = CGFloat((hexInt & 0x0000FF))
@@ -61,7 +69,7 @@ extension UIColor {
     ///
     /// - Parameter hexStr: 0x333333 / #333333
     /// - Returns: 颜色
-    public class func k_colorWith(hexStr: String, alpha: CGFloat = 1.0) -> UIColor{
+    class func k_colorWith(hexStr: String, alpha: CGFloat = 1.0) -> UIColor{
         var cstr = hexStr.trimmingCharacters(in:  CharacterSet.whitespacesAndNewlines).uppercased() as NSString;
         if (cstr.length < 6) {
             

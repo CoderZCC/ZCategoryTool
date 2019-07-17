@@ -8,12 +8,12 @@
 
 import UIKit
 
-extension Int {
+public extension Int {
     
     /// 格林什么时间格式
     ///
     /// - Returns: 时间
-    public func k_toHMS() -> String {
+    func k_toHMS() -> String {
         var newStr: String = "PT"
         
         let hour = self / 3600

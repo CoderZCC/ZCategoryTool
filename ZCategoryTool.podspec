@@ -2,10 +2,10 @@ Pod::Spec.new do |s|
     s.author       = { "ZCC" => "coderzcc@163.com" }
     s.license      = { :type => "MIT", :file => "LICENSE" }
     s.requires_arc = true
-    s.version      = "1.3.2"
+    s.version      = "1.3.3"
     s.homepage     = "https://github.com/CoderZCC/ZCategoryTool"
     s.name         = "ZCategoryTool"
-
+    
     s.source_files = "ZCategoryTool/**/*.{swift,h,m}"
     s.source       = { :git => "https://github.com/CoderZCC/ZCategoryTool.git", :tag => "#{s.version}" }
 

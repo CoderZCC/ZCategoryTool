@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIButton {
+public extension UIButton {
     
     //MARK: UIButton添加点击事件
     /// UIButton添加点击事件
@@ -16,7 +16,7 @@ extension UIButton {
     /// - Parameters:
     ///   - events: 事件
     ///   - block: 回调
-    public func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
+    func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
         
         k_setAssociatedObject(key: "kUIButtonClickKey", value: block)
         self.addTarget(self, action: #selector(k_btnAction), for: events)
@@ -39,7 +39,7 @@ extension UIButton {
     ///   - titlePosition: 文字位置
     ///   - spacing: 文字和图片间隔
     ///   - state: 按钮状态
-    public func k_setBtn(image: UIImage?, title: String, titlePosition: UIView.ContentMode, spacing: CGFloat = 5.0, state: UIControl.State = .normal) {
+    func k_setBtn(image: UIImage?, title: String, titlePosition: UIView.ContentMode, spacing: CGFloat = 5.0, state: UIControl.State = .normal) {
         
         self.imageView?.contentMode = .center
         self.setImage(image, for: state)
@@ -90,10 +90,10 @@ extension UIButton {
 }
 
 /// 延迟调用,防止多次调用
-extension UIControl {
+public extension UIControl {
     
     /// 延迟时间
-    public var k_delayDuration: Double? {
+    var k_delayDuration: Double? {
         set {
             k_setAssociatedObject(key: "kUIButtonDelayDurationKey", value: newValue)
         }
@@ -101,7 +101,7 @@ extension UIControl {
     }
     
     /// 替换点击方法
-    public class func replaceClickActionMethod() {
+    class func replaceClickActionMethod() {
         
         DispatchQueue.k_once("UIControl_replaceClickActionMethod") {
             let originalMethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.sendAction(_:to:for:)))
@@ -138,10 +138,10 @@ extension UIControl {
     }
 }
 
-extension UIControl {
+public extension UIControl {
     
     /// 添加点击事件
-    public func addTarget(events: UIControl.Event, inTarget: UIResponder, block: ((UIControl, UIResponder)->Void)?) {
+    func addTarget(events: UIControl.Event, inTarget: UIResponder, block: ((UIControl, UIResponder)->Void)?) {
         
         var dict: [UInt: UIControlWrapper] = (k_getAssociatedObject(key: "UIControlAction") as? [UInt: UIControlWrapper]) ?? [:]
         let wrapper = UIControlWrapper(target: inTarget, sender: self, block: block)
@@ -151,7 +151,7 @@ extension UIControl {
     }
     
     /// 移除某一个/全部点击事件
-    public func removeTarget(events: UIControl.Event? = nil) {
+    func removeTarget(events: UIControl.Event? = nil) {
         
         var dict = k_getAssociatedObject(key: "UIControlAction") as? [UInt: UIControlWrapper]
         if let events = events {

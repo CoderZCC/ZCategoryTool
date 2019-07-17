@@ -9,14 +9,14 @@
 import UIKit
 import AVKit
 
-extension AVPlayer {
+public extension AVPlayer {
     
     /// 快进到指定时间
     ///
     /// - Parameters:
     ///   - time: 时间
     ///   - isFinsish: 快进完成
-    public func k_seekTimeToPlay(time: TimeInterval, isFinish: (() ->Void)? = nil) {
+    func k_seekTimeToPlay(time: TimeInterval, isFinish: (() ->Void)? = nil) {
         
         self.currentItem?.cancelPendingSeeks()
         let timeScale = self.currentItem?.currentTime().timescale ?? CMTimeScale(1 * NSEC_PER_SEC)
@@ -32,37 +32,37 @@ extension AVPlayer {
 }
 
 // MARK: -时间转换
-extension CMTime {
+public extension CMTime {
     
     /// 转为CGFloat数
     ///
     /// - Returns: 时间
-    public func k_toFloat() -> CGFloat {
+    func k_toFloat() -> CGFloat {
         return CGFloat(CMTimeGetSeconds(self))
     }
     
     /// 转为Double数
     ///
     /// - Returns: 时间
-    public func k_toDouble() -> Double {
+    func k_toDouble() -> Double {
         return Double(CMTimeGetSeconds(self))
     }
     
     /// 转为TimeInterval数
     ///
     /// - Returns: 时间
-    public func k_toTimeInterval() -> TimeInterval {
+    func k_toTimeInterval() -> TimeInterval {
         return TimeInterval(CMTimeGetSeconds(self))
     }
 }
 
 // MARK: -时间转换
-extension TimeInterval {
+public extension TimeInterval {
     
     /// 处理为 00:00格式
     ///
     /// - Returns: 00:00
-    public func k_dealString() -> String {
+    func k_dealString() -> String {
         
         if self.isNaN {
             return "00:00"

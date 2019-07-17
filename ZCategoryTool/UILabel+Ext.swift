@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UILabel {
+public extension UILabel {
     
     /// 设置行高
     ///
@@ -16,7 +16,7 @@ extension UILabel {
     ///   - lineHeight: 行高
     ///   - self.lineBreakMode = .byTruncatingTail 变...在最后加这个
     ///   - text: 文字
-    public func k_setLineHeight(lineHeight: CGFloat, text: String?) {
+    func k_setLineHeight(lineHeight: CGFloat, text: String?) {
         guard let text = text else {
             self.text = nil
             self.attributedText = nil
@@ -31,7 +31,7 @@ extension UILabel {
     }
 }
 
-extension String {
+public extension String {
     
     /// 计算文字高度
     ///
@@ -40,7 +40,7 @@ extension String {
     ///   - lineHeight: 行高
     ///   - font: 字体大小
     /// - Returns: 高度
-    public func k_boundTextHeight(maxWidth: CGFloat, lineHeight: CGFloat, font: UIFont?) -> CGFloat {
+    func k_boundTextHeight(maxWidth: CGFloat, lineHeight: CGFloat, font: UIFont?) -> CGFloat {
         if self.k_isEmpty { return 0.0 }
         let realyFont: UIFont = font ?? UIFont.systemFont(ofSize: 14.0)
         let paragraphStyle = NSMutableParagraphStyle.init()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension DispatchQueue {
+public extension DispatchQueue {
     
     //MARK: 异步提交延迟操作到主线程
     /// 异步提交延迟操作到主线程
@@ -16,7 +16,7 @@ extension DispatchQueue {
     /// - Parameters:
     ///   - dealyTime: 延迟时间 相对于当前时间
     ///   - callBack: 回调
-    public class func k_asyncAfterOnMain(dealyTime: Double, callBack: (()->Void)?) {
+    class func k_asyncAfterOnMain(dealyTime: Double, callBack: (()->Void)?) {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + dealyTime) {
             
@@ -31,7 +31,7 @@ extension DispatchQueue {
     /// - Parameters:
     ///   - identifer: identifer
     ///   - block: 回调
-    public class func k_once(_ identifer: String, block: @escaping ()->Void) {
+    class func k_once(_ identifer: String, block: @escaping ()->Void) {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
         if _identifernTracker.contains(identifer) {

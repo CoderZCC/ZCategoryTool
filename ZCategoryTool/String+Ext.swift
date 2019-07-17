@@ -9,10 +9,10 @@
 import UIKit
 
 //MARK: 字符串相关
-extension String {
+public extension String {
     
     /// 字符串格式化所有参数 [key: value]
-    public var k_paramaters: [String: String] {
+    var k_paramaters: [String: String] {
         var dic: [String: String] = [:]
         let urlComponents = URLComponents.init(string: self)
         for obj in urlComponents?.queryItems ?? [] {
@@ -24,7 +24,7 @@ extension String {
     /// MD5加密 32位小写
     ///
     /// - Returns: 加密
-    public func k_toMD5Str() -> String {
+    func k_toMD5Str() -> String {
         
         let cStrl = cString(using: String.Encoding.utf8)
         let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
@@ -41,7 +41,7 @@ extension String {
     }
     
     /// 手机号保护, 前三位展示,后四位 *(不足为 * )
-    public var securePhoneStr: String {
+    var securePhoneStr: String {
         if self.k_isEmpty {
             return self
         }
@@ -62,7 +62,7 @@ extension String {
     }
     
     /// 获取GBK编码字节数 中文-2个 英文-1个
-    public var byteCount: Int {
+    var byteCount: Int {
         let encoding = CFStringConvertEncodingToNSStringEncoding(UInt32(CFStringEncodings.GB_18030_2000.rawValue))
         
         return self.lengthOfBytes(using: String.Encoding(rawValue: encoding))
@@ -71,7 +71,7 @@ extension String {
     /// 转为URL
     ///
     /// - Returns: URL
-    public func k_toURL() -> URL? {
+    func k_toURL() -> URL? {
         
         return URL(string: self)
     }
@@ -85,7 +85,7 @@ extension String {
     ///   eg: dateStr: 2018 0908 11:20:23
     ///       formatter: yyyy MMdd HH:mm:ss
     /// - Returns: date
-    public func k_toDate(formatter: String) -> Date {
+    func k_toDate(formatter: String) -> Date {
         let fat = DateFormatter()
         fat.dateFormat = formatter
         var date = fat.date(from: self) ?? Date()
@@ -102,7 +102,7 @@ extension String {
     ///   - timeStamp: 时间戳 10位/13位
     ///   - output: 输出格式 默认:yyyy年MM月dd日 HH:mm:ss
     /// - Returns: 日期字符串
-    public static func k_timeStampToDateString(_ timeStamp: String, output: String = "yyyy年MM月dd日 HH:mm:ss") -> String {
+    static func k_timeStampToDateString(_ timeStamp: String, output: String = "yyyy年MM月dd日 HH:mm:ss") -> String {
         let newTimeStamp = timeStamp.count > 10 ? (timeStamp.k_subText(to: 9)): (timeStamp)
         let str = NSString(string: newTimeStamp)
         let doubleValue = str.doubleValue
@@ -118,7 +118,7 @@ extension String {
     ///
     /// - Parameter otherTime: 时间
     /// - Returns: 结果 0: 相等; 1: otherTime大; 2: otherTime小
-    public func k_compareToStr(_ otherTime: String, formatter: String) -> Int {
+    func k_compareToStr(_ otherTime: String, formatter: String) -> Int {
         let resultDic: [ComparisonResult: Int] = [.orderedSame: 0, .orderedAscending: 1, .orderedDescending: 2]
         let t1 = self.k_toDate(formatter: formatter)
         let t2 = otherTime.k_toDate(formatter: formatter)
@@ -128,21 +128,21 @@ extension String {
     
     //MARK: caches路径
     /// caches路径
-    public static var k_cachesPath: String {
+    static var k_cachesPath: String {
         
         return NSHomeDirectory() + "/Library/Caches/"
     }
     
     //MARK: documents路径
     /// documents路径
-    public static var k_documentsPath: String {
+    static var k_documentsPath: String {
         
         return NSHomeDirectory() + "/Documents/"
     }
     
     //MARK: tmp路径
     /// tmp路径
-    public static var k_tmpPath: String {
+    static var k_tmpPath: String {
         
         return NSHomeDirectory() + "/tmp/"
     }
@@ -151,7 +151,7 @@ extension String {
     /// 转为Int
     ///
     /// - Returns: Int
-    public func k_toInt() -> Int? {
+    func k_toInt() -> Int? {
         
         return Int(self)
     }
@@ -160,28 +160,28 @@ extension String {
     /// 转为CGFloat
     ///
     /// - Returns: CGFloat
-    public func k_toCGFloat() -> CGFloat {
+    func k_toCGFloat() -> CGFloat {
         
         return CGFloat(Double(self) ?? 0.0)
     }
     
     /// 获取Nib文件路径
-    public var nibPath: String? {
+    var nibPath: String? {
         return Bundle.main.path(forResource: self, ofType: "nib")
     }
     /// 创建Nib文件
-    public var nib: UINib? {
+    var nib: UINib? {
         return UINib.init(nibName: self, bundle: nil)
     }
 }
 
 // MAR: -字符串处理
-extension String {
+public extension String {
     
     /// 去除首尾空格
     ///
     /// - Returns: 字符串
-    public func k_removeHeadAndFoot() -> String {
+    func k_removeHeadAndFoot() -> String {
         
         return self.trimmingCharacters(in: CharacterSet.whitespaces)
     }
@@ -189,7 +189,7 @@ extension String {
     /// 去除左右的空格和换行符
     ///
     /// - Returns: 结果字符串
-    public func k_trimmingStr() -> String {
+    func k_trimmingStr() -> String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
@@ -200,7 +200,7 @@ extension String {
     ///   - index: 要插入的位置
     /// - Returns: 结果字符串
     @discardableResult
-    public mutating func k_insert(_ text: String, at index: Int) -> String {
+    mutating func k_insert(_ text: String, at index: Int) -> String {
         if index > count - 1 || index < 0 {
             return self
         }
@@ -216,7 +216,7 @@ extension String {
     ///   - index: 要插入的位置
     /// - Returns: 结果字符串
     @discardableResult
-    public mutating func k_insert(_ text: Character, at index: Int) -> String {
+    mutating func k_insert(_ text: Character, at index: Int) -> String {
         if index > count - 1 || index < 0 {
             return self
         }
@@ -230,7 +230,7 @@ extension String {
     /// - Parameter text: 要删除的字符串
     /// - Returns: 结果字符串
     @discardableResult
-    public mutating func k_remove(_ text: String) -> String {
+    mutating func k_remove(_ text: String) -> String {
         if let removeIndex = range(of: text) {
             removeSubrange(removeIndex)
         }
@@ -244,7 +244,7 @@ extension String {
     ///   - length: 删除的字符串长度
     /// - Returns: 结果字符串
     @discardableResult
-    public mutating func k_remove(at index: Int, length: Int) -> String {
+    mutating func k_remove(at index: Int, length: Int) -> String {
         if index > count - 1 || index < 0 || length < 0 || index + length > count {
             return self
         }
@@ -259,7 +259,7 @@ extension String {
     /// - Parameter index: 要删除的位置
     /// - Returns: 结果字符串
     @discardableResult
-    public mutating func k_remove(at index: Int) -> String {
+    mutating func k_remove(at index: Int) -> String {
         if index > count - 1 || index < 0 {
             return self
         }
@@ -278,7 +278,7 @@ extension String {
     ///   str = str[1, 9]
     ///   输出: str = "123456789"
     /// - Returns: 新字符串
-    public func k_subText(from: Int = 0, to: Int) -> String {
+    func k_subText(from: Int = 0, to: Int) -> String {
         if from > to { return self }
         
         let startIndex = self.startIndex
@@ -306,7 +306,7 @@ extension String {
     ///   - range: 需要替换的文字范围
     ///   - replaceStr: 替换的文字
     /// - Returns: 新字符串
-    public func k_replaceStr(range: NSRange, replaceStr: String) -> String {
+    func k_replaceStr(range: NSRange, replaceStr: String) -> String {
         var newStr: String = self
         if let range = Range.init(range, in: self) {
             
@@ -322,12 +322,12 @@ extension String {
 }
 
 // MARK: -常规判断
-extension String {
+public extension String {
     
     /// 是否包含Emoij
     ///
     /// - Returns: 是/否
-    public func k_containsEmoij() -> Bool {
+    func k_containsEmoij() -> Bool {
         
         return self.k_isRegularCorrect("[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]")
     }
@@ -335,7 +335,7 @@ extension String {
     /// 移除字符串中的Emoij
     ///
     /// - Returns: 新字符串
-    public func k_deleteEmoij() -> String {
+    func k_deleteEmoij() -> String {
         
         return self.k_removeMatchRegular(expression: "[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]", with: "")
     }
@@ -343,7 +343,7 @@ extension String {
     /// 是否为空, 全空格/empty
     ///
     /// - Returns: 是否
-    public var k_isEmpty: Bool {
+    var k_isEmpty: Bool {
         if self.isEmpty {
             return true
         }
@@ -351,22 +351,22 @@ extension String {
     }
     
     /// 是否是数字
-    public var k_isNumber: Bool {
+    var k_isNumber: Bool {
         return self.k_isRegularCorrect("^[0-9]+$")
     }
     
     /// 是否是字母
-    public var k_isLetter: Bool {
+    var k_isLetter: Bool {
         return self.k_isRegularCorrect("^[A-Za-z]+$")
     }
     
     /// 是否符合邮箱规则
-    public var k_isEmail: Bool {
+    var k_isEmail: Bool {
         return self.k_isRegularCorrect("^([A-Za-z0-9_\\-\\.\\u4e00-\\u9fa5])+\\@([A-Za-z0-9_\\-\\.\\u4e00-\\u9fa5])+\\.([A-Za-z\\u4e00-\\u9fa5]+)$")
     }
     
     /// 是否包含汉字
-    public var k_isHasChinese: Bool {
+    var k_isHasChinese: Bool {
         for chara in self {
             if chara >= "\u{4E00}" && chara <= "\u{9FA5}" {
                 return true
@@ -376,19 +376,19 @@ extension String {
     }
     
     /// 是否符合手机号码规则
-    public var k_isPhoneNum: Bool {
+    var k_isPhoneNum: Bool {
         
         // 全是数字, 不是空格
         return !self.k_isEmpty && self.trimmingCharacters(in: CharacterSet.decimalDigits).count == 0 && !self.k_isHasChinese
     }
     
     /// 密码是否符合规则 6-16位字母或数组
-    public var k_isPassword: Bool {
+    var k_isPassword: Bool {
         return self.k_isRegularCorrect("^[^\\u4E00-\\u9FA5\\uF900-\\uFA2D\\u0020]{6,16}")
     }
     
     /// 是否符合身份证规则
-    public var k_isIdCard: Bool {
+    var k_isIdCard: Bool {
         
         return self.k_isRegularCorrect("^(\\d{14}|\\d{17})(\\d|[xX])$")
     }
@@ -397,20 +397,20 @@ extension String {
     ///
     /// - Parameter str: str
     /// - Returns: 是否
-    public func k_isRegularCorrect(_ str: String) -> Bool {
+    func k_isRegularCorrect(_ str: String) -> Bool {
         
         return NSPredicate(format: "SELF MATCHES %@", str).evaluate(with: self)
     }
 }
 
 // MARK: -正则表达式
-extension String {
+public extension String {
     
     /// 是否符合正则表达式
     ///
     /// - Parameter expression: 正则表达式
     /// - Returns: 结果
-    public func k_isMatchRegular(expression: String) -> Bool {
+    func k_isMatchRegular(expression: String) -> Bool {
         if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
             return regularExpression.matches(in: self, options: .reportCompletion, range: NSRange(location: 0, length: self.count)).count > 0
         }
@@ -421,7 +421,7 @@ extension String {
     ///
     /// - Parameter expression: 正则表达式
     /// - Returns: 结果
-    public func k_isContainRegular(expression: String) -> Bool {
+    func k_isContainRegular(expression: String) -> Bool {
         if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
             return regularExpression.rangeOfFirstMatch(in: self, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: self.count)).location != NSNotFound
         }
@@ -434,7 +434,7 @@ extension String {
     ///   - expression: 正则表达式
     ///   - newStr: 替换后的文字
     /// - Returns: 新字符串
-    public func k_removeMatchRegular(expression: String, with newStr: String) -> String {
+    func k_removeMatchRegular(expression: String, with newStr: String) -> String {
         if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
             return regularExpression.stringByReplacingMatches(in: self, options: NSRegularExpression.MatchingOptions.reportProgress, range: NSRange(location: 0, length: self.count), withTemplate: newStr)
         }
@@ -445,7 +445,7 @@ extension String {
     ///
     /// - Parameter expression: 正则表达式 eg: "@[\\u4e00-\\u9fa5\\w\\-\\_]+ "="@ZCC "
     /// - Returns: [位置]?
-    public func k_matchRegularRange(expression: String) -> [NSRange]? {
+    func k_matchRegularRange(expression: String) -> [NSRange]? {
         if let regularExpression = try? NSRegularExpression.init(pattern: expression, options: NSRegularExpression.Options.caseInsensitive) {
             return regularExpression.matches(in: self, options: .reportProgress, range: NSRange(location: 0, length: self.count)).map({ (result) -> NSRange in
                 return result.range
@@ -456,12 +456,12 @@ extension String {
 }
 
 // MARK: -Json串转对象
-extension String {
+public extension String {
     
     /// json串转为任意类型
     ///
     /// - Returns: 任意类型
-    public func k_jsonStrToObject() -> Any? {
+    func k_jsonStrToObject() -> Any? {
         
         if self.k_isEmpty {
             return nil
@@ -474,12 +474,12 @@ extension String {
 }
 
 // MARK: -对象转Json串
-extension Collection {
+public extension Collection {
     
     /// 转为Json字符串
     ///
     /// - Returns: json串
-    public func k_toJsonStr() -> String? {
+    func k_toJsonStr() -> String? {
         
         if let data = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) {
             return String.init(data: data, encoding: String.Encoding.utf8)
@@ -489,12 +489,12 @@ extension Collection {
 }
 
 // MARK: -剔除特殊字符
-extension String {
+public extension String {
     
     /// 去除空格等 给html传值
     ///
     /// - Returns: 新字符串
-    public func k_noWhiteSpaceString() -> String {
+    func k_noWhiteSpaceString() -> String {
         var newStr = self
         newStr = newStr.replacingOccurrences(of: "\r", with: "")
         newStr = newStr.replacingOccurrences(of: "\n", with: "")
@@ -507,7 +507,7 @@ extension String {
     /// 去除换行符等 给html传值
     ///
     /// - Returns: 新字符串
-    public func k_removeEnterString() -> String {
+    func k_removeEnterString() -> String {
         var newStr = self
         newStr = newStr.replacingOccurrences(of: "\n", with: "<br/>")
         newStr = newStr.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -518,7 +518,7 @@ extension String {
     /// 获取拼音
     ///
     /// - Returns: 拼音
-    public func k_toPinYin() -> String{
+    func k_toPinYin() -> String{
         let mutableString = NSMutableString(string: self)
         //把汉字转为拼音
         CFStringTransform(mutableString, nil, kCFStringTransformToLatin, false)
@@ -530,7 +530,7 @@ extension String {
 }
 
 // MARK: -文字尺寸相关
-extension String {
+public extension String {
     
     /// 计算文字宽度
     ///
@@ -538,7 +538,7 @@ extension String {
     ///   - height: 高度
     ///   - font: 字体
     /// - Returns: 宽度
-    public func k_boundingWidth(height: CGFloat, font: UIFont) -> CGFloat {
+    func k_boundingWidth(height: CGFloat, font: UIFont) -> CGFloat {
         let label = UILabel()
         label.frame = CGRect(x: 0.0, y: 0.0, width: CGFloat(Int.max), height: height)
         label.font = font
@@ -555,19 +555,19 @@ extension String {
     ///   - size: 包含一个最大的值 CGSize(width: max, height: 20.0)
     ///   - font: 字体大小
     /// - Returns: 尺寸
-    public func k_boundingSize(size: CGSize, font: UIFont) -> CGSize {
+    func k_boundingSize(size: CGSize, font: UIFont) -> CGSize {
         return NSString(string: self).boundingRect(with: size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font : font], context: nil).size
     }
 }
 
 // MARK: -Range->NSRange
-extension String {
+public extension String {
     
     /// range -> NSRange
     ///
     /// - Parameter range: range
     /// - Returns: NSRange
-    public func k_toNSRange(from range: Range<String.Index>) -> NSRange? {
+    func k_toNSRange(from range: Range<String.Index>) -> NSRange? {
         let utf16view = self.utf16
         if let from = range.lowerBound.samePosition(in: utf16view), let to = range.upperBound.samePosition(in: utf16view) {
             return NSMakeRange(utf16view.distance(from: utf16view.startIndex, to: from), utf16view.distance(from: from, to: to))
@@ -577,7 +577,7 @@ extension String {
 }
 
 // MARK: -文字转图片
-extension String {
+public extension String {
     
     /// 文字转图片
     ///
@@ -585,7 +585,7 @@ extension String {
     ///   - font: 字体大小
     ///   - textColor: 文字颜色
     /// - Returns: 图片
-    public func k_toTextImage(font: UIFont, textColor: UIColor) -> UIImage? {
+    func k_toTextImage(font: UIFont, textColor: UIColor) -> UIImage? {
         
         let imgHeight: CGFloat = 16.0
         let imgWidth = self.k_boundingSize(size: CGSize(width: UIScreen.main.bounds.width, height: imgHeight), font: font).width
@@ -609,14 +609,14 @@ extension String {
 }
 
 // MARK: -二维码相关
-extension String {
+public extension String {
     
     /// 生成二维码
     ///
     /// - Parameters:
     ///   - centerImg: 中间的小图
     ///   - block: 回调
-    public func k_createQRCode(centerImg: UIImage? = nil) -> UIImage? {
+    func k_createQRCode(centerImg: UIImage? = nil) -> UIImage? {
         
         if self.k_isEmpty {
             return nil
@@ -689,26 +689,26 @@ extension String {
 }
 
 // MARK: -编解码
-extension String {
+public extension String {
     
     /// 编码之后的url
-    public var k_urlEncoded: String? {
+    var k_urlEncoded: String? {
         return addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
     
     /// 解码之后的url
-    public var k_urlDecoded: String? {
+    var k_urlDecoded: String? {
         return removingPercentEncoding
     }
     
     /// base64编码之后的字符串
-    public var k_base64Encoded: String? {
+    var k_base64Encoded: String? {
         guard let base64Data = data(using: .utf8) else { return nil }
         return base64Data.base64EncodedString()
     }
     
     /// base64解码之后的字符串
-    public var k_base64Decoded: String? {
+    var k_base64Decoded: String? {
         guard let base64Data = Data(base64Encoded: self) else { return nil }
         return String(data: base64Data, encoding: .utf8)
     }
@@ -716,7 +716,7 @@ extension String {
 }
 
 // MARK: -数据转模型
-extension String {
+public extension String {
     
     /*
     // 使用方法
@@ -729,7 +729,7 @@ extension String {
     /// 数据模型的属性必须跟接口返回的数据类型相匹配!!!
     /// - Parameter modelType: T.Type
     /// - Returns: 数据模型
-    public func k_convertToModel <T: Decodable>(modelType: T.Type) -> T? {
+    func k_convertToModel <T: Decodable>(modelType: T.Type) -> T? {
         guard let jsonData = self.data(using: String.Encoding.utf8) else { return nil }
         
         return try? JSONDecoder().decode(modelType, from: jsonData)
@@ -737,14 +737,14 @@ extension String {
 }
 
 // MARK: -数据转模型
-extension Data {
+public extension Data {
     
     /// JsonData转Model模型工具
     /// 数据模型的属性必须跟接口返回的数据类型相匹配!!!
     ///
     /// - Parameter modelType: NSObject.self
     /// - Returns: 数据模型
-    public func k_convertToModel <T: Decodable>(modelType: T.Type) -> T? {
+    func k_convertToModel <T: Decodable>(modelType: T.Type) -> T? {
         return try? JSONDecoder().decode(modelType, from: self)
     }
 }

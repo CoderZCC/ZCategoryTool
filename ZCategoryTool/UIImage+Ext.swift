@@ -9,13 +9,21 @@
 import UIKit
 import CoreFoundation
 
-extension UIImage {
+public extension String {
+    
+    /// 获取Assets匹配的图片
+    var image: UIImage? {
+        return UIImage(named: self)
+    }
+}
+
+public extension UIImage {
 
     /// 根据颜色创建一个图片
     ///
     /// - Parameter color: 颜色
     /// - Returns: 图片
-    public static func k_imageWithColor(_ color: UIColor) -> UIImage? {
+    static func k_imageWithColor(_ color: UIColor) -> UIImage? {
         
         let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
         UIGraphicsBeginImageContext(rect.size)
@@ -35,7 +43,7 @@ extension UIImage {
     ///
     /// - Parameter point: 目标点，x、y为0-1之间的数，表示在图片中的点的比例位置
     /// - Returns: 得到的颜色
-    public func k_getColor(at point: CGPoint) -> UIColor? {
+    func k_getColor(at point: CGPoint) -> UIColor? {
         guard let imageRef = cgImage else { return nil }
         let realPointX = Int(CGFloat(imageRef.width) * point.x) + 1
         let realPointY = Int(CGFloat(imageRef.height) * point.y) + 1
@@ -60,7 +68,7 @@ extension UIImage {
     ///
     /// - Parameter newSize: 新尺寸
     /// - Returns: 新图片
-    public func k_resizeImage(with newSize: CGSize) -> UIImage {
+    func k_resizeImage(with newSize: CGSize) -> UIImage {
         
         let newWidth = newSize.width
         let newHeight = newSize.height
@@ -85,7 +93,7 @@ extension UIImage {
     ///
     /// - Parameter newSize: 尺寸
     /// - Returns: 新图
-    public func k_scaleSquareImage(newSize: CGSize) -> UIImage? {
+    func k_scaleSquareImage(newSize: CGSize) -> UIImage? {
         let asecptImg = self.k_cropImageWith(newSize: newSize)
         return asecptImg.k_resizeImage(with: newSize)
     }
@@ -93,7 +101,7 @@ extension UIImage {
     /// 以图片中心为中心，以最小边为边长，裁剪正方形图片
     ///
     /// - Returns: 新图片
-    public func k_cropSquareImage() -> UIImage {
+    func k_cropSquareImage() -> UIImage {
         
         let cgImg = self.cgImage
         let imgWidth = self.size.width * self.scale
@@ -113,7 +121,7 @@ extension UIImage {
     ///
     /// - Parameter size: 新尺寸
     /// - Returns: 新图片
-    public func k_cropImageAtOriginal(newSize: CGSize) -> UIImage {
+    func k_cropImageAtOriginal(newSize: CGSize) -> UIImage {
         
         let imgWidth = self.size.width * self.scale
         let imgHeight = self.size.height * self.scale
@@ -141,7 +149,7 @@ extension UIImage {
     ///
     /// - Parameter size: 修改的尺寸
     /// - Returns: 新图片
-    public func k_cropImageWith(newSize: CGSize) -> UIImage {
+    func k_cropImageWith(newSize: CGSize) -> UIImage {
         
         let imgWidth = self.size.width * self.scale
         let imgHeight = self.size.height * self.scale
@@ -175,7 +183,7 @@ extension UIImage {
     ///   - borderColor: 边框颜色
     ///   - borderWidth: 边框宽度
     /// - Returns: 新图片
-    public func k_circleImage(backColor: UIColor? = UIColor.white, borderColor: UIColor? = nil, borderWidth: CGFloat? = 0.0) -> UIImage {
+    func k_circleImage(backColor: UIColor? = UIColor.white, borderColor: UIColor? = nil, borderWidth: CGFloat? = 0.0) -> UIImage {
         
         // 圆形图片
         let imgW: CGFloat = self.size.width * self.scale
@@ -216,7 +224,7 @@ extension UIImage {
     ///   - size: 新尺寸
     ///   - maxSize: 最大kb
     /// - Returns: 数据流
-    public func k_compressImage(size: CGSize? = nil, maxSize: Int) -> Data? {
+    func k_compressImage(size: CGSize? = nil, maxSize: Int) -> Data? {
         
         var cropImage: UIImage!
         if let size = size, size != CGSize.zero {
@@ -338,14 +346,14 @@ extension UIImage {
     }
 }
 
-extension UIImage {
+public extension UIImage {
     
     //MARK: - ciImage生成高清的UIImage
     /// ciImage生成高清图
     ///
     /// - Parameter size: 尺寸 eg: 300
     /// - Returns: 新图
-    public func k_createHighDefinitionImage(size: CGFloat? = nil) -> UIImage? {
+    func k_createHighDefinitionImage(size: CGFloat? = nil) -> UIImage? {
         
         guard let image = self.ciImage else { return self }
         let newSize: CGFloat = size ?? self.size.width
@@ -371,12 +379,12 @@ extension UIImage {
     }
 }
 
-extension UIImage {
+public extension UIImage {
     
     /// 读取二维码
     ///
     /// - Parameter block: 回调
-    public func k_readQRCode(block: (([String]?)->Void)?) {
+    func k_readQRCode(block: (([String]?)->Void)?) {
         guard let cgImage = self.cgImage else {
             DispatchQueue.main.async {
                 block?(nil)

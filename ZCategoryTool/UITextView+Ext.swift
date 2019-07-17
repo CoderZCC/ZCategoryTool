@@ -112,7 +112,7 @@ extension UITextView {
     }
 }
 
-extension UITextView {
+public extension UITextView {
     
     /// 计算文字高度
     ///
@@ -120,7 +120,7 @@ extension UITextView {
     ///   - textView: 输入区域
     ///   - width: 宽度
     /// - Returns: 高度
-    public func k_boundingHeight(width: CGFloat) -> CGFloat {
+    func k_boundingHeight(width: CGFloat) -> CGFloat {
         let size = self.sizeThatFits(CGSize(width: width, height: CGFloat(Int.max)))
         
         return size.height

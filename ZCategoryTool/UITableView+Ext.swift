@@ -8,11 +8,11 @@
 
 import UIKit
 
-extension UITableView {
+public extension UITableView {
     
     //MARK: 隐藏多余的线
     /// 隐藏多余的线
-    public func k_hiddeLine() {
+    func k_hiddeLine() {
         
         self.tableFooterView = UIView()
     }
@@ -21,7 +21,7 @@ extension UITableView {
     /// 注册单元格 使用类名作为标记符
     ///
     /// - Parameter cls: 单元格
-    public func k_registerCell(cls: AnyClass) {
+    func k_registerCell(cls: AnyClass) {
         let clsName: String = "\(cls)"
         if clsName.nibPath != nil {
             self.register(clsName.nib, forCellReuseIdentifier: clsName)
@@ -34,7 +34,7 @@ extension UITableView {
     /// - Parameters:
     ///   - cls: 类名
     ///   - indexPath: indexPath
-    public func k_dequeueReusableCell <T> (cls: T.Type, indexPath: IndexPath) -> T {
+    func k_dequeueReusableCell <T> (cls: T.Type, indexPath: IndexPath) -> T {
         guard let cell = self.dequeueReusableCell(withIdentifier: "\(cls)", for: indexPath) as? T else {
             fatalError("出错了,请检查单元格注册方法")
         }
@@ -42,13 +42,13 @@ extension UITableView {
     }
 }
 
-extension UICollectionView {
+public extension UICollectionView {
     
     //MARK: 注册单元格 使用类名作为标记符
     /// 注册单元格 使用类名作为标记符
     ///
     /// - Parameter cls: 单元格
-    public func k_registerCell(cls: AnyClass) {
+    func k_registerCell(cls: AnyClass) {
         let clsName = "\(cls)"
         if clsName.nibPath != nil {
             self.register(clsName.nib, forCellWithReuseIdentifier: clsName)
@@ -62,7 +62,7 @@ extension UICollectionView {
     /// - Parameters:
     ///   - cls: 类名
     ///   - indexPath: indexPath
-    public func k_dequeueReusableCell <T> (cls: T.Type, indexPath: IndexPath) -> T {
+    func k_dequeueReusableCell <T> (cls: T.Type, indexPath: IndexPath) -> T {
         guard let cell = self.dequeueReusableCell(withReuseIdentifier: "\(cls)".components(separatedBy: ".").last!, for: indexPath) as? T else {
             fatalError("出错了,请检查单元格注册方法")
         }
@@ -72,7 +72,7 @@ extension UICollectionView {
     /// 注册组头
     ///
     /// - Parameter cls: 组头
-    public func k_registerHeader(cls: AnyClass) {
+    func k_registerHeader(cls: AnyClass) {
         let clsName = "\(cls)"
         if clsName.nibPath != nil {
             self.register(clsName.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: clsName)
@@ -87,7 +87,7 @@ extension UICollectionView {
     ///   - cls: 组头
     ///   - indexPath: indexPath
     /// - Returns: 组头
-    public func k_dequeueReusableHeader <T> (cls: T.Type, indexPath: IndexPath) -> T {
+    func k_dequeueReusableHeader <T> (cls: T.Type, indexPath: IndexPath) -> T {
         guard let header = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "\(cls)", for: indexPath) as? T else {
             fatalError("出错了,请检查注册方法")
         }
@@ -97,7 +97,7 @@ extension UICollectionView {
     /// 注册组尾
     ///
     /// - Parameter cls: 组尾
-    public func k_registerFooter(cls: AnyClass) {
+    func k_registerFooter(cls: AnyClass) {
         let clsName = "\(cls)"
         if clsName.nibPath != nil {
             self.register(clsName.nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: clsName)
@@ -112,7 +112,7 @@ extension UICollectionView {
     ///   - cls: 组尾
     ///   - indexPath: indexPath
     /// - Returns: 组尾
-    public func k_dequeueReusableFooter <T> (cls: T.Type, indexPath: IndexPath) -> T {
+    func k_dequeueReusableFooter <T> (cls: T.Type, indexPath: IndexPath) -> T {
         guard let footer = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "\(cls)", for: indexPath) as? T else {
             fatalError("出错了,请检查注册方法")
         }

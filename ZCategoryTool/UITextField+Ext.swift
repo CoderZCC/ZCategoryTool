@@ -8,10 +8,10 @@
 
 import UIKit
 
-extension UITextField {
+public extension UITextField {
 
     /// 占位文字颜色, 先设置占位文字,在设置颜色,否则失效
-    public var k_placeholderColor: UIColor? {
+    var k_placeholderColor: UIColor? {
         set {
             k_setAssociatedObject(key: "k_placeholderColor", value: newValue)
             if let color = newValue, let placeholder = self.placeholder {
@@ -24,7 +24,7 @@ extension UITextField {
     }
     
     /// 最大文字长度
-    public var k_limitTextLength: Int? {
+    var k_limitTextLength: Int? {
         set {
             k_setAssociatedObject(key: "kUITextFieldLimitTextLengthKey", value: newValue)
             NotificationCenter.default.removeObserver(self)

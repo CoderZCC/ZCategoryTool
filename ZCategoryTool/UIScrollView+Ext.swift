@@ -20,7 +20,7 @@ extension UIScrollView {
     }
 }
 
-extension UIScrollView {
+public extension UIScrollView {
     
     /// 原始大小
     private var _originalFrame: CGRect? {
@@ -37,7 +37,7 @@ extension UIScrollView {
     /// - Parameters:
     ///   - reallySize: 真是大小,默认是contentSize
     ///   - block: 图片
-    public func k_snpshotImage(reallySize: CGSize? = nil, block: ((UIImage?)->Void)?) {
+    func k_snpshotImage(reallySize: CGSize? = nil, block: ((UIImage?)->Void)?) {
         
         if Thread.isMainThread {
             let clipSize: CGSize = reallySize ?? self.contentSize

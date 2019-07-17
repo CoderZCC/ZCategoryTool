@@ -9,19 +9,19 @@
 import UIKit
 
 /// 屏幕宽
-let kWidth: CGFloat = UIScreen.main.bounds.size.width
+public let kWidth: CGFloat = UIScreen.main.bounds.size.width
 /// 屏幕高
-let kHeight: CGFloat = UIScreen.main.bounds.size.height
+public let kHeight: CGFloat = UIScreen.main.bounds.size.height
 
 /// 判断是否为iPad
-let kIsIPad = UIDevice.current.userInterfaceIdiom == .pad
+public let kIsIPad = UIDevice.current.userInterfaceIdiom == .pad
 /// 判断是否为iPhone
-let kIsIPhone = UIDevice.current.userInterfaceIdiom == .phone
+public let kIsIPhone = UIDevice.current.userInterfaceIdiom == .phone
 
 ///  打印类的所有实例变量
 ///
 /// - Parameter cls: 目标类
-func kPrintIvars(_ cls: AnyClass) {
+public func kPrintIvars(_ cls: AnyClass) {
     print("开始打印,实例变量 =======")
     var count: UInt32 = 0
     let ivars = class_copyIvarList(cls, &count)
@@ -36,7 +36,7 @@ func kPrintIvars(_ cls: AnyClass) {
 ///  打印类的所有属性变量
 ///
 /// - Parameter cls: 目标类
-func kPrintProperties(_ cls: AnyClass) {
+public func kPrintProperties(_ cls: AnyClass) {
     print("开始打印,属性变量 =======")
     var count: UInt32 = 0
     let properties = class_copyPropertyList(cls, &count)
@@ -51,7 +51,7 @@ func kPrintProperties(_ cls: AnyClass) {
 /// 打印类的所有方法
 ///
 /// - Parameter cls: 目标类
-func kPrintMethods(_ cls: AnyClass) {
+public func kPrintMethods(_ cls: AnyClass) {
     print("开始打印,所有方法 =======")
     var count: UInt32 = 0
     let methods = class_copyMethodList(cls, &count)

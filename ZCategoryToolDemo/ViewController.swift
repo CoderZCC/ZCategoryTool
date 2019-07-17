@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension UIImage {
+public extension UIImage {
     
     func k_asecptScaleImage(width: CGFloat) -> UIImage {
         let imgWidth = self.size.width

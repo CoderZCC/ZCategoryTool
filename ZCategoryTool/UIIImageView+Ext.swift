@@ -9,14 +9,14 @@
 import UIKit
 import Photos
 
-extension UIImageView {
+public extension UIImageView {
     
     /// 设置二维码图片
     ///
     /// - Parameters:
     ///   - url: url
     ///   - placeholder: 占位图, 只有当二维码生成失败才会赋值
-    public func k_createQrImage(url: String?, placeholder: UIImage?) {
+    func k_createQrImage(url: String?, placeholder: UIImage?) {
         guard let url = url, url.k_isEmpty == false else { return }
         self.image = url.k_createQRCode() ?? placeholder
     }
@@ -26,7 +26,7 @@ extension UIImageView {
     /// - Parameters:
     ///   - model: 模式
     ///   - clips: 是否裁剪
-    public func k_contenModel(model: UIView.ContentMode = .scaleAspectFill, clips: Bool = true) {
+    func k_contenModel(model: UIView.ContentMode = .scaleAspectFill, clips: Bool = true) {
         
         self.contentMode = model
         self.clipsToBounds = clips
@@ -37,7 +37,7 @@ extension UIImageView {
     /// - Parameters:
     ///   - asset: PHAsset
     ///   - isOriginal: 是否是原图
-    public func k_setImage(with asset: PHAsset, isOriginal: Bool = false) {
+    func k_setImage(with asset: PHAsset, isOriginal: Bool = false) {
         
         DispatchQueue.global().async {
             
@@ -65,12 +65,12 @@ extension UIImageView {
 }
 
 // MARK: -旋转动画
-extension UIImageView {
+public extension UIImageView {
     
     /// 开始旋转动画
     ///
     /// - Parameter duration: 一圈的时间
-    public func k_startRotationAni(duration: Double = 0.6) {
+    func k_startRotationAni(duration: Double = 0.6) {
         
         DispatchQueue.main.async {
         
@@ -93,7 +93,7 @@ extension UIImageView {
     }
     
     /// 结束旋转动画
-    public func k_stopRotationAni() {
+    func k_stopRotationAni() {
         
         DispatchQueue.main.async {
             

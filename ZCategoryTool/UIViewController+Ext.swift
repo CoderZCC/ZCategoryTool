@@ -8,12 +8,12 @@
 
 import UIKit
 
-extension UIViewController {
+public extension UIViewController {
     
     /// 关闭自动调节
     ///
     /// - Parameter scrollview: 滚动视图
-    public func k_setAdjustsScrollviewInsets(_ scrollview: UIScrollView) {
+    func k_setAdjustsScrollviewInsets(_ scrollview: UIScrollView) {
         
         if #available(iOS 11.0, *) {
             scrollview.contentInsetAdjustmentBehavior = .never

@@ -9,14 +9,14 @@
 import UIKit
 
 //MARK: 日期相关
-extension Date {
+public extension Date {
     
     //MARK: 指定日期 多加x小时
     /// 指定日期 多加x小时
     ///
     /// - Parameter num: 添加的小时数
     /// - Returns: 新时间
-    public mutating func k_addingHours(_ num: Int) {
+    mutating func k_addingHours(_ num: Int) {
         self.addTimeInterval(TimeInterval(60.0 * 60.0 * CGFloat(num)))
     }
     
@@ -24,7 +24,7 @@ extension Date {
     /// 获取时间月份有几天
     ///
     /// - Returns: 天数
-    public func k_getDaysInMonth() -> Int {
+    func k_getDaysInMonth() -> Int {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let range = calendar.range(of: Calendar.Component.day, in: Calendar.Component.month, for: self)
         return range?.count ?? 1
@@ -34,7 +34,7 @@ extension Date {
     /// 指定日期的 年月日时分秒
     ///
     /// - Returns: DateComponents.year...
-    public func k_YMDHMS() -> DateComponents {
+    func k_YMDHMS() -> DateComponents {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         return calendar.dateComponents([.year, .day, .month, .hour, .minute, .second], from: self)
     }
@@ -43,7 +43,7 @@ extension Date {
     /// 指定日期是 星期几
     ///
     /// - Returns: 1...7// 1:星期天...
-    public func k_weekDay() -> Int {
+    func k_weekDay() -> Int {
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let compent = calendar.dateComponents([.weekday], from: self)
         return compent.weekday ?? 1
@@ -54,7 +54,7 @@ extension Date {
     ///
     /// - Parameter formatter: 格式 默认 yyyy-MM-dd HH:mm:ss
     /// - Returns: 时间字符串
-    public func k_toDateStr(_ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
+    func k_toDateStr(_ formatter: String = "yyyy-MM-dd HH:mm:ss") -> String {
         let fat = DateFormatter()
         fat.timeZone = TimeZone.current
         var newDate = self
@@ -70,7 +70,7 @@ extension Date {
     ///
     /// - Parameter otherDate: 其他日期
     /// - Returns: 结果 0: 相等; 1: otherTime大; 2: otherTime小
-    public func k_compareToDate(_ otherDate: Date) -> Int {
+    func k_compareToDate(_ otherDate: Date) -> Int {
         let resultDic: [ComparisonResult: Int] = [.orderedSame: 0, .orderedAscending: 1, .orderedDescending: 2]
         return resultDic[self.compare(otherDate)] ?? 0
     }
