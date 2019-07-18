@@ -14,6 +14,11 @@ public extension Int {
     var color: UIColor {
         return UIColor.k_colorWith(hexInt: self)
     }
+    
+    /// 创建cgColor
+    var cgColor: CGColor {
+        return self.color.cgColor
+    }
 }
 
 public extension UIColor {

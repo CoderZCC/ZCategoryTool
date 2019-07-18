@@ -11,11 +11,12 @@ import UIKit
 public extension UIButton {
     
     //MARK: UIButton添加点击事件
-    /// UIButton添加点击事件 即将弃用,请使用 属性 k_MD5Str
+    /// UIButton添加点击事件
     ///
     /// - Parameters:
     ///   - events: 事件
     ///   - block: 回调
+    @available(*, deprecated, message: "使用闭包中有参数的替代")
     func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
         
         k_setAssociatedObject(key: "kUIButtonClickKey", value: block)

@@ -21,9 +21,10 @@ public extension String {
         return dic
     }
     
-    /// MD5加密 32位小写, 即将弃用,请使用 属性 k_MD5Str
+    /// MD5加密 32位小写
     ///
     /// - Returns: 加密
+    @available(*, deprecated, message: "使用属性k_MD5Str替代")
     func k_toMD5Str() -> String {
         
         let cStrl = cString(using: String.Encoding.utf8)
