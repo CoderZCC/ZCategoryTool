@@ -11,7 +11,7 @@ import UIKit
 public extension UIButton {
     
     //MARK: UIButton添加点击事件
-    /// UIButton添加点击事件
+    /// UIButton添加点击事件 即将弃用,请使用 属性 k_MD5Str
     ///
     /// - Parameters:
     ///   - events: 事件
@@ -21,11 +21,27 @@ public extension UIButton {
         k_setAssociatedObject(key: "kUIButtonClickKey", value: block)
         self.addTarget(self, action: #selector(k_btnAction), for: events)
     }
+    
+    //MARK: UIButton添加点击事件
+    /// UIButton添加点击事件
+    ///
+    /// - Parameters:
+    ///   - events: 事件
+    ///   - block: 回调
+    func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping(UIButton)->Void) {
+        
+        k_setAssociatedObject(key: "kUIButtonClickKey1", value: block)
+        self.addTarget(self, action: #selector(k_btnAction), for: events)
+    }
     @objc private func k_btnAction() {
         
         if let block = k_getAssociatedObject(key: "kUIButtonClickKey") as? ()->Void {
             DispatchQueue.main.async {
                 block()
+            }
+        } else if let block = k_getAssociatedObject(key: "kUIButtonClickKey1") as? (UIButton)->Void {
+            DispatchQueue.main.async {
+                block(self)
             }
         }
     }
@@ -134,54 +150,6 @@ public extension UIControl {
             }
         } else {
             mySendAction(action, to: target, for: event)
-        }
-    }
-}
-
-public extension UIControl {
-    
-    /// 添加点击事件
-    func addTarget(events: UIControl.Event, inTarget: UIResponder, block: ((UIControl, UIResponder)->Void)?) {
-        
-        var dict: [UInt: UIControlWrapper] = (k_getAssociatedObject(key: "UIControlAction") as? [UInt: UIControlWrapper]) ?? [:]
-        let wrapper = UIControlWrapper(target: inTarget, sender: self, block: block)
-        dict[events.rawValue] = wrapper
-        k_setAssociatedObject(key: "UIControlAction", value: dict)
-        self.addTarget(wrapper, action: #selector(wrapper._eventsAction), for: events)
-    }
-    
-    /// 移除某一个/全部点击事件
-    func removeTarget(events: UIControl.Event? = nil) {
-        
-        var dict = k_getAssociatedObject(key: "UIControlAction") as? [UInt: UIControlWrapper]
-        if let events = events {
-            dict?.removeValue(forKey: events.rawValue)
-        } else {
-            dict?.removeAll()
-            dict = nil
-        }
-        k_setAssociatedObject(key: "UIControlAction", value: dict)
-    }
-    
-    /// 响应事件
-    class UIControlWrapper {
-        weak var _target: UIResponder!
-        weak var _sender: UIControl!
-        var _block: ((UIControl, UIResponder)->Void)?
-        init(target: UIResponder, sender: UIControl, block: ((UIControl, UIResponder)->Void)?) {
-            self._target = target
-            self._sender = sender
-            self._block = block
-        }
-        @objc func _eventsAction(sender: UIControl) {
-            DispatchQueue.main.async {
-                self._block?(self._sender, self._target)
-            }
-        }
-        deinit {
-            self._target = nil
-            self._sender = nil
-            self._block = nil
         }
     }
 }

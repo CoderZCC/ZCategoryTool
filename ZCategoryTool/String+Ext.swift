@@ -21,7 +21,7 @@ public extension String {
         return dic
     }
     
-    /// MD5加密 32位小写
+    /// MD5加密 32位小写, 即将弃用,请使用 属性 k_MD5Str
     ///
     /// - Returns: 加密
     func k_toMD5Str() -> String {
@@ -37,6 +37,22 @@ public extension String {
         }
         free(buffer)
         
+        return md5String
+    }
+    
+    /// MD5加密 32位小写
+    ///
+    /// - Returns: 加密
+    var k_MD5Str: String {
+        let cStrl = cString(using: String.Encoding.utf8)
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
+        CC_MD5(cStrl, CC_LONG(strlen(cStrl!)), buffer)
+        var md5String = "";
+        for idx in 0...15 {
+            let obcStrl = String.init(format: "%02x", buffer[idx])
+            md5String.append(obcStrl)
+        }
+        free(buffer)
         return md5String
     }
     

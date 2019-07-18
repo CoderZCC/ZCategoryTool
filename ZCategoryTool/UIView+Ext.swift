@@ -240,13 +240,14 @@ public extension UIView {
     ///   - usingSpringWithDamping: 0~1.0 越大月不明显
     ///   - animations: 动画
     ///   - completion: 回调
-    static func k_animate(withDuration: TimeInterval, usingSpringWithDamping: CGFloat, animations: (()->Void)?, completion: ((Bool)->Void)?) {
+    static func k_animate(withDuration: TimeInterval, usingSpringWithDamping: CGFloat, animations: (()->Void)?, completion: ((Bool)->Void)? = nil) {
         
         guard let animations = animations else { return }
         UIView.animate(withDuration: withDuration, delay: 0.0, usingSpringWithDamping: usingSpringWithDamping, initialSpringVelocity: 0.0, options: .allowAnimatedContent, animations: animations, completion: completion)
     }
 }
 
+// MARK: -截屏当前View,生成图片
 public extension UIView {
     
     /// 截屏当前View,生成图片
@@ -265,9 +266,9 @@ public extension UIView {
     }
 }
 
+// MARK: -绘制虚线
 public extension UIView {
     
-    //MARK:- 绘制虚线
     /// 绘制虚线
     ///
     /// - Parameters:
@@ -294,37 +295,5 @@ public extension UIView {
         
         shapeLayer.path = path
         self.layer.addSublayer(shapeLayer)
-    }
-}
-
-public extension UIView {
-    
-    /// 添加单击手势
-    func addTapGesture(target: UIResponder, block: ((UITapGestureRecognizer, UIResponder)->Void)?) {
-        
-        self.isUserInteractionEnabled = true
-        let wrapper = UIViewWrapper(target: target, block: block)
-        let tapGesture = UITapGestureRecognizer(target: wrapper, action: #selector(wrapper._tapAction))
-        self.addGestureRecognizer(tapGesture)
-        k_setAssociatedObject(key: "UIViewAction", value: wrapper)
-    }
-    
-    /// 响应事件
-    class UIViewWrapper {
-        weak var _target: UIResponder!
-        var _block: ((UITapGestureRecognizer, UIResponder)->Void)?
-        init(target: UIResponder, block: ((UITapGestureRecognizer, UIResponder)->Void)?) {
-            self._target = target
-            self._block = block
-        }
-        @objc func _tapAction(gesture: UITapGestureRecognizer) {
-            DispatchQueue.main.async {
-                self._block?(gesture, self._target)
-            }
-        }
-        deinit {
-            self._target = nil
-            self._block = nil
-        }
     }
 }
