@@ -23,6 +23,38 @@ public extension Int {
 
 public extension UIColor {
     
+    /// 获取颜色的rgba值
+    func k_toRGBA() -> (CGFloat, CGFloat, CGFloat, CGFloat) {
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+        var alpha: CGFloat = 0.0
+        if let arr = self.cgColor.components, arr.count >= 4 {
+            red = arr[0]
+            green = arr[1]
+            blue = arr[2]
+            alpha = arr[3]
+        } else {
+            self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        }
+        return (red, green, blue, alpha)
+    }
+    
+    /// 颜色平滑过渡 progress 0.0~1.0
+    func k_convertToColor(_ endColor: UIColor, progress: CGFloat) -> UIColor {
+        
+        let beginTuple = self.k_toRGBA()
+        let endTuple = endColor.k_toRGBA()
+        let spaceTuple = (endTuple.0 - beginTuple.0, endTuple.1 - beginTuple.1, endTuple.2 - beginTuple.2, endTuple.3 - beginTuple.3)
+        
+        let red: CGFloat = beginTuple.0 + spaceTuple.0 * progress
+        let green: CGFloat = beginTuple.1 + spaceTuple.1 * progress
+        let blue: CGFloat = beginTuple.2 + spaceTuple.2 * progress
+        let alpha: CGFloat = beginTuple.3 + spaceTuple.3 * progress
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
     /// 随机色
     class var k_randomColor: UIColor {
         let red = CGFloat(arc4random() % 256) / 255.0
