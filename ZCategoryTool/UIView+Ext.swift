@@ -190,7 +190,7 @@ public extension UIView {
     }
     
     /// UIView点击事件
-    @objc private func k_tapAction(tap: UIGestureRecognizer) {
+    @objc func k_tapAction(tap: UIGestureRecognizer) {
         DispatchQueue.main.async {
             (self.k_getAssociatedObject(key: "k_UIViewClickActionKey") as? ((UIGestureRecognizer)->Void))?(tap)
         }
@@ -200,7 +200,7 @@ public extension UIView {
     /// 单击移除键盘
     func k_tapDismissKeyboard() {
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapDismissAction))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(_tapDismissAction))
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: OperationQueue.main) { [weak self] (note) in
             
             self?.addGestureRecognizer(tap)
@@ -210,7 +210,7 @@ public extension UIView {
             self?.removeGestureRecognizer(tap)
         }
     }
-    @objc private func tapDismissAction() {
+    @objc func _tapDismissAction() {
         
         self.endEditing(true)
     }

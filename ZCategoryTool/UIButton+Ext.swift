@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UIButton {
+extension UIButton {
     
     //MARK: UIButton添加点击事件
     /// UIButton添加点击事件
@@ -16,11 +16,11 @@ public extension UIButton {
     /// - Parameters:
     ///   - events: 事件
     ///   - block: 回调
-    @available(*, deprecated, message: "使用闭包中有参数的替代")
-    func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
+    @available(*, deprecated, message: "使用'k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping(UIButton)->Void)'替代")
+    public func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping()->Void) {
         
         k_setAssociatedObject(key: "kUIButtonClickKey", value: block)
-        self.addTarget(self, action: #selector(k_btnAction), for: events)
+        self.addTarget(self, action: #selector(_btnAction), for: events)
     }
     
     //MARK: UIButton添加点击事件
@@ -29,12 +29,12 @@ public extension UIButton {
     /// - Parameters:
     ///   - events: 事件
     ///   - block: 回调
-    func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping(UIButton)->Void) {
+    public func k_addTarget(events: UIControl.Event = .touchUpInside, block: @escaping(UIButton)->Void) {
         
         k_setAssociatedObject(key: "kUIButtonClickKey1", value: block)
-        self.addTarget(self, action: #selector(k_btnAction), for: events)
+        self.addTarget(self, action: #selector(_btnAction), for: events)
     }
-    @objc private func k_btnAction() {
+    @objc func _btnAction() {
         
         if let block = k_getAssociatedObject(key: "kUIButtonClickKey") as? ()->Void {
             DispatchQueue.main.async {
@@ -56,7 +56,7 @@ public extension UIButton {
     ///   - titlePosition: 文字位置
     ///   - spacing: 文字和图片间隔
     ///   - state: 按钮状态
-    func k_setBtn(image: UIImage?, title: String, titlePosition: UIView.ContentMode, spacing: CGFloat = 5.0, state: UIControl.State = .normal) {
+    public func k_setBtn(image: UIImage?, title: String, titlePosition: UIView.ContentMode, spacing: CGFloat = 5.0, state: UIControl.State = .normal) {
         
         self.imageView?.contentMode = .center
         self.setImage(image, for: state)
@@ -67,7 +67,7 @@ public extension UIButton {
         self.setTitle(title, for: state)
     }
     
-    fileprivate func positionLabelRespectToImage(title: String, position: UIView.ContentMode, spacing: CGFloat) {
+    private func positionLabelRespectToImage(title: String, position: UIView.ContentMode, spacing: CGFloat) {
         let imageSize = self.imageRect(forContentRect: self.frame)
         let titleFont = self.titleLabel?.font ?? UIFont.systemFont(ofSize: 14.0)
         let titleSize = title.size(withAttributes: [NSAttributedString.Key.font: titleFont])
@@ -107,18 +107,19 @@ public extension UIButton {
 }
 
 /// 延迟调用,防止多次调用
-public extension UIControl {
+extension UIControl {
     
     /// 延迟时间
-    var k_delayDuration: Double? {
+    public var k_delayDuration: Double? {
         set {
+            UIControl._replaceClickActionMethod()
             k_setAssociatedObject(key: "kUIButtonDelayDurationKey", value: newValue)
         }
         get { return k_getAssociatedObject(key: "kUIButtonDelayDurationKey") as? Double }
     }
     
     /// 替换点击方法
-    class func replaceClickActionMethod() {
+    class private func _replaceClickActionMethod() {
         
         DispatchQueue.k_once("UIControl_replaceClickActionMethod") {
             let originalMethod = class_getInstanceMethod(UIButton.self, #selector(UIControl.sendAction(_:to:for:)))

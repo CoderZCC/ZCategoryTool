@@ -24,7 +24,7 @@ public extension String {
     /// MD5加密 32位小写
     ///
     /// - Returns: 加密
-    @available(*, deprecated, message: "使用属性k_MD5Str替代")
+    @available(*, deprecated, message: "使用'k_MD5Str'替代")
     func k_toMD5Str() -> String {
         
         let cStrl = cString(using: String.Encoding.utf8)
@@ -626,14 +626,14 @@ public extension String {
 }
 
 // MARK: -二维码相关
-public extension String {
+extension String {
     
     /// 生成二维码
     ///
     /// - Parameters:
     ///   - centerImg: 中间的小图
     ///   - block: 回调
-    func k_createQRCode(centerImg: UIImage? = nil) -> UIImage? {
+    public func k_createQRCode(centerImg: UIImage? = nil) -> UIImage? {
         
         if self.k_isEmpty {
             return nil
@@ -683,7 +683,7 @@ public extension String {
     }
     
     //MARK: - 生成高清的UIImage
-    private func setUpHighDefinitionImage(_ image: CIImage, size: CGFloat) -> UIImage? {
+    func _setUpHighDefinitionImage(_ image: CIImage, size: CGFloat) -> UIImage? {
         let integral: CGRect = image.extent.integral
         let proportion: CGFloat = min(size/integral.width, size/integral.height)
         

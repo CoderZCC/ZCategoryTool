@@ -246,7 +246,7 @@ public extension UIImage {
         var defaultSize = size ?? CGSize(width: 500, height: 500/sourceImageAspectRatio)
         var newImage: UIImage!
         if size == nil {
-            newImage = cropImage.newSizeImage(size: defaultSize)
+            newImage = cropImage._newSizeImage(size: defaultSize)
         } else {
             newImage = cropImage
         }
@@ -270,7 +270,7 @@ public extension UIImage {
          说明：压缩系数数组compressionQualityArr是从大到小存储。
          */
         //思路：使用二分法搜索
-        finallImageData = newImage.halfFuntion(arr: compressionQualityArr.copy() as! [CGFloat], sourceData: finallImageData!, maxSize: maxSize)
+        finallImageData = newImage._halfFuntion(arr: compressionQualityArr.copy() as! [CGFloat], sourceData: finallImageData!, maxSize: maxSize)
         //如果还是未能压缩到指定大小，则进行降分辨率
         while finallImageData?.count == 0 {
             //每次降100分辨率
@@ -280,16 +280,16 @@ public extension UIImage {
                 break
             }
             defaultSize = CGSize(width: (defaultSize.width-CGFloat(reduceWidth)), height: (defaultSize.height-CGFloat(reduceHeight)))
-            let image = UIImage.init(data: newImage.jpegData(compressionQuality: compressionQualityArr.lastObject as! CGFloat)!)!.newSizeImage(size: defaultSize)
+            let image = UIImage.init(data: newImage.jpegData(compressionQuality: compressionQualityArr.lastObject as! CGFloat)!)!._newSizeImage(size: defaultSize)
             
-            finallImageData = image.halfFuntion(arr: compressionQualityArr.copy() as! [CGFloat], sourceData: image.jpegData(compressionQuality: 1.0)!, maxSize: maxSize)
+            finallImageData = image._halfFuntion(arr: compressionQualityArr.copy() as! [CGFloat], sourceData: image.jpegData(compressionQuality: 1.0)!, maxSize: maxSize)
         }
         
         return finallImageData
     }
     
     // MARK: - 调整图片分辨率/尺寸（等比例缩放）
-    private func newSizeImage(size: CGSize) -> UIImage {
+    func _newSizeImage(size: CGSize) -> UIImage {
         var newSize = CGSize(width: self.size.width, height: self.size.height)
         let tempHeight = newSize.height / size.height
         let tempWidth = newSize.width / size.width
@@ -308,7 +308,7 @@ public extension UIImage {
     }
     
     // MARK: - 二分法
-    private func halfFuntion(arr: [CGFloat], sourceData finallImageData: Data, maxSize: Int) -> Data? {
+    func _halfFuntion(arr: [CGFloat], sourceData finallImageData: Data, maxSize: Int) -> Data? {
         var tempFinallImageData = finallImageData
         
         var tempData = Data.init()
