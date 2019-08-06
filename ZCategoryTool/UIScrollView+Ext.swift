@@ -79,7 +79,7 @@ extension UIScrollView {
 }
 
 // MARK: -下拉消失动效果,当得到某一个值时,进行回调,执行dismiss或者pop或者其他结束展示效果
-extension UIScrollView {
+public extension UIScrollView {
     
     /// 设置手势触发
     func k_setTransitionManger(block: (()->Void)?) {
