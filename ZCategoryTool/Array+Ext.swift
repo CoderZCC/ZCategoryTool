@@ -33,3 +33,22 @@ public extension Array {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+public extension Sequence {
+    
+    /// 按照count个一组进行分组
+    func k_seportArr(by count: Int) -> [[Element]] {
+        let slices : [[Element]] = self.reduce(into:[]) {
+            memo, cur in
+            if memo.count == 0 {
+                return memo.append([cur])
+            }
+            if (memo.last?.count ?? 0) < count {
+                memo.append(memo.removeLast() + [cur])
+            } else {
+                memo.append([cur])
+            }
+        }
+        return slices
+    }
+}
